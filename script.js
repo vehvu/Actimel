@@ -734,11 +734,35 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         try {
-            // Execute the code in a limited scope
+            // Create a temporary container for canvas elements
+            const tempContainer = document.createElement('div');
+            tempContainer.style.position = 'absolute';
+            tempContainer.style.left = '-9999px';
+            tempContainer.style.top = '-9999px';
+            document.body.appendChild(tempContainer);
+            
+            // Execute the code in a limited scope with canvas support
             const result = new Function(`
+                const container = arguments[0];
+                const canvas = document.createElement('canvas');
+                canvas.width = 400;
+                canvas.height = 300;
+                canvas.style.border = '2px solid #00ffff';
+                canvas.style.borderRadius = '8px';
+                canvas.style.background = '#000';
+                container.appendChild(canvas);
+                
                 ${code}
-                return typeof dashboard !== 'undefined' ? 'Dashboard class created successfully!' : 'Code executed';
-            `)();
+                
+                // Check if dashboard was created
+                if (typeof dashboard !== 'undefined') {
+                    return 'Dashboard class created successfully! Canvas ready for charts.';
+                }
+                return 'Code executed with canvas support.';
+            `)(tempContainer);
+            
+            // Clean up temporary container
+            document.body.removeChild(tempContainer);
             
             // Restore console.log
             console.log = originalConsoleLog;
@@ -915,30 +939,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize matrix effect on tech-themed pages
     setTimeout(createMatrixRain, 2000);
 
-    // Typing effect for code snippets
-    function typeCode() {
-        const codeBlocks = document.querySelectorAll('.code-snippet code');
+    // Toggle code snippet expansion
+    window.toggleCodeSnippet = function(button) {
+        const codeSnippet = button.closest('.code-snippet');
+        const overlay = button.closest('.read-more-overlay');
         
-        codeBlocks.forEach((block, index) => {
-            const originalText = block.textContent;
-            block.textContent = '';
-            
-            setTimeout(() => {
-                let i = 0;
-                const typeInterval = setInterval(() => {
-                    if (i < originalText.length) {
-                        block.textContent += originalText.charAt(i);
-                        i++;
-                    } else {
-                        clearInterval(typeInterval);
-                    }
-                }, 20);
-            }, index * 1000 + 3000);
-        });
-    }
-
-    // Initialize typing effect
-    setTimeout(typeCode, 4000);
+        if (codeSnippet.classList.contains('expanded')) {
+            codeSnippet.classList.remove('expanded');
+            button.textContent = 'Read More';
+            overlay.classList.remove('hidden');
+        } else {
+            codeSnippet.classList.add('expanded');
+            button.textContent = 'Show Less';
+            overlay.classList.add('hidden');
+        }
+    };
 
     console.log('🚀 Developer Portfolio Loaded Successfully!');
     console.log('Features: Code Snippets, Matrix Effect, Syntax Highlighting, Copy Functionality');

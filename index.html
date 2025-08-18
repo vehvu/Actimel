@@ -14,7 +14,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-brand">
-                <span class="brand-text">DEV</span>
+                <span class="brand-text">KH</span>
             </div>
             <div class="nav-menu" id="nav-menu">
                 <a href="#hero" class="nav-link">Home</a>
@@ -432,6 +432,9 @@ const dashboard = new AnalyticsDashboard('dashboard-container', {
   maxDataPoints: 30,
   theme: 'dark'
 });</code></pre>
+                        <div class="read-more-overlay">
+                            <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
+                        </div>
                         <div class="code-output" id="js-output-1"></div>
                     </div>
                     <div class="project-links">
@@ -472,7 +475,7 @@ const dashboard = new AnalyticsDashboard('dashboard-container', {
                                 </button>
                             </div>
                         </div>
-                        <pre><code>-- Advanced MMO Game Server Architecture
+                                                 <pre><code>-- Advanced MMO Game Server Architecture
 -- Multi-threaded player management with event system
 
 local PlayerManager = {}
@@ -801,7 +804,7 @@ function PlayerManager:processMovement(player, moveData)
     
     -- Broadcast position to nearby players
     self:broadcastToNearbyPlayers(player.id, {
-        type = 'player_moved',
+        type: 'player_moved',
         playerId = player.id,
         position = newPosition,
         timestamp = timestamp
@@ -850,6 +853,9 @@ end
 
 -- Export the module
 return PlayerManager</code></pre>
+                        <div class="read-more-overlay">
+                            <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
+                        </div>
                         <div class="code-output" id="lua-output-1"></div>
                     </div>
                     <div class="project-links">

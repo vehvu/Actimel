@@ -666,13 +666,19 @@ section {
 .code-snippet {
     background: var(--bg-code);
     border-radius: var(--border-radius);
-    margin: 2rem 0;
+    margin: 1rem 0;
     border: 2px solid var(--primary-color);
     overflow: hidden;
     box-shadow: 
         0 0 20px rgba(0, 255, 255, 0.3),
         inset 0 0 10px rgba(0, 0, 0, 0.8);
     position: relative;
+    max-height: 400px;
+    transition: max-height 0.3s ease;
+}
+
+.code-snippet.expanded {
+    max-height: none;
 }
 
 .code-snippet::before {
@@ -743,13 +749,51 @@ section {
 
 .code-snippet pre {
     margin: 0;
-    padding: 2rem;
+    padding: 1.5rem;
     overflow-x: auto;
     font-family: 'Fira Code', 'JetBrains Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
-    font-size: 1rem;
-    line-height: 1.8;
+    font-size: 0.9rem;
+    line-height: 1.6;
     background: linear-gradient(135deg, #000000, #0a0a0a);
     position: relative;
+}
+
+.read-more-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(transparent, var(--bg-code));
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 1rem;
+    pointer-events: none;
+}
+
+.read-more-overlay.hidden {
+    display: none;
+}
+
+.read-more-btn {
+    background: var(--primary-color);
+    color: var(--bg-code);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    pointer-events: all;
+    transition: all var(--transition-fast);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.read-more-btn:hover {
+    background: var(--text-white);
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
 }
 
 .code-output {
