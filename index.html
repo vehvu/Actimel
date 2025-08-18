@@ -14,7 +14,7 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-brand">
-                <span class="brand-text">KH</span>
+                
             </div>
             <div class="nav-menu" id="nav-menu">
                 <a href="#hero" class="nav-link">Home</a>
@@ -196,87 +196,186 @@
                                 </button>
                             </div>
                         </div>
-                        <pre><code>// Advanced Real-time Analytics Dashboard
-class AnalyticsDashboard {
-  constructor(containerId, config = {}) {
-    this.container = document.getElementById(containerId);
-    this.config = {
-      updateInterval: config.updateInterval || 5000,
-      maxDataPoints: config.maxDataPoints || 50,
-      theme: config.theme || 'dark',
-      ...config
-    };
-    this.charts = new Map();
-    this.websocket = null;
-    this.dataCache = new Map();
+                        <pre><code>// Advanced Web Design System & Component Library
+class ModernWebDesignSystem {
+  constructor(theme = 'dark') {
+    this.theme = theme;
+    this.components = new Map();
+    this.animations = new Map();
+    this.colors = this.generateColorPalette();
     this.init();
   }
 
-  async init() {
-    await this.setupWebSocket();
-    this.createDashboardLayout();
-    this.initializeCharts();
-    this.startDataCollection();
-    console.log('✅ Dashboard initialized successfully');
+  init() {
+    this.setupTheme();
+    this.initializeComponents();
+    this.setupAnimations();
+    console.log('🎨 Design System initialized');
   }
 
-  async setupWebSocket() {
-    this.websocket = new WebSocket('wss://api.analytics.dev/realtime');
+  generateColorPalette() {
+    return {
+      primary: ['#00ffff', '#ff0080', '#00ff41'],
+      secondary: ['#ff6b35', '#f7931e', '#ffd23f'],
+      accent: ['#7209b7', '#4361ee', '#3a0ca3'],
+      neutral: ['#000000', '#0a0a0a', '#1a1a1a', '#ffffff'],
+      gradients: {
+        neon: 'linear-gradient(45deg, #00ffff, #ff0080)',
+        sunset: 'linear-gradient(135deg, #ff6b35, #f7931e)',
+        ocean: 'linear-gradient(180deg, #4361ee, #3a0ca3)'
+      }
+    };
+  }
+
+  setupTheme() {
+    const root = document.documentElement;
+    Object.entries(this.colors).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach((color, index) => {
+          root.style.setProperty(`--${key}-${index}`, color);
+        });
+      } else if (typeof value === 'object') {
+        Object.entries(value).forEach(([gradientKey, gradientValue]) => {
+          root.style.setProperty(`--gradient-${gradientKey}`, gradientValue);
+        });
+      }
+    });
+  }
+
+  createComponent(name, config) {
+    const component = {
+      name,
+      config,
+      element: null,
+      state: {},
+      methods: {}
+    };
+
+    // Add common component methods
+    component.methods.render = () => this.renderComponent(component);
+    component.methods.update = (newState) => this.updateComponent(component, newState);
+    component.methods.destroy = () => this.destroyComponent(component);
+
+    this.components.set(name, component);
+    return component;
+  }
+
+  renderComponent(component) {
+    const { name, config } = component;
     
-    this.websocket.onopen = () => {
-      console.log('🔌 WebSocket connected');
-      this.websocket.send(JSON.stringify({
-        action: 'subscribe',
-        channels: ['users', 'revenue', 'performance']
-      }));
-    };
-
-    this.websocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      this.processRealtimeData(data);
-    };
-
-    this.websocket.onerror = (error) => {
-      console.error('❌ WebSocket error:', error);
-      this.fallbackToPolling();
-    };
+    switch(name) {
+      case 'button':
+        return this.createButton(config);
+      case 'card':
+        return this.createCard(config);
+      case 'modal':
+        return this.createModal(config);
+      case 'navigation':
+        return this.createNavigation(config);
+      default:
+        return document.createElement('div');
+    }
   }
 
-  createDashboardLayout() {
-    this.container.innerHTML = `
-      <div class="dashboard-grid">
-        <div class="chart-container" id="users-chart">
-          <h3>Active Users</h3>
-          <canvas id="users-canvas"></canvas>
-        </div>
-        <div class="chart-container" id="revenue-chart">
-          <h3>Revenue Stream</h3>
-          <canvas id="revenue-canvas"></canvas>
-        </div>
-        <div class="metrics-panel">
-          <div class="metric" id="total-users">
-            <span class="metric-value">0</span>
-            <span class="metric-label">Total Users</span>
-          </div>
-          <div class="metric" id="conversion-rate">
-            <span class="metric-value">0%</span>
-            <span class="metric-label">Conversion Rate</span>
-          </div>
-        </div>
+  createButton(config) {
+    const button = document.createElement('button');
+    button.className = `btn btn-${config.variant || 'primary'}`;
+    button.textContent = config.text || 'Button';
+    
+    // Apply custom styles
+    if (config.gradient) {
+      button.style.background = this.colors.gradients[config.gradient];
+    }
+    
+    // Add hover effects
+    button.addEventListener('mouseenter', () => {
+      button.style.transform = 'translateY(-2px)';
+      button.style.boxShadow = '0 10px 25px rgba(0, 255, 255, 0.3)';
+    });
+    
+    button.addEventListener('mouseleave', () => {
+      button.style.transform = 'translateY(0)';
+      button.style.boxShadow = 'none';
+    });
+
+    return button;
+  }
+
+  createCard(config) {
+    const card = document.createElement('div');
+    card.className = 'design-card';
+    card.innerHTML = `
+      <div class="card-header">
+        <h3>${config.title || 'Card Title'}</h3>
+        <div class="card-badge">${config.badge || 'New'}</div>
+      </div>
+      <div class="card-content">
+        <p>${config.content || 'Card content goes here'}</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-secondary">Learn More</button>
       </div>
     `;
+    
+    // Add glassmorphism effect
+    card.style.backdropFilter = 'blur(10px)';
+    card.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+    card.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+    
+    return card;
   }
 
-  initializeCharts() {
-    // Users Chart
-    const usersCtx = document.getElementById('users-canvas').getContext('2d');
-    this.charts.set('users', new Chart(usersCtx, {
-      type: 'line',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Active Users',
-          data: [],
+  setupAnimations() {
+    // Parallax scrolling
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallaxElements = document.querySelectorAll('[data-parallax]');
+      
+      parallaxElements.forEach(element => {
+        const speed = element.dataset.parallax || 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-in');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  // CSS-in-JS utility
+  injectStyles(css) {
+    const style = document.createElement('style');
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  // Responsive utilities
+  getBreakpoint() {
+    const width = window.innerWidth;
+    if (width < 768) return 'mobile';
+    if (width < 1024) return 'tablet';
+    return 'desktop';
+  }
+
+  // Theme switching
+  toggleTheme() {
+    this.theme = this.theme === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', this.theme);
+    this.setupTheme();
+  }
+}
+
+// Initialize the design system
+const designSystem = new ModernWebDesignSystem('dark');
           borderColor: '#00ffff',
           backgroundColor: 'rgba(0, 255, 255, 0.1)',
           tension: 0.4,
@@ -426,12 +525,8 @@ class AnalyticsDashboard {
   }
 }
 
-// Initialize dashboard
-const dashboard = new AnalyticsDashboard('dashboard-container', {
-  updateInterval: 3000,
-  maxDataPoints: 30,
-  theme: 'dark'
-});</code></pre>
+// Initialize the design system
+const designSystem = new ModernWebDesignSystem('dark');</code></pre>
                         <div class="read-more-overlay">
                             <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
                         </div>
@@ -475,48 +570,60 @@ const dashboard = new AnalyticsDashboard('dashboard-container', {
                                 </button>
                             </div>
                         </div>
-                                                 <pre><code>-- Advanced MMO Game Server Architecture
--- Multi-threaded player management with event system
+                                                 <pre><code>-- Advanced Web Animation & Interaction System
+-- Real-time UI state management with smooth transitions
 
-local PlayerManager = {}
-PlayerManager.__index = PlayerManager
+local WebAnimationSystem = {}
+WebAnimationSystem.__index = WebAnimationSystem
 
--- Dependencies
-local EventBus = require('core.events')
-local Database = require('core.database')
-local NetworkManager = require('core.network')
-local SecurityManager = require('core.security')
-local Logger = require('utils.logger')
+-- Core modules
+local AnimationEngine = require('core.animations')
+local StateManager = require('core.state')
+local EventSystem = require('core.events')
+local PerformanceMonitor = require('core.performance')
+local StyleEngine = require('core.styles')
 
--- Constants
-local MAX_PLAYERS_PER_ZONE = 100
-local HEARTBEAT_INTERVAL = 30
-local SESSION_TIMEOUT = 300
-local ANTI_CHEAT_CHECKS = {
-    'speed_check', 'position_validation', 'action_rate_limit'
+-- Animation constants
+local ANIMATION_TYPES = {
+    'fade', 'slide', 'scale', 'rotate', 'bounce', 'elastic'
+}
+local TRANSITION_EASINGS = {
+    'linear', 'ease-in', 'ease-out', 'ease-in-out', 'bounce'
+}
+local PERFORMANCE_THRESHOLDS = {
+    fps = 60,
+    maxDuration = 1000,
+    memoryLimit = 50
 }
 
-function PlayerManager:new(config)
+function WebAnimationSystem:new(config)
     local instance = {
-        players = {},
-        zones = {},
-        events = EventBus:new(),
-        database = Database:connect(config.db),
-        network = NetworkManager:new(config.network),
-        security = SecurityManager:new(config.security),
+        animations = {},
+        states = {},
+        events = EventSystem:new(),
+        performance = PerformanceMonitor:new(),
+        styles = StyleEngine:new(),
         config = config or {},
         
-        -- Performance metrics
-        metrics = {
-            totalPlayers = 0,
-            activeConnections = 0,
-            messagesPerSecond = 0,
-            averageLatency = 0
+        -- Animation registry
+        registry = {
+            components = {},
+            transitions = {},
+            keyframes = {}
         },
         
-        -- Threading
-        workerThreads = {},
-        taskQueue = {},
+        -- Performance tracking
+        metrics = {
+            activeAnimations = 0,
+            averageFPS = 0,
+            memoryUsage = 0,
+            renderTime = 0
+        },
+        
+        -- State management
+        stateHistory = {},
+        undoStack = {},
+        redoStack = {},
         
         -- Caching
         playerCache = {},
@@ -840,19 +947,96 @@ function PlayerManager:startHeartbeatService()
     table.insert(self.workerThreads, heartbeatCoroutine)
 end
 
-function PlayerManager:getPlayerStats()
+    -- Create smooth animation
+    local animation = {
+        type = 'fade',
+        duration = 500,
+        easing = 'ease-out',
+        delay = 0
+    }
+    
+    -- Apply animation to element
+    self:applyAnimation(element, animation)
+    
+    -- Update performance metrics
+    self.metrics.activeAnimations = self.metrics.activeAnimations + 1
+    self.metrics.renderTime = self.metrics.renderTime + animation.duration
+    
+    return true
+end
+
+function WebAnimationSystem:applyAnimation(element, animation)
+    if not element or not animation then return false end
+    
+    -- Validate animation parameters
+    if not self:validateAnimation(animation) then
+        Logger:warn("❌ Invalid animation: " .. tostring(animation.type))
+        return false
+    end
+    
+    -- Apply CSS transitions
+    local css = self:generateCSS(animation)
+    element.style.transition = css
+    
+    -- Add animation classes
+    element.classList:add('animate-' .. animation.type)
+    element.classList:add('duration-' .. animation.duration)
+    
+    -- Trigger animation
+    element:offsetHeight -- Force reflow
+    element.classList:add('animate-active')
+    
+    -- Cleanup after animation
+    setTimeout(function()
+        element.classList:remove('animate-active')
+        self.metrics.activeAnimations = self.metrics.activeAnimations - 1
+    end, animation.duration)
+    
+    return true
+end
+
+function WebAnimationSystem:validateAnimation(animation)
+    -- Check required fields
+    if not animation.type or not animation.duration then
+        return false
+    end
+    
+    -- Validate animation type
+    local validTypes = {fade = true, slide = true, scale = true, rotate = true}
+    if not validTypes[animation.type] then
+        return false
+    end
+    
+    -- Validate duration
+    if animation.duration < 0 or animation.duration > 5000 then
+        return false
+    end
+    
+    return true
+end
+
+function WebAnimationSystem:generateCSS(animation)
+    local css = string.format(
+        "%s %dms %s",
+        animation.type,
+        animation.duration,
+        animation.easing or 'ease'
+    )
+    
+    return css
+end
+
+function WebAnimationSystem:getPerformanceStats()
     return {
-        totalPlayers = self.metrics.totalPlayers,
-        activeConnections = self.metrics.activeConnections,
-        averageLatency = self.metrics.averageLatency,
-        messagesPerSecond = self.metrics.messagesPerSecond,
-        suspiciousActivities = #self.suspiciousActivities,
-        bannedPlayers = #self.bannedPlayers
+        activeAnimations = self.metrics.activeAnimations,
+        averageFPS = self.metrics.averageFPS,
+        memoryUsage = self.metrics.memoryUsage,
+        renderTime = self.metrics.renderTime
     }
 end
 
 -- Export the module
-return PlayerManager</code></pre>
+return WebAnimationSystem</code></pre>
                         <div class="read-more-overlay">
                             <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
                         </div>
@@ -887,34 +1071,152 @@ return PlayerManager</code></pre>
                     <div class="code-snippet">
                         <div class="code-header">
                             <span class="code-lang">CSS</span>
-                            <button class="copy-code" onclick="copyCode(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                            <div class="code-actions">
+                                <button class="copy-code" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="run-code" onclick="runCode(this, 'css')">
+                                    <i class="fas fa-play"></i> Run
+                                </button>
+                            </div>
                         </div>
-                        <pre><code>/* Advanced CSS animations */
+                        <pre><code>/* Advanced CSS Design System & Animations */
+:root {
+  /* Color Palette */
+  --primary-cyan: #00ffff;
+  --primary-magenta: #ff0080;
+  --primary-green: #00ff41;
+  --accent-purple: #7209b7;
+  --accent-blue: #4361ee;
+  --neutral-black: #000000;
+  --neutral-dark: #0a0a0a;
+  --neutral-light: #ffffff;
+  
+  /* Gradients */
+  --gradient-neon: linear-gradient(45deg, var(--primary-cyan), var(--primary-magenta));
+  --gradient-sunset: linear-gradient(135deg, #ff6b35, #f7931e);
+  --gradient-ocean: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
+  
+  /* Shadows */
+  --shadow-neon: 0 0 20px var(--primary-cyan);
+  --shadow-glow: 0 0 40px rgba(0, 255, 255, 0.3);
+  --shadow-depth: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Glassmorphism Cards */
 .project-card {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  border-radius: 15px;
-  padding: 2rem;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-neon);
+  opacity: 0;
+  transition: left 0.6s ease;
+}
+
+.project-card:hover::before {
+  left: 0;
+  opacity: 0.1;
 }
 
 .project-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  transform: translateY(-15px) scale(1.03);
+  box-shadow: var(--shadow-depth), var(--shadow-glow);
+  border-color: var(--primary-cyan);
 }
 
+/* Advanced Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.95);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
+}
+
+@keyframes neonPulse {
+  0%, 100% {
+    box-shadow: var(--shadow-neon);
+  }
+  50% {
+    box-shadow: var(--shadow-neon), var(--shadow-glow);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive Grid System */
+.design-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-neon);
+  border-radius: 6px;
+  border: 2px solid var(--neutral-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gradient-sunset);
+}
+
+/* Loading States */
+.loading-skeleton {
+  background: linear-gradient(90deg, 
+    var(--neutral-dark) 25%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    var(--neutral-dark) 75%
+  );
+      background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }</code></pre>
+                        <div class="read-more-overlay">
+                            <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
+                        </div>
+                        <div class="code-output" id="css-output-1"></div>
                     </div>
                     <div class="project-links">
                         <a href="#" class="project-link">

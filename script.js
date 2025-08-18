@@ -666,52 +666,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     };
 
-    // Code execution functionality
+    // Code execution functionality with popup showcaser
     window.runCode = function(button, language) {
         const codeBlock = button.closest('.code-snippet').querySelector('code');
         const code = codeBlock.textContent;
-        const outputDiv = button.closest('.code-snippet').querySelector('.code-output');
         
         // Show loading state
         const originalText = button.innerHTML;
         button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running';
         button.disabled = true;
         
-        // Clear previous output
-        outputDiv.innerHTML = '';
-        outputDiv.classList.add('show');
-        
         setTimeout(() => {
             try {
                 let result = '';
+                let visualOutput = '';
                 
                 if (language === 'javascript') {
                     result = executeJavaScript(code);
+                    visualOutput = createJavaScriptShowcase(code);
                 } else if (language === 'lua') {
                     result = simulateLuaExecution(code);
+                    visualOutput = createLuaShowcase(code);
                 } else if (language === 'css') {
                     result = demonstrateCSS(code);
+                    visualOutput = createCSSShowcase(code);
                 } else {
                     result = 'Language execution not supported in browser environment.';
+                    visualOutput = '<div class="showcase-placeholder">Language not supported for visual showcase</div>';
                 }
                 
-                outputDiv.innerHTML = `
-                    <div style="color: var(--accent-color); margin-bottom: 0.5rem;">
-                        <i class="fas fa-terminal"></i> Output:
-                    </div>
-                    <pre style="margin: 0; white-space: pre-wrap;">${result}</pre>
-                `;
+                // Create and show popup modal
+                showCodeShowcase(code, result, visualOutput, language);
                 
                 showNotification('🚀 Code executed successfully!', 'success');
                 
             } catch (error) {
-                outputDiv.innerHTML = `
-                    <div style="color: var(--secondary-color); margin-bottom: 0.5rem;">
-                        <i class="fas fa-exclamation-triangle"></i> Error:
-                    </div>
-                    <pre style="margin: 0; color: var(--secondary-color);">${error.message}</pre>
-                `;
-                
                 showNotification('❌ Code execution failed', 'error');
             }
             
@@ -939,6 +928,155 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize matrix effect on tech-themed pages
     setTimeout(createMatrixRain, 2000);
 
+    // Code Showcase Functions
+    function createJavaScriptShowcase(code) {
+        const container = document.createElement('div');
+        container.className = 'showcase-container js-showcase';
+        
+        // Create interactive demo
+        if (code.includes('ModernWebDesignSystem')) {
+            container.innerHTML = `
+                <div class="showcase-demo">
+                    <h3>🎨 Web Design System Demo</h3>
+                    <div class="demo-buttons">
+                        <button class="demo-btn btn-primary" onclick="this.style.background='linear-gradient(45deg, #00ffff, #ff0080)'">Gradient Button</button>
+                        <button class="demo-btn btn-secondary" onclick="this.style.transform='scale(1.1)'">Hover Effect</button>
+                        <button class="demo-btn btn-accent" onclick="this.style.boxShadow='0 0 20px #00ff41'">Neon Glow</button>
+                    </div>
+                    <div class="demo-card" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+                        <h4>Glassmorphism Card</h4>
+                        <p>This demonstrates the glassmorphism effect from the CSS system.</p>
+                    </div>
+                </div>
+            `;
+        } else {
+            container.innerHTML = '<div class="showcase-placeholder">JavaScript code executed successfully!</div>';
+        }
+        
+        return container.outerHTML;
+    }
+
+    function createLuaShowcase(code) {
+        const container = document.createElement('div');
+        container.className = 'showcase-container lua-showcase';
+        
+        container.innerHTML = `
+            <div class="showcase-demo">
+                <h3>🎭 Animation System Demo</h3>
+                <div class="demo-animations">
+                    <div class="demo-element fade-demo" onclick="this.style.opacity='0.5'">Fade Effect</div>
+                    <div class="demo-element slide-demo" onclick="this.style.transform='translateX(50px)'">Slide Effect</div>
+                    <div class="demo-element scale-demo" onclick="this.style.transform='scale(1.2)'">Scale Effect</div>
+                </div>
+                <div class="demo-stats">
+                    <div class="stat-item">Active Animations: <span id="active-count">0</span></div>
+                    <div class="stat-item">Performance: <span id="perf-score">95%</span></div>
+                </div>
+            </div>
+        `;
+        
+        return container.outerHTML;
+    }
+
+    function createCSSShowcase(code) {
+        const container = document.createElement('div');
+        container.className = 'showcase-container css-showcase';
+        
+        container.innerHTML = `
+            <div class="showcase-demo">
+                <h3>🎨 CSS Design System Demo</h3>
+                <div class="demo-cards">
+                    <div class="demo-card glassmorphism" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 1.5rem; margin: 1rem 0;">
+                        <h4>Glassmorphism Card</h4>
+                        <p>Advanced backdrop-filter and transparency effects</p>
+                    </div>
+                    <div class="demo-card neon-border" style="border: 2px solid #00ffff; box-shadow: 0 0 20px #00ffff; border-radius: 15px; padding: 1.5rem; margin: 1rem 0;">
+                        <h4>Neon Border Effect</h4>
+                        <p>Glowing borders with custom shadows</p>
+                    </div>
+                </div>
+                <div class="demo-gradients">
+                    <div class="gradient-demo neon" style="background: linear-gradient(45deg, #00ffff, #ff0080); height: 60px; border-radius: 10px; margin: 1rem 0;"></div>
+                    <div class="gradient-demo sunset" style="background: linear-gradient(135deg, #ff6b35, #f7931e); height: 60px; border-radius: 10px; margin: 1rem 0;"></div>
+                </div>
+            </div>
+        `;
+        
+        return container.outerHTML;
+    }
+
+    // Show Code Showcase Modal
+    function showCodeShowcase(code, result, visualOutput, language) {
+        // Remove existing modal if any
+        const existingModal = document.querySelector('.code-showcase-modal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'code-showcase-modal';
+        modal.innerHTML = `
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🚀 Code Execution Showcase</h2>
+                    <button class="modal-close" onclick="this.closest('.code-showcase-modal').remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="showcase-tabs">
+                        <button class="tab-btn active" onclick="switchTab(this, 'visual')">Visual Demo</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'output')">Console Output</button>
+                        <button class="tab-btn" onclick="switchTab(this, 'code')">Source Code</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="visual-tab" class="tab-pane active">
+                            ${visualOutput}
+                        </div>
+                        <div id="output-tab" class="tab-pane">
+                            <div class="output-content">
+                                <h4>Execution Results:</h4>
+                                <pre>${result}</pre>
+                            </div>
+                        </div>
+                        <div id="code-tab" class="tab-pane">
+                            <div class="code-content">
+                                <h4>Source Code:</h4>
+                                <pre><code class="language-${language}">${code}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Add modal to page
+        document.body.appendChild(modal);
+        
+        // Add event listeners
+        setTimeout(() => {
+            modal.classList.add('show');
+        }, 10);
+        
+        // Close on overlay click
+        modal.querySelector('.modal-overlay').addEventListener('click', () => {
+            modal.remove();
+        });
+    }
+
+    // Tab switching function
+    window.switchTab = function(button, tabName) {
+        // Update active tab button
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        // Update active tab content
+        document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+        document.getElementById(tabName + '-tab').classList.add('active');
+    };
+
     // Toggle code snippet expansion
     window.toggleCodeSnippet = function(button) {
         const codeSnippet = button.closest('.code-snippet');
@@ -956,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     console.log('🚀 Developer Portfolio Loaded Successfully!');
-    console.log('Features: Code Snippets, Matrix Effect, Syntax Highlighting, Copy Functionality');
+    console.log('Features: Code Snippets, Matrix Effect, Syntax Highlighting, Copy Functionality, Interactive Showcase');
 });
 
 // Service Worker for PWA functionality (optional)
