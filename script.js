@@ -641,8 +641,116 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addPrintStyles();
 
-    console.log('🎉 Professional Resume Website Loaded Successfully!');
-    console.log('Features: Responsive Design, Animations, Dark Mode, Print Support');
+    // Code copying functionality
+    window.copyCode = function(button) {
+        const codeBlock = button.closest('.code-snippet').querySelector('code');
+        const text = codeBlock.textContent;
+        
+        navigator.clipboard.writeText(text).then(function() {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i>';
+            button.style.background = '#10b981';
+            button.style.borderColor = '#10b981';
+            button.style.color = 'white';
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.style.background = 'transparent';
+                button.style.borderColor = 'var(--primary-color)';
+                button.style.color = 'var(--primary-color)';
+            }, 2000);
+            
+            showNotification('Code copied to clipboard!', 'success');
+        }).catch(function(err) {
+            showNotification('Failed to copy code', 'error');
+        });
+    };
+
+    // Matrix rain effect for techy look
+    function createMatrixRain() {
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '1';
+        canvas.style.opacity = '0.1';
+        document.body.appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+        const matrixArray = matrix.split("");
+
+        const fontSize = 10;
+        const columns = canvas.width / fontSize;
+
+        const drops = [];
+        for (let x = 0; x < columns; x++) {
+            drops[x] = 1;
+        }
+
+        function draw() {
+            ctx.fillStyle = 'rgba(15, 15, 35, 0.04)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        setInterval(draw, 35);
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    }
+
+    // Initialize matrix effect on tech-themed pages
+    setTimeout(createMatrixRain, 2000);
+
+    // Typing effect for code snippets
+    function typeCode() {
+        const codeBlocks = document.querySelectorAll('.code-snippet code');
+        
+        codeBlocks.forEach((block, index) => {
+            const originalText = block.textContent;
+            block.textContent = '';
+            
+            setTimeout(() => {
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < originalText.length) {
+                        block.textContent += originalText.charAt(i);
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                    }
+                }, 20);
+            }, index * 1000 + 3000);
+        });
+    }
+
+    // Initialize typing effect
+    setTimeout(typeCode, 4000);
+
+    console.log('🚀 Developer Portfolio Loaded Successfully!');
+    console.log('Features: Code Snippets, Matrix Effect, Syntax Highlighting, Copy Functionality');
 });
 
 // Service Worker for PWA functionality (optional)
