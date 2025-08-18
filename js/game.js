@@ -58,7 +58,7 @@ class Game {
         };
         
         // Game data
-        this.buildings = [];
+        this.buildings = new Map();
         this.roads = [];
         this.zones = [];
         this.terrain = new Map(); // Store terrain tiles
@@ -249,7 +249,11 @@ class Game {
             this.economyManager.money += refund;
             
             this.buildingManager.removeBuilding(building.id);
-            this.buildings = this.buildingManager.getAllBuildings();
+            // Sync buildings map
+            this.buildings.clear();
+            this.buildingManager.getAllBuildings().forEach(b => {
+                this.buildings.set(b.id, b);
+            });
             
             this.showNotification(`Building demolished. Refund: ${Utils.formatCurrency(refund)}`, 'info');
             this.addEvent(`Demolished ${building.name}`);
@@ -285,7 +289,11 @@ class Game {
         const building = this.buildingManager.placeBuilding(this.gameState.selectedBuildingType, tileX, tileY);
         if (building) {
             this.economyManager.money -= buildingType.cost;
-            this.buildings = this.buildingManager.getAllBuildings();
+            // Sync buildings map
+            this.buildings.clear();
+            this.buildingManager.getAllBuildings().forEach(b => {
+                this.buildings.set(b.id, b);
+            });
             this.gameState.totalBuildingsBuilt++;
             
             this.showNotification(`${buildingType.name} built for ${Utils.formatCurrency(buildingType.cost)}`, 'success');
@@ -986,7 +994,10 @@ class Game {
             if (data.achievements) this.achievementManager.deserialize(data.achievements);
             
             // Update building list
-            this.buildings = this.buildingManager.getAllBuildings();
+            this.buildings.clear();
+            this.buildingManager.getAllBuildings().forEach(b => {
+                this.buildings.set(b.id, b);
+            });
             
             this.showNotification('Game loaded successfully!', 'success');
             return true;
