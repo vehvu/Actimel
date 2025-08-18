@@ -217,14 +217,24 @@ class Renderer {
 
     // Draw terrain/background
     drawTerrain(gameState) {
+        console.log('drawTerrain called');
         const bounds = this.getScreenBounds();
         const tileSize = this.tileSize;
+        
+        console.log('Screen bounds:', bounds);
+        console.log('Tile size:', tileSize);
+        console.log('Camera:', this.camera);
         
         // Calculate tile bounds from world bounds
         const minTileX = Math.floor(bounds.left / tileSize);
         const maxTileX = Math.ceil(bounds.right / tileSize);
         const minTileY = Math.floor(bounds.top / tileSize);
         const maxTileY = Math.ceil(bounds.bottom / tileSize);
+        
+        console.log('Tile bounds:', {minTileX, maxTileX, minTileY, maxTileY});
+        
+        let tilesDrawn = 0;
+        let terrainFound = 0;
         
         for (let tileX = minTileX; tileX <= maxTileX; tileX++) {
             for (let tileY = minTileY; tileY <= maxTileY; tileY++) {
@@ -237,7 +247,11 @@ class Renderer {
                 // Get terrain type from game state using tile coordinates
                 let terrainType = 'grass'; // Default
                 if (gameState.terrain) {
-                    terrainType = gameState.terrain.get(`${tileX},${tileY}`) || 'grass';
+                    const foundTerrain = gameState.terrain.get(`${tileX},${tileY}`);
+                    if (foundTerrain) {
+                        terrainType = foundTerrain;
+                        terrainFound++;
+                    }
                 } else {
                     // Fallback to procedural generation
                     const noise = Math.sin(tileX * 0.1) * Math.cos(tileY * 0.1);
@@ -247,8 +261,11 @@ class Renderer {
                 
                 this.ctx.fillStyle = this.colors[terrainType];
                 this.ctx.fillRect(screenPos.x, screenPos.y, size, size);
+                tilesDrawn++;
             }
         }
+        
+        console.log(`Drew ${tilesDrawn} tiles, ${terrainFound} from terrain data`);
     }
 
     // Draw building
@@ -317,6 +334,7 @@ class Renderer {
 
     // Draw all buildings
     drawBuildings(buildings) {
+        console.log('drawBuildings called with:', buildings ? buildings.length + ' buildings' : 'null');
         const bounds = this.getScreenBounds();
         
         // Only draw buildings that are visible
@@ -467,6 +485,15 @@ class Renderer {
         const currentTime = performance.now();
         const actualDelta = currentTime - this.lastFrameTime;
         this.lastFrameTime = currentTime;
+        
+        // Debug logging
+        console.log('Renderer.render called:', {
+            terrain: gameState.terrain ? `${gameState.terrain.size} tiles` : 'null',
+            buildings: gameState.buildings ? `${gameState.buildings.length} buildings` : 'null',
+            roads: gameState.roads ? `${gameState.roads.length} roads` : 'null',
+            camera: this.camera,
+            canvasSize: `${this.canvas.width}x${this.canvas.height}`
+        });
         
         // Update camera
         this.updateCamera(actualDelta);

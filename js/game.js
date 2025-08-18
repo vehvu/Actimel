@@ -608,7 +608,7 @@ class Game {
             cityAge: Math.floor(this.gameState.playTime / 60000), // Age in minutes
             totalBuildingsBuilt: this.gameState.totalBuildingsBuilt,
             totalIncomeEarned: this.gameState.totalIncomeEarned,
-            buildings: this.buildings
+            buildings: Array.from(this.buildings.values())
         };
     }
 
