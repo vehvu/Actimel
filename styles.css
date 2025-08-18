@@ -78,21 +78,22 @@ body {
     padding: var(--container-padding);
 }
 
-/* Navigation */
+/* Navigation - Ultra Dark Theme */
 .navbar {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid var(--primary-color);
     z-index: 1000;
     transition: all var(--transition-normal);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .navbar.scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: var(--shadow-md);
+    background: rgba(0, 0, 0, 0.98);
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
 }
 
 .nav-container {
@@ -110,10 +111,11 @@ body {
 }
 
 .brand-text {
-    background: var(--gradient-primary);
+    background: var(--gradient-neon);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 .nav-menu {
@@ -124,14 +126,18 @@ body {
 
 .nav-link {
     text-decoration: none;
-    color: var(--text-primary);
-    font-weight: 500;
+    color: var(--text-white);
+    font-weight: 600;
     position: relative;
     transition: all var(--transition-normal);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: var(--font-size-sm);
 }
 
 .nav-link:hover {
     color: var(--primary-color);
+    text-shadow: 0 0 10px var(--primary-color);
 }
 
 .nav-link::after {
@@ -140,13 +146,15 @@ body {
     bottom: -5px;
     left: 0;
     width: 0;
-    height: 2px;
-    background: var(--gradient-primary);
+    height: 3px;
+    background: var(--gradient-neon);
     transition: width var(--transition-normal);
+    border-radius: 2px;
 }
 
 .nav-link:hover::after {
     width: 100%;
+    box-shadow: 0 0 10px var(--primary-color);
 }
 
 .nav-toggle {
@@ -158,9 +166,10 @@ body {
 .bar {
     width: 25px;
     height: 3px;
-    background: var(--text-primary);
+    background: var(--primary-color);
     margin: 3px 0;
     transition: var(--transition-normal);
+    box-shadow: 0 0 5px var(--primary-color);
 }
 
 /* Hero Section */
