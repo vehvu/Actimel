@@ -3,252 +3,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>∞ INFINITE SCROLLS ∞ - Digital Art Installation</title>
-    <meta name="description" content="An infinite digital art experience that never ends, never repeats, and never lets you go.">
-    <link rel="stylesheet" href="styles.css">
+    <title>Digital Playground | Where Code Meets Creativity</title>
+    <meta name="description" content="A playful exploration of web technologies, creative coding, and digital art. Built by someone who knows way too much about the web.">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Audio Context for Sound Art -->
-    <div id="audioContext" style="display: none;"></div>
-    
     <!-- Loading Screen -->
     <div id="loadingScreen" class="loading-screen">
-        <div class="loading-text">
-            <span class="loading-char" data-char="L">L</span>
-            <span class="loading-char" data-char="O">O</span>
-            <span class="loading-char" data-char="A">A</span>
-            <span class="loading-char" data-char="D">D</span>
-            <span class="loading-char" data-char="I">I</span>
-            <span class="loading-char" data-char="N">N</span>
-            <span class="loading-char" data-char="G">G</span>
+        <div class="loading-content">
+            <div class="loading-logo">
+                <div class="logo-icon">⚡</div>
+                <div class="logo-text">Digital Playground</div>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-status">Initializing playground...</div>
         </div>
-        <div class="loading-subtitle">Entering the infinite...</div>
-        <div class="loading-progress">
-            <div class="loading-bar"></div>
-        </div>
-    </div>
-
-    <!-- Main Art Container -->
-    <div id="artContainer" class="art-container">
-        <!-- Infinite Scroll Sections -->
-        <section class="art-section intro-section" data-section="intro">
-            <div class="section-content">
-                <h1 class="art-title">
-                    <span class="title-word title-word-1">∞</span>
-                    <span class="title-word title-word-2">INFINITE</span>
-                    <span class="title-word title-word-3">SCROLLS</span>
-                    <span class="title-word title-word-4">∞</span>
-                </h1>
-                <p class="art-subtitle">A digital art installation that never ends</p>
-                <div class="scroll-indicator">
-                    <div class="scroll-arrow"></div>
-                    <div class="scroll-text">Begin your journey into infinity</div>
-                </div>
-            </div>
-            <div class="floating-elements">
-                <div class="floating-element" data-speed="0.5"></div>
-                <div class="floating-element" data-speed="0.8"></div>
-                <div class="floating-element" data-speed="1.2"></div>
-            </div>
-            <div class="matrix-rain"></div>
-        </section>
-
-        <section class="art-section generative-section" data-section="generative">
-            <div class="section-content">
-                <h2 class="section-title">Generative Chaos</h2>
-                <div class="generative-canvas-container">
-                    <canvas id="generativeCanvas" class="generative-canvas"></canvas>
-                </div>
-                <div class="interaction-hint">Move your mouse to create art</div>
-            </div>
-        </section>
-
-        <section class="art-section poetry-section" data-section="poetry">
-            <div class="section-content">
-                <div class="poetry-container">
-                    <div class="poetry-line" data-line="1">In the digital void</div>
-                    <div class="poetry-line" data-line="2">Where pixels dance</div>
-                    <div class="poetry-line" data-line="3">And code becomes</div>
-                    <div class="poetry-line" data-line="4">Pure poetry</div>
-                </div>
-                <div class="poetry-controls">
-                    <button class="poetry-btn" data-action="rearrange">Rearrange</button>
-                    <button class="poetry-btn" data-action="randomize">Randomize</button>
-                    <button class="poetry-btn" data-action="animate">Animate</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section fractal-section" data-section="fractal">
-            <div class="section-content">
-                <h2 class="section-title">Fractal Dreams</h2>
-                <div class="fractal-container">
-                    <canvas id="fractalCanvas" class="fractal-canvas"></canvas>
-                </div>
-                <div class="fractal-controls">
-                    <input type="range" id="fractalDepth" min="1" max="10" value="5" class="fractal-slider">
-                    <label for="fractalDepth">Depth</label>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section particle-section" data-section="particle">
-            <div class="section-content">
-                <h2 class="section-title">Particle Symphony</h2>
-                <div class="particle-container">
-                    <canvas id="particleCanvas" class="particle-canvas"></canvas>
-                </div>
-                <div class="particle-controls">
-                    <button class="particle-btn" data-action="explode">Explode</button>
-                    <button class="particle-btn" data-action="implode">Implode</button>
-                    <button class="particle-btn" data-action="spiral">Spiral</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section glitch-section" data-section="glitch">
-            <div class="section-content">
-                <h2 class="section-title">Digital Glitch</h2>
-                <div class="glitch-container">
-                    <div class="glitch-text" data-text="GLITCH">GLITCH</div>
-                    <div class="glitch-text" data-text="GLITCH">GLITCH</div>
-                    <div class="glitch-text" data-text="GLITCH">GLITCH</div>
-                </div>
-                <div class="glitch-controls">
-                    <button class="glitch-btn" data-action="trigger">Trigger Glitch</button>
-                    <button class="glitch-btn" data-action="random">Random</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section dna-section" data-section="dna">
-            <div class="section-content">
-                <h2 class="section-title">Digital DNA</h2>
-                <div class="dna-container">
-                    <canvas id="dnaCanvas" class="dna-canvas"></canvas>
-                </div>
-                <div class="dna-controls">
-                    <button class="dna-btn" data-action="mutate">Mutate</button>
-                    <button class="dna-btn" data-action="evolve">Evolve</button>
-                    <button class="dna-btn" data-action="replicate">Replicate</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section matrix-section" data-section="matrix">
-            <div class="section-content">
-                <h2 class="section-title">Matrix Rain</h2>
-                <div class="matrix-container">
-                    <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
-                </div>
-                <div class="matrix-controls">
-                    <button class="matrix-btn" data-action="hack">Hack</button>
-                    <button class="matrix-btn" data-action="glitch">Glitch</button>
-                    <button class="matrix-btn" data-action="reset">Reset</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section neural-section" data-section="neural">
-            <div class="section-content">
-                <h2 class="section-title">Neural Networks</h2>
-                <div class="neural-container">
-                    <canvas id="neuralCanvas" class="neural-canvas"></canvas>
-                </div>
-                <div class="neural-controls">
-                    <button class="neural-btn" data-action="learn">Learn</button>
-                    <button class="neural-btn" data-action="connect">Connect</button>
-                    <button class="neural-btn" data-action="fire">Fire</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section sound-section" data-section="sound">
-            <div class="section-content">
-                <h2 class="section-title">Sound Waves</h2>
-                <div class="sound-container">
-                    <canvas id="soundCanvas" class="sound-canvas"></canvas>
-                </div>
-                <div class="sound-controls">
-                    <button class="sound-btn" data-action="play">Play</button>
-                    <button class="sound-btn" data-action="visualize">Visualize</button>
-                    <button class="sound-btn" data-action="distort">Distort</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section quantum-section" data-section="quantum">
-            <div class="section-content">
-                <h2 class="section-title">Quantum States</h2>
-                <div class="quantum-container">
-                    <canvas id="quantumCanvas" class="quantum-canvas"></canvas>
-                </div>
-                <div class="quantum-controls">
-                    <button class="quantum-btn" data-action="superposition">Superposition</button>
-                    <button class="quantum-btn" data-action="entangle">Entangle</button>
-                    <button class="quantum-btn" data-action="collapse">Collapse</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="art-section infinite-section" data-section="infinite">
-            <div class="section-content">
-                <h2 class="section-title">The Infinite Loop</h2>
-                <div class="infinite-container">
-                    <div class="infinite-text">
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                        <span class="infinite-char">∞</span>
-                    </div>
-                </div>
-                <p class="infinite-message">You can scroll forever, but you'll never reach the end...</p>
-            </div>
-        </section>
-
-        <!-- Dynamic Sections Generated by JavaScript -->
-        <div id="dynamicSections"></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="art-nav">
-        <div class="nav-content">
-            <div class="nav-title">∞ ART</div>
-            <div class="nav-controls">
-                <button class="nav-btn" data-action="pause">⏸</button>
-                <button class="nav-btn" data-action="random">🎲</button>
-                <button class="nav-btn" data-action="fullscreen">⛶</button>
-                <button class="nav-btn" data-action="insane">🚀</button>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="#" class="brand-link">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">Digital Playground</span>
+                </a>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#playground" class="nav-link">Playground</a>
+                <a href="#experiments" class="nav-link">Experiments</a>
+                <a href="#gallery" class="nav-link">Gallery</a>
+                <a href="#about" class="nav-link">About</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Scroll Progress -->
-    <div class="scroll-progress">
-        <div class="progress-bar"></div>
-        <div class="progress-text">∞</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Welcome to the</span>
+                    <span class="title-line highlight">Digital Playground</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Where code meets creativity, and web technologies become art. 
+                    Built by someone who knows way too much about the internet.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" id="exploreBtn">
+                        <span>Explore Playground</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button class="btn btn-secondary" id="viewCodeBtn">
+                        <i class="fab fa-github"></i>
+                        <span>View Code</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-elements">
+                    <div class="floating-element" data-speed="0.5">
+                        <div class="element-icon">🎨</div>
+                    </div>
+                    <div class="floating-element" data-speed="0.8">
+                        <div class="element-icon">💻</div>
+                    </div>
+                    <div class="floating-element" data-speed="1.2">
+                        <div class="element-icon">🚀</div>
+                    </div>
+                    <div class="floating-element" data-speed="0.6">
+                        <div class="element-icon">✨</div>
+                    </div>
+                </div>
+                
+                <div class="hero-canvas">
+                    <canvas id="heroCanvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Playground -->
+    <section id="playground" class="playground">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Interactive Playground</h2>
+                <p class="section-subtitle">Click, drag, and explore these interactive experiments</p>
+            </div>
+            
+            <div class="playground-grid">
+                <div class="playground-item" data-type="particles">
+                    <div class="item-header">
+                        <h3>Particle System</h3>
+                        <div class="item-controls">
+                            <button class="control-btn" data-action="reset">Reset</button>
+                            <button class="control-btn" data-action="explode">Explode</button>
+                        </div>
+                    </div>
+                    <div class="item-canvas">
+                        <canvas id="particleCanvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="playground-item" data-type="fractals">
+                    <div class="item-header">
+                        <h3>Fractal Explorer</h3>
+                        <div class="item-controls">
+                            <input type="range" id="fractalDepth" min="1" max="8" value="4" class="depth-slider">
+                            <label for="fractalDepth">Depth</label>
+                        </div>
+                    </div>
+                    <div class="item-canvas">
+                        <canvas id="fractalCanvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="playground-item" data-type="audio">
+                    <div class="item-header">
+                        <h3>Audio Visualizer</h3>
+                        <div class="item-controls">
+                            <button class="control-btn" data-action="play">Play</button>
+                            <button class="control-btn" data-action="stop">Stop</button>
+                        </div>
+                    </div>
+                    <div class="item-canvas">
+                        <canvas id="audioCanvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="playground-item" data-type="generative">
+                    <div class="item-header">
+                        <h3>Generative Art</h3>
+                        <div class="item-controls">
+                            <button class="control-btn" data-action="new">New</button>
+                            <button class="control-btn" data-action="animate">Animate</button>
+                        </div>
+                    </div>
+                    <div class="item-canvas">
+                        <canvas id="generativeCanvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experiments Section -->
+    <section id="experiments" class="experiments">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Creative Experiments</h2>
+                <p class="section-subtitle">Pushing the boundaries of what's possible on the web</p>
+            </div>
+            
+            <div class="experiments-grid">
+                <div class="experiment-card" data-experiment="matrix">
+                    <div class="card-header">
+                        <h3>Matrix Rain</h3>
+                        <span class="card-tag">Classic</span>
+                    </div>
+                    <div class="card-preview">
+                        <canvas id="matrixPreview"></canvas>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-sm" data-action="view">View</button>
+                        <button class="btn btn-sm btn-outline" data-action="fullscreen">Fullscreen</button>
+                    </div>
+                </div>
+                
+                <div class="experiment-card" data-experiment="neural">
+                    <div class="card-header">
+                        <h3>Neural Network</h3>
+                        <span class="card-tag">AI</span>
+                    </div>
+                    <div class="card-preview">
+                        <canvas id="neuralPreview"></canvas>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-sm" data-action="view">View</button>
+                        <button class="btn btn-sm btn-outline" data-action="fullscreen">Fullscreen</button>
+                    </div>
+                </div>
+                
+                <div class="experiment-card" data-experiment="glitch">
+                    <div class="card-header">
+                        <h3>Digital Glitch</h3>
+                        <span class="card-tag">Art</span>
+                    </div>
+                    <div class="card-preview">
+                        <canvas id="glitchPreview"></canvas>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-sm" data-action="view">View</button>
+                        <button class="btn btn-sm btn-outline" data-action="fullscreen">Fullscreen</button>
+                    </div>
+                </div>
+                
+                <div class="experiment-card" data-experiment="quantum">
+                    <div class="card-header">
+                        <h3>Quantum States</h3>
+                        <span class="card-tag">Physics</span>
+                    </div>
+                    <div class="card-preview">
+                        <canvas id="quantumPreview"></canvas>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-sm" data-action="view">View</button>
+                        <button class="btn btn-sm btn-outline" data-action="fullscreen">Fullscreen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Digital Gallery</h2>
+                <p class="section-subtitle">A collection of generated artworks and experiments</p>
+            </div>
+            
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Gallery items will be generated dynamically -->
+            </div>
+            
+            <div class="gallery-controls">
+                <button class="btn btn-outline" id="generateBtn">
+                    <i class="fas fa-magic"></i>
+                    Generate New Art
+                </button>
+                <button class="btn btn-outline" id="clearBtn">
+                    <i class="fas fa-trash"></i>
+                    Clear Gallery
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 class="section-title">About This Playground</h2>
+                    <p>
+                        This is a digital playground built by someone who knows way too much about web technologies. 
+                        It's a space where I experiment with creative coding, push the boundaries of what's possible on the web, 
+                        and create interactive experiences that are both technically impressive and visually stunning.
+                    </p>
+                    <p>
+                        Built with pure HTML, CSS, and JavaScript - no frameworks, no libraries, just raw web technologies 
+                        and a lot of creative thinking. Every experiment here is hand-crafted and optimized for performance.
+                    </p>
+                    
+                    <div class="tech-stack">
+                        <h3>Technologies Used</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript ES6+</span>
+                            <span class="tech-tag">Canvas API</span>
+                            <span class="tech-tag">Web Audio API</span>
+                            <span class="tech-tag">WebGL</span>
+                            <span class="tech-tag">CSS Grid</span>
+                            <span class="tech-tag">Flexbox</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-visual">
+                    <div class="code-preview">
+                        <div class="code-header">
+                            <span class="code-title">creative.js</span>
+                            <div class="code-controls">
+                                <span class="control-dot"></span>
+                                <span class="control-dot"></span>
+                                <span class="control-dot"></span>
+                            </div>
+                        </div>
+                        <div class="code-content">
+                            <pre><code id="codeDisplay"></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <span class="brand-icon">⚡</span>
+                    <span class="brand-text">Digital Playground</span>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="#" class="footer-link">GitHub</a>
+                    <a href="#" class="footer-link">Twitter</a>
+                    <a href="#" class="footer-link">Contact</a>
+                </div>
+                
+                <div class="footer-text">
+                    <p>Built with ❤️ and way too much knowledge about the web</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for Fullscreen Experiments -->
+    <div id="experimentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Experiment</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <canvas id="modalCanvas"></canvas>
+            </div>
+        </div>
     </div>
 
-    <!-- Audio Visualizer -->
-    <div class="audio-visualizer">
-        <canvas id="audioCanvas" class="audio-canvas"></canvas>
-    </div>
-
-    <!-- Easter Egg Trigger -->
-    <div class="easter-egg-trigger" data-trigger="konami"></div>
-
-    <!-- Floating Particles Background -->
-    <div id="backgroundParticles"></div>
-
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
