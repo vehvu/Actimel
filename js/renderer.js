@@ -220,20 +220,27 @@ class Renderer {
         const bounds = this.getScreenBounds();
         const tileSize = this.tileSize;
         
-        for (let x = Math.floor(bounds.left / tileSize); x <= Math.ceil(bounds.right / tileSize); x++) {
-            for (let y = Math.floor(bounds.top / tileSize); y <= Math.ceil(bounds.bottom / tileSize); y++) {
-                const worldX = x * tileSize;
-                const worldY = y * tileSize;
+        // Calculate tile bounds from world bounds
+        const minTileX = Math.floor(bounds.left / tileSize);
+        const maxTileX = Math.ceil(bounds.right / tileSize);
+        const minTileY = Math.floor(bounds.top / tileSize);
+        const maxTileY = Math.ceil(bounds.bottom / tileSize);
+        
+        for (let tileX = minTileX; tileX <= maxTileX; tileX++) {
+            for (let tileY = minTileY; tileY <= maxTileY; tileY++) {
+                // Convert tile coordinates to world coordinates for rendering
+                const worldX = tileX * tileSize;
+                const worldY = tileY * tileSize;
                 const screenPos = this.worldToScreen(worldX, worldY);
                 const size = tileSize * this.camera.zoom;
                 
-                // Get terrain type from game state
+                // Get terrain type from game state using tile coordinates
                 let terrainType = 'grass'; // Default
                 if (gameState.terrain) {
-                    terrainType = gameState.terrain.get(`${x},${y}`) || 'grass';
+                    terrainType = gameState.terrain.get(`${tileX},${tileY}`) || 'grass';
                 } else {
                     // Fallback to procedural generation
-                    const noise = Math.sin(x * 0.1) * Math.cos(y * 0.1);
+                    const noise = Math.sin(tileX * 0.1) * Math.cos(tileY * 0.1);
                     if (noise < -0.3) terrainType = 'water';
                     else if (noise > 0.5) terrainType = 'grass';
                 }

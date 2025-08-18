@@ -417,6 +417,11 @@ class CitizenManager {
         return needsSatisfaction;
     }
 
+    // Get all citizens
+    getAllCitizens() {
+        return Array.from(this.citizens.values());
+    }
+
     // Save/Load functionality
     serialize() {
         return {

@@ -1042,17 +1042,18 @@ class Game {
         console.log('Generating starter city...');
         
         // Generate grass terrain in a 50x50 area around center
-        for (let x = -25; x <= 25; x++) {
-            for (let y = -25; y <= 25; y++) {
-                this.terrain.set(`${x},${y}`, 'grass');
+        // Use tile coordinates directly
+        for (let tileX = -25; tileX <= 25; tileX++) {
+            for (let tileY = -25; tileY <= 25; tileY++) {
+                this.terrain.set(`${tileX},${tileY}`, 'grass');
             }
         }
         
         // Add some water around the edges
-        for (let x = -30; x <= 30; x++) {
-            for (let y = -30; y <= 30; y++) {
-                if (Math.abs(x) > 25 || Math.abs(y) > 25) {
-                    this.terrain.set(`${x},${y}`, 'water');
+        for (let tileX = -30; tileX <= 30; tileX++) {
+            for (let tileY = -30; tileY <= 30; tileY++) {
+                if (Math.abs(tileX) > 25 || Math.abs(tileY) > 25) {
+                    this.terrain.set(`${tileX},${tileY}`, 'water');
                 }
             }
         }
