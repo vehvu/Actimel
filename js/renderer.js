@@ -216,11 +216,10 @@ class Renderer {
     }
 
     // Draw terrain/background
-    drawTerrain() {
+    drawTerrain(gameState) {
         const bounds = this.getScreenBounds();
         const tileSize = this.tileSize;
         
-        // Simple terrain generation
         for (let x = Math.floor(bounds.left / tileSize); x <= Math.ceil(bounds.right / tileSize); x++) {
             for (let y = Math.floor(bounds.top / tileSize); y <= Math.ceil(bounds.bottom / tileSize); y++) {
                 const worldX = x * tileSize;
@@ -228,12 +227,16 @@ class Renderer {
                 const screenPos = this.worldToScreen(worldX, worldY);
                 const size = tileSize * this.camera.zoom;
                 
-                // Simple noise-based terrain
-                const noise = Math.sin(x * 0.1) * Math.cos(y * 0.1);
-                let terrainType = 'grass';
-                
-                if (noise < -0.3) terrainType = 'water';
-                else if (noise > 0.5) terrainType = 'grass';
+                // Get terrain type from game state
+                let terrainType = 'grass'; // Default
+                if (gameState.terrain) {
+                    terrainType = gameState.terrain.get(`${x},${y}`) || 'grass';
+                } else {
+                    // Fallback to procedural generation
+                    const noise = Math.sin(x * 0.1) * Math.cos(y * 0.1);
+                    if (noise < -0.3) terrainType = 'water';
+                    else if (noise > 0.5) terrainType = 'grass';
+                }
                 
                 this.ctx.fillStyle = this.colors[terrainType];
                 this.ctx.fillRect(screenPos.x, screenPos.y, size, size);
@@ -276,6 +279,8 @@ class Renderer {
             
             this.ctx.font = `${fontSize}px Arial`;
             this.ctx.fillStyle = '#ffffff';
+            this.ctx.textAlign = 'center';
+            this.ctx.textBaseline = 'middle';
             this.ctx.fillText(
                 icon,
                 screenPos.x + buildingWidth / 2,
@@ -287,10 +292,12 @@ class Renderer {
         if (building.level > 1 && this.camera.zoom > 1) {
             this.ctx.font = '12px Arial';
             this.ctx.fillStyle = '#ffff00';
+            this.ctx.textAlign = 'right';
+            this.ctx.textBaseline = 'top';
             this.ctx.fillText(
                 `L${building.level}`,
-                screenPos.x + buildingWidth - 10,
-                screenPos.y + 10
+                screenPos.x + buildingWidth - 5,
+                screenPos.y + 5
             );
         }
         
@@ -461,7 +468,7 @@ class Renderer {
         this.clear();
         
         // Draw terrain
-        this.drawTerrain();
+        this.drawTerrain(gameState);
         
         // Draw grid
         this.drawGrid();

@@ -61,6 +61,7 @@ class Game {
         this.buildings = [];
         this.roads = [];
         this.zones = [];
+        this.terrain = new Map(); // Store terrain tiles
         
         // Auto-save
         this.autoSaveInterval = 60000; // 1 minute
@@ -85,7 +86,10 @@ class Game {
             // Initialize UI
             this.initializeUI();
             
-            // Load saved game if available
+            // Generate starter city
+            this.generateStarterCity();
+            
+            // Load saved game if available (will override starter city if save exists)
             this.loadGame();
             
             // Start game loop
@@ -266,10 +270,15 @@ class Game {
             return;
         }
         
-        // Check if tile is available
-        if (this.buildingManager.getBuildingAt(tileX, tileY)) {
-            this.showNotification('Tile already occupied!', 'error');
-            return;
+        // Check if tile is available (including size)
+        const size = buildingType.size || { width: 1, height: 1 };
+        for (let dx = 0; dx < size.width; dx++) {
+            for (let dy = 0; dy < size.height; dy++) {
+                if (this.buildingManager.getBuildingAt(tileX + dx, tileY + dy)) {
+                    this.showNotification('Area already occupied!', 'error');
+                    return;
+                }
+            }
         }
         
         // Place building
@@ -532,9 +541,9 @@ class Game {
             education: this.gameState.education,
             jobAvailability: buildingResources.jobs,
             commercialCapacity: buildingResources.capacity,
-            healthcareCapacity: this.buildings.filter(b => b.type === 'hospital').length * 1000,
-            educationCapacity: this.buildings.filter(b => b.type === 'school' || b.type === 'university').length * 500,
-            recreationCapacity: this.buildings.filter(b => b.category === 'decoration').length * 100,
+            healthcareCapacity: Array.from(this.buildings.values()).filter(b => b.type === 'hospital').length * 1000,
+            educationCapacity: Array.from(this.buildings.values()).filter(b => b.type === 'school' || b.type === 'university').length * 500,
+            recreationCapacity: Array.from(this.buildings.values()).filter(b => b.category === 'decoration').length * 100,
             safetyLevel: this.gameState.safety,
             preparedness: this.disasterManager.preparedness,
             unemployment: this.citizenManager.populationStats.unemployed,
@@ -766,6 +775,129 @@ class Game {
         `;
     }
 
+    // Show budget modal
+    showBudgetModal() {
+        const overlay = document.getElementById('modal-overlay');
+        if (!overlay) return;
+        
+        const financialSummary = this.economyManager.getFinancialSummary();
+        
+        overlay.innerHTML = `
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Budget & Finance</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-content">
+                    <div class="budget-overview">
+                        <h4>Financial Overview</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>Current Funds: ${Utils.formatCurrency(financialSummary.money)}</div>
+                            <div>Monthly Income: ${Utils.formatCurrency(financialSummary.income)}</div>
+                            <div>Monthly Expenses: ${Utils.formatCurrency(financialSummary.expenses)}</div>
+                            <div>Net Income: ${Utils.formatCurrency(financialSummary.netIncome)}</div>
+                            <div>Tax Rate: ${Math.round(financialSummary.taxRate * 100)}%</div>
+                            <div>Credit Rating: ${financialSummary.creditRating}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="budget-allocations">
+                        <h4>Budget Allocations</h4>
+                        ${Object.entries(financialSummary.budgetAllocations).map(([category, allocation]) => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span>${category.charAt(0).toUpperCase() + category.slice(1)}</span>
+                                <span>${Math.round(allocation * 100)}%</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        overlay.classList.add('visible');
+        
+        // Add close handler
+        overlay.querySelector('.modal-close').addEventListener('click', () => {
+            overlay.classList.remove('visible');
+        });
+    }
+
+    // Show disasters modal
+    showDisastersModal() {
+        const overlay = document.getElementById('modal-overlay');
+        if (!overlay) return;
+        
+        const disasterStats = this.disasterManager.getDisasterStats();
+        const activeDisasters = Array.from(this.disasterManager.activeDisasters.values());
+        const preparedness = this.disasterManager.preparedness;
+        
+        overlay.innerHTML = `
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Disaster Management</h3>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-content">
+                    <div class="disaster-stats">
+                        <h4>Disaster Statistics</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div>Active Disasters: ${disasterStats.activeDisasters}</div>
+                            <div>Total Disasters: ${disasterStats.totalDisasters}</div>
+                            <div>Total Casualties: ${disasterStats.totalCasualties}</div>
+                            <div>Total Damage: ${Utils.formatCurrency(disasterStats.totalDamage)}</div>
+                        </div>
+                    </div>
+                    
+                    ${activeDisasters.length > 0 ? `
+                        <div class="active-disasters">
+                            <h4>Active Disasters</h4>
+                            ${activeDisasters.map(disaster => `
+                                <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid #ef4444; padding: 1rem; margin-bottom: 0.5rem; border-radius: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                        <span style="font-size: 1.5rem;">${disaster.icon}</span>
+                                        <strong>${disaster.name}</strong>
+                                        <span style="margin-left: auto;">Severity: ${disaster.severity}</span>
+                                    </div>
+                                    <div>Casualties: ${disaster.casualties}</div>
+                                    <div>Damage: ${Utils.formatCurrency(disaster.damageValue)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="preparedness">
+                        <h4>Disaster Preparedness</h4>
+                        ${Object.entries(preparedness).map(([type, level]) => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <span>${type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <div style="width: 100px; height: 8px; background: #334155; border-radius: 4px;">
+                                        <div style="width: ${level}%; height: 100%; background: linear-gradient(90deg, #ef4444, #f59e0b, #10b981); border-radius: 4px;"></div>
+                                    </div>
+                                    <span>${level}%</span>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        overlay.classList.add('visible');
+        
+        // Add close handler
+        overlay.querySelector('.modal-close').addEventListener('click', () => {
+            overlay.classList.remove('visible');
+        });
+    }
+
+    // Load game dialog
+    loadGameDialog() {
+        if (confirm('Load saved game? This will overwrite your current progress.')) {
+            this.loadGame();
+        }
+    }
+
     // Save game
     saveGame() {
         try {
@@ -844,11 +976,128 @@ class Game {
         // Update game logic
         this.update(deltaTime);
         
+        // Sync buildings from building manager
+        const currentBuildings = this.buildingManager.getAllBuildings();
+        this.buildings.clear();
+        currentBuildings.forEach(building => {
+            this.buildings.set(building.id, building);
+        });
+        
+        // Update game state for renderer
+        this.gameState.terrain = this.terrain;
+        this.gameState.buildings = Array.from(this.buildings.values());
+        this.gameState.roads = this.roads;
+        this.gameState.disasters = Array.from(this.disasterManager.activeDisasters.values());
+        
         // Render
         this.renderer.render(this.gameState, deltaTime);
         
         // Continue loop
         requestAnimationFrame((time) => this.gameLoop(time));
+    }
+
+    // Generate starter city with basic infrastructure
+    generateStarterCity() {
+        console.log('Generating starter city...');
+        
+        // Generate grass terrain in a 50x50 area around center
+        for (let x = -25; x <= 25; x++) {
+            for (let y = -25; y <= 25; y++) {
+                this.terrain.set(`${x},${y}`, 'grass');
+            }
+        }
+        
+        // Add some water around the edges
+        for (let x = -30; x <= 30; x++) {
+            for (let y = -30; y <= 30; y++) {
+                if (Math.abs(x) > 25 || Math.abs(y) > 25) {
+                    this.terrain.set(`${x},${y}`, 'water');
+                }
+            }
+        }
+        
+        // Create main roads
+        this.roads = [
+            // Horizontal main road
+            { startX: -20, startY: 0, endX: 20, endY: 0, type: 'main' },
+            // Vertical main road  
+            { startX: 0, startY: -20, endX: 0, endY: 20, type: 'main' },
+            // Secondary roads
+            { startX: -15, startY: -10, endX: 15, endY: -10, type: 'secondary' },
+            { startX: -15, startY: 10, endX: 15, endY: 10, type: 'secondary' },
+            { startX: -10, startY: -15, endX: -10, endY: 15, type: 'secondary' },
+            { startX: 10, startY: -15, endX: 10, endY: 15, type: 'secondary' }
+        ];
+        
+        // Place some starter buildings
+        const starterBuildings = [
+            // Town hall at center
+            { type: 'town-hall', x: -1, y: -1 },
+            // Some basic residential
+            { type: 'small-house', x: 5, y: 5 },
+            { type: 'small-house', x: 7, y: 5 },
+            { type: 'small-house', x: 5, y: 7 },
+            { type: 'small-house', x: -5, y: 5 },
+            { type: 'small-house', x: -7, y: 5 },
+            { type: 'small-house', x: -5, y: 7 },
+            // Basic services
+            { type: 'small-park', x: 2, y: 2 },
+            { type: 'small-park', x: -2, y: 2 },
+            // A shop
+            { type: 'corner-shop', x: 3, y: -3 },
+            { type: 'corner-shop', x: -3, y: -3 }
+        ];
+        
+        // Add town hall to building types if it doesn't exist
+        if (!this.buildingManager.buildingTypes['town-hall']) {
+            this.buildingManager.buildingTypes['town-hall'] = {
+                name: 'Town Hall',
+                category: 'services',
+                icon: '🏛️',
+                cost: 0, // Free starter building
+                size: { width: 2, height: 2 },
+                jobs: 10,
+                upkeep: 200,
+                powerConsumption: 5,
+                waterConsumption: 3,
+                happiness: 10,
+                unlocked: true,
+                description: 'The heart of your city administration'
+            };
+        }
+        
+        // Place starter buildings
+        starterBuildings.forEach(({ type, x, y }) => {
+            if (this.buildingManager.buildingTypes[type]) {
+                const building = this.buildingManager.placeBuilding(type, x, y);
+                if (building) {
+                    console.log(`Placed starter building: ${type} at ${x}, ${y}`);
+                }
+            }
+        });
+        
+        // Update buildings array
+        this.buildings = new Map();
+        this.buildingManager.getAllBuildings().forEach(building => {
+            this.buildings.set(building.id, building);
+        });
+        
+        // Add some starter citizens
+        for (let i = 0; i < 20; i++) {
+            this.citizenManager.createCitizen();
+        }
+        
+        // Position camera at city center
+        this.renderer.setCameraPosition(0, 0);
+        this.renderer.setCameraZoom(1.5);
+        
+        console.log(`Starter city generated with ${this.buildings.length} buildings and ${this.citizenManager.populationStats.total} citizens`);
+        
+        // Show welcome message
+        setTimeout(() => {
+            this.showNotification('Welcome to MetroSim! Start building your city!', 'success', 5000);
+            this.addEvent('City founded');
+        }, 1000);
     }
 
     // Start game loop
