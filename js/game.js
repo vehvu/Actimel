@@ -360,6 +360,47 @@ class Game {
         }
     }
 
+    showBuildingTooltip(building, x, y) {
+        let tooltip = document.getElementById('building-tooltip');
+        if (!tooltip) {
+            tooltip = document.createElement('div');
+            tooltip.id = 'building-tooltip';
+            tooltip.className = 'tooltip';
+            document.body.appendChild(tooltip);
+        }
+
+        const buildingType = this.buildingManager.buildingTypes[building.type];
+        if (!buildingType) return;
+
+        tooltip.innerHTML = `
+            <div class="tooltip-header">
+                <span class="tooltip-icon">${buildingType.icon}</span>
+                <span class="tooltip-name">${buildingType.name}</span>
+                ${building.level > 1 ? `<span class="tooltip-level">Level ${building.level}</span>` : ''}
+            </div>
+            <div class="tooltip-stats">
+                ${buildingType.jobs ? `<div>👥 Jobs: ${buildingType.jobs * building.level}</div>` : ''}
+                ${buildingType.capacity ? `<div>🏠 Capacity: ${buildingType.capacity * building.level}</div>` : ''}
+                ${buildingType.upkeep ? `<div>💰 Upkeep: $${Utils.formatNumber(buildingType.upkeep * building.level)}/month</div>` : ''}
+                ${buildingType.powerConsumption ? `<div>⚡ Power: ${buildingType.powerConsumption * building.level}</div>` : ''}
+                ${buildingType.waterConsumption ? `<div>💧 Water: ${buildingType.waterConsumption * building.level}</div>` : ''}
+                ${buildingType.happiness ? `<div>😊 Happiness: +${buildingType.happiness * building.level}</div>` : ''}
+                ${buildingType.pollution ? `<div>☁️ Pollution: +${buildingType.pollution * building.level}</div>` : ''}
+            </div>
+        `;
+
+        tooltip.style.display = 'block';
+        tooltip.style.left = Math.min(x + 10, window.innerWidth - tooltip.offsetWidth - 10) + 'px';
+        tooltip.style.top = Math.min(y + 10, window.innerHeight - tooltip.offsetHeight - 10) + 'px';
+    }
+
+    hideBuildingTooltip() {
+        const tooltip = document.getElementById('building-tooltip');
+        if (tooltip) {
+            tooltip.style.display = 'none';
+        }
+    }
+
     // Select building category
     selectBuildingCategory(category) {
         // Update category buttons
