@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetroSim - Ultimate City Builder & Life Simulator</title>
+    <meta name="description" content="Build and manage your dream city in this comprehensive city builder and life simulation game. Manage resources, citizens, economy, and disasters!">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Libraries -->
+    <script src="https://unpkg.com/howler@2.2.3/dist/howler.min.js"></script>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">🏙️ MetroSim</div>
+            <div class="loading-text">Loading your city...</div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loading-progress"></div>
+            </div>
+            <div class="loading-tips" id="loading-tip">Tip: Start with residential zones to attract citizens!</div>
+        </div>
+    </div>
+
+    <!-- Main Game Interface -->
+    <div id="game-container" class="game-container">
+        <!-- Top HUD -->
+        <header class="game-hud">
+            <div class="hud-left">
+                <div class="city-name" id="city-name">New Metro</div>
+                <div class="population-counter">
+                    <span class="icon">👥</span>
+                    <span id="population">0</span>
+                </div>
+            </div>
+            
+            <div class="hud-center">
+                <div class="resource-bar">
+                    <div class="resource" id="money-resource">
+                        <span class="icon">💰</span>
+                        <span id="money">50000</span>
+                    </div>
+                    <div class="resource" id="power-resource">
+                        <span class="icon">⚡</span>
+                        <span id="power">0/0</span>
+                    </div>
+                    <div class="resource" id="water-resource">
+                        <span class="icon">💧</span>
+                        <span id="water">0/0</span>
+                    </div>
+                    <div class="resource" id="happiness-resource">
+                        <span class="icon">😊</span>
+                        <span id="happiness">50%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hud-right">
+                <button class="hud-btn" id="pause-btn" title="Pause/Resume">⏸️</button>
+                <button class="hud-btn" id="speed-btn" title="Game Speed">1x</button>
+                <button class="hud-btn" id="menu-btn" title="Menu">☰</button>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <div class="game-main">
+            <!-- Left Sidebar - Building Menu -->
+            <aside class="sidebar left-sidebar">
+                <div class="sidebar-header">
+                    <h3>Buildings</h3>
+                    <div class="building-categories">
+                        <button class="category-btn active" data-category="residential">🏠</button>
+                        <button class="category-btn" data-category="commercial">🏪</button>
+                        <button class="category-btn" data-category="industrial">🏭</button>
+                        <button class="category-btn" data-category="utilities">⚡</button>
+                        <button class="category-btn" data-category="services">🏥</button>
+                        <button class="category-btn" data-category="decoration">🌳</button>
+                    </div>
+                </div>
+                <div class="building-list" id="building-list">
+                    <!-- Dynamic building options -->
+                </div>
+            </aside>
+
+            <!-- Game Canvas -->
+            <main class="game-viewport">
+                <canvas id="game-canvas" width="1200" height="800"></canvas>
+                <div class="canvas-overlay">
+                    <!-- Tool tips and building info -->
+                    <div id="building-tooltip" class="building-tooltip"></div>
+                    <div id="tile-info" class="tile-info"></div>
+                </div>
+            </main>
+
+            <!-- Right Sidebar - Info Panel -->
+            <aside class="sidebar right-sidebar">
+                <div class="info-panel" id="info-panel">
+                    <div class="panel-section">
+                        <h4>City Stats</h4>
+                        <div class="stat-grid">
+                            <div class="stat">
+                                <span class="label">Level</span>
+                                <span class="value" id="city-level">1</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Income</span>
+                                <span class="value" id="income">+$0/min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Expenses</span>
+                                <span class="value" id="expenses">-$0/min</span>
+                            </div>
+                            <div class="stat">
+                                <span class="label">Growth</span>
+                                <span class="value" id="growth">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h4>Citizen Needs</h4>
+                        <div class="needs-list">
+                            <div class="need">
+                                <span class="need-name">Housing</span>
+                                <div class="need-bar">
+                                    <div class="need-fill" id="housing-need" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="need">
+                                <span class="need-name">Jobs</span>
+                                <div class="need-bar">
+                                    <div class="need-fill" id="jobs-need" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="need">
+                                <span class="need-name">Shopping</span>
+                                <div class="need-bar">
+                                    <div class="need-fill" id="shopping-need" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div class="need">
+                                <span class="need-name">Healthcare</span>
+                                <div class="need-bar">
+                                    <div class="need-fill" id="healthcare-need" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-section">
+                        <h4>Recent Events</h4>
+                        <div class="events-list" id="events-list">
+                            <div class="event">
+                                <span class="event-time">00:00</span>
+                                <span class="event-text">Welcome to MetroSim!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Bottom Toolbar -->
+        <footer class="game-toolbar">
+            <div class="toolbar-section">
+                <button class="tool-btn active" id="select-tool" title="Select Tool">🖱️</button>
+                <button class="tool-btn" id="bulldoze-tool" title="Bulldoze">🚧</button>
+                <button class="tool-btn" id="road-tool" title="Build Roads">🛤️</button>
+                <button class="tool-btn" id="zone-tool" title="Zone Areas">📐</button>
+            </div>
+            
+            <div class="toolbar-section">
+                <button class="action-btn" id="research-btn">🔬 Research</button>
+                <button class="action-btn" id="budget-btn">💼 Budget</button>
+                <button class="action-btn" id="disasters-btn">🌪️ Disasters</button>
+                <button class="action-btn" id="achievements-btn">🏆 Achievements</button>
+            </div>
+            
+            <div class="toolbar-section">
+                <button class="action-btn" id="save-btn">💾 Save</button>
+                <button class="action-btn" id="load-btn">📁 Load</button>
+                <button class="action-btn" id="settings-btn">⚙️ Settings</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Windows -->
+    <div id="modal-overlay" class="modal-overlay">
+        <!-- Research Modal -->
+        <div id="research-modal" class="modal">
+            <div class="modal-header">
+                <h3>Research & Technology</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="research-tree" id="research-tree">
+                    <!-- Dynamic research tree -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements Modal -->
+        <div id="achievements-modal" class="modal">
+            <div class="modal-header">
+                <h3>Achievements</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Dynamic achievements -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div id="settings-modal" class="modal">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="settings-grid">
+                    <div class="setting">
+                        <label>Master Volume</label>
+                        <input type="range" id="master-volume" min="0" max="100" value="50">
+                    </div>
+                    <div class="setting">
+                        <label>Auto-Save</label>
+                        <input type="checkbox" id="auto-save" checked>
+                    </div>
+                    <div class="setting">
+                        <label>Show Tooltips</label>
+                        <input type="checkbox" id="show-tooltips" checked>
+                    </div>
+                    <div class="setting">
+                        <label>Graphics Quality</label>
+                        <select id="graphics-quality">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification System -->
+    <div id="notifications" class="notifications"></div>
+
+    <!-- Game Scripts -->
+    <script src="js/utils.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/buildings.js"></script>
+    <script src="js/citizens.js"></script>
+    <script src="js/economy.js"></script>
+    <script src="js/disasters.js"></script>
+    <script src="js/research.js"></script>
+    <script src="js/achievements.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/game.js"></script>
+    	<script src="js/main-init.js"></script>
+</body>
+</html>
