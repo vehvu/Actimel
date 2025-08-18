@@ -648,10 +648,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         navigator.clipboard.writeText(text).then(function() {
             const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check"></i>';
-            button.style.background = '#10b981';
-            button.style.borderColor = '#10b981';
-            button.style.color = 'white';
+            button.innerHTML = '<i class="fas fa-check"></i> Copied';
+            button.style.background = '#00ff41';
+            button.style.borderColor = '#00ff41';
+            button.style.color = '#000000';
             
             setTimeout(() => {
                 button.innerHTML = originalText;
@@ -660,11 +660,202 @@ document.addEventListener('DOMContentLoaded', function() {
                 button.style.color = 'var(--primary-color)';
             }, 2000);
             
-            showNotification('Code copied to clipboard!', 'success');
+            showNotification('📋 Code copied to clipboard!', 'success');
         }).catch(function(err) {
-            showNotification('Failed to copy code', 'error');
+            showNotification('❌ Failed to copy code', 'error');
         });
     };
+
+    // Code execution functionality
+    window.runCode = function(button, language) {
+        const codeBlock = button.closest('.code-snippet').querySelector('code');
+        const code = codeBlock.textContent;
+        const outputDiv = button.closest('.code-snippet').querySelector('.code-output');
+        
+        // Show loading state
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running';
+        button.disabled = true;
+        
+        // Clear previous output
+        outputDiv.innerHTML = '';
+        outputDiv.classList.add('show');
+        
+        setTimeout(() => {
+            try {
+                let result = '';
+                
+                if (language === 'javascript') {
+                    result = executeJavaScript(code);
+                } else if (language === 'lua') {
+                    result = simulateLuaExecution(code);
+                } else if (language === 'css') {
+                    result = demonstrateCSS(code);
+                } else {
+                    result = 'Language execution not supported in browser environment.';
+                }
+                
+                outputDiv.innerHTML = `
+                    <div style="color: var(--accent-color); margin-bottom: 0.5rem;">
+                        <i class="fas fa-terminal"></i> Output:
+                    </div>
+                    <pre style="margin: 0; white-space: pre-wrap;">${result}</pre>
+                `;
+                
+                showNotification('🚀 Code executed successfully!', 'success');
+                
+            } catch (error) {
+                outputDiv.innerHTML = `
+                    <div style="color: var(--secondary-color); margin-bottom: 0.5rem;">
+                        <i class="fas fa-exclamation-triangle"></i> Error:
+                    </div>
+                    <pre style="margin: 0; color: var(--secondary-color);">${error.message}</pre>
+                `;
+                
+                showNotification('❌ Code execution failed', 'error');
+            }
+            
+            // Restore button
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }, 1500);
+    };
+
+    function executeJavaScript(code) {
+        // Create a safe execution environment
+        const originalConsoleLog = console.log;
+        const logs = [];
+        
+        // Override console.log to capture output
+        console.log = function(...args) {
+            logs.push(args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : String(arg)
+            ).join(' '));
+        };
+        
+        try {
+            // Execute the code in a limited scope
+            const result = new Function(`
+                ${code}
+                return typeof dashboard !== 'undefined' ? 'Dashboard class created successfully!' : 'Code executed';
+            `)();
+            
+            // Restore console.log
+            console.log = originalConsoleLog;
+            
+            let output = '';
+            if (logs.length > 0) {
+                output += 'Console Output:\n' + logs.join('\n') + '\n\n';
+            }
+            output += 'Execution Result: ' + result;
+            
+            return output;
+            
+        } catch (error) {
+            console.log = originalConsoleLog;
+            throw error;
+        }
+    }
+
+    function simulateLuaExecution(code) {
+        // Simulate Lua execution with realistic output
+        const lines = code.split('\n');
+        const output = [];
+        
+        output.push('🚀 Lua Script Execution Simulation');
+        output.push('=====================================');
+        output.push('');
+        
+        // Simulate module loading
+        if (code.includes('require(')) {
+            output.push('📦 Loading modules...');
+            const modules = code.match(/require\('([^']+)'\)/g) || [];
+            modules.forEach(mod => {
+                const moduleName = mod.match(/require\('([^']+)'\)/)[1];
+                output.push(`   ✅ Loaded: ${moduleName}`);
+            });
+            output.push('');
+        }
+        
+        // Simulate PlayerManager initialization
+        if (code.includes('PlayerManager')) {
+            output.push('🎮 PlayerManager System');
+            output.push('------------------------');
+            output.push('✅ PlayerManager class defined');
+            output.push('✅ Event handlers registered');
+            output.push('✅ Worker threads created (4 threads)');
+            output.push('✅ Anti-cheat monitoring started');
+            output.push('✅ Database connection established');
+            output.push('');
+            
+            // Simulate player stats
+            output.push('📊 Current Server Stats:');
+            output.push('   Active Players: 1,247');
+            output.push('   Total Connections: 1,250');
+            output.push('   Average Latency: 45ms');
+            output.push('   Messages/sec: 2,341');
+            output.push('   Suspicious Activities: 3');
+            output.push('   Banned Players: 127');
+            output.push('');
+        }
+        
+        // Simulate function calls
+        if (code.includes('function')) {
+            const functions = code.match(/function\s+\w+:\w+/g) || [];
+            output.push('🔧 Available Functions:');
+            functions.slice(0, 5).forEach(func => {
+                const funcName = func.replace('function ', '').replace(':', '.');
+                output.push(`   • ${funcName}()`);
+            });
+            if (functions.length > 5) {
+                output.push(`   • ... and ${functions.length - 5} more functions`);
+            }
+            output.push('');
+        }
+        
+        output.push('✅ Script executed successfully');
+        output.push('⏱️  Execution time: 0.234 seconds');
+        output.push('💾 Memory usage: 15.7 MB');
+        
+        return output.join('\n');
+    }
+
+    function demonstrateCSS(code) {
+        const output = [];
+        
+        output.push('🎨 CSS Style Analysis');
+        output.push('=====================');
+        output.push('');
+        
+        // Analyze CSS features
+        if (code.includes('gradient')) {
+            output.push('✨ Gradient effects detected');
+        }
+        if (code.includes('animation')) {
+            output.push('🎬 CSS animations found');
+        }
+        if (code.includes('transform')) {
+            output.push('🔄 Transform properties detected');
+        }
+        if (code.includes('box-shadow')) {
+            output.push('💫 Shadow effects applied');
+        }
+        if (code.includes('@keyframes')) {
+            output.push('🎭 Custom keyframe animations defined');
+        }
+        
+        output.push('');
+        output.push('📱 Responsive Design Features:');
+        output.push('   • Mobile-first approach');
+        output.push('   • Flexible grid layouts');
+        output.push('   • Smooth transitions');
+        output.push('   • Cross-browser compatibility');
+        
+        output.push('');
+        output.push('✅ CSS would render beautiful animations and effects!');
+        
+        return output.join('\n');
+    }
 
     // Matrix rain effect for techy look
     function createMatrixRain() {

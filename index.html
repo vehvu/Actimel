@@ -187,30 +187,252 @@
                     <div class="code-snippet">
                         <div class="code-header">
                             <span class="code-lang">JavaScript</span>
-                            <button class="copy-code" onclick="copyCode(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                            <div class="code-actions">
+                                <button class="copy-code" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="run-code" onclick="runCode(this, 'javascript')">
+                                    <i class="fas fa-play"></i> Run
+                                </button>
+                            </div>
                         </div>
-                        <pre><code>// Real-time data visualization
-const updateDashboard = async () => {
-  const data = await fetchAnalytics();
-  const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: data.timestamps,
-      datasets: [{
-        label: 'Active Users',
-        data: data.values,
-        borderColor: '#667eea',
-        tension: 0.4
-      }]
-    },
-    options: {
-      responsive: true,
-      animation: { duration: 800 }
+                        <pre><code>// Advanced Real-time Analytics Dashboard
+class AnalyticsDashboard {
+  constructor(containerId, config = {}) {
+    this.container = document.getElementById(containerId);
+    this.config = {
+      updateInterval: config.updateInterval || 5000,
+      maxDataPoints: config.maxDataPoints || 50,
+      theme: config.theme || 'dark',
+      ...config
+    };
+    this.charts = new Map();
+    this.websocket = null;
+    this.dataCache = new Map();
+    this.init();
+  }
+
+  async init() {
+    await this.setupWebSocket();
+    this.createDashboardLayout();
+    this.initializeCharts();
+    this.startDataCollection();
+    console.log('✅ Dashboard initialized successfully');
+  }
+
+  async setupWebSocket() {
+    this.websocket = new WebSocket('wss://api.analytics.dev/realtime');
+    
+    this.websocket.onopen = () => {
+      console.log('🔌 WebSocket connected');
+      this.websocket.send(JSON.stringify({
+        action: 'subscribe',
+        channels: ['users', 'revenue', 'performance']
+      }));
+    };
+
+    this.websocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      this.processRealtimeData(data);
+    };
+
+    this.websocket.onerror = (error) => {
+      console.error('❌ WebSocket error:', error);
+      this.fallbackToPolling();
+    };
+  }
+
+  createDashboardLayout() {
+    this.container.innerHTML = `
+      <div class="dashboard-grid">
+        <div class="chart-container" id="users-chart">
+          <h3>Active Users</h3>
+          <canvas id="users-canvas"></canvas>
+        </div>
+        <div class="chart-container" id="revenue-chart">
+          <h3>Revenue Stream</h3>
+          <canvas id="revenue-canvas"></canvas>
+        </div>
+        <div class="metrics-panel">
+          <div class="metric" id="total-users">
+            <span class="metric-value">0</span>
+            <span class="metric-label">Total Users</span>
+          </div>
+          <div class="metric" id="conversion-rate">
+            <span class="metric-value">0%</span>
+            <span class="metric-label">Conversion Rate</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  initializeCharts() {
+    // Users Chart
+    const usersCtx = document.getElementById('users-canvas').getContext('2d');
+    this.charts.set('users', new Chart(usersCtx, {
+      type: 'line',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Active Users',
+          data: [],
+          borderColor: '#00ffff',
+          backgroundColor: 'rgba(0, 255, 255, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        },
+        animation: { duration: 800 }
+      }
+    }));
+
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenue-canvas').getContext('2d');
+    this.charts.set('revenue', new Chart(revenueCtx, {
+      type: 'bar',
+      data: {
+        labels: [],
+        datasets: [{
+          label: 'Revenue',
+          data: [],
+          backgroundColor: '#00ff41',
+          borderColor: '#00ff41',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false }
+        },
+        animation: { duration: 1000 }
+      }
+    }));
+  }
+
+  processRealtimeData(data) {
+    const { type, payload, timestamp } = data;
+    
+    // Cache the data
+    if (!this.dataCache.has(type)) {
+      this.dataCache.set(type, []);
     }
-  });
-};</code></pre>
+    
+    const cache = this.dataCache.get(type);
+    cache.push({ ...payload, timestamp });
+    
+    // Keep only recent data
+    if (cache.length > this.config.maxDataPoints) {
+      cache.shift();
+    }
+    
+    // Update appropriate chart
+    this.updateChart(type, cache);
+    this.updateMetrics(type, payload);
+  }
+
+  updateChart(type, data) {
+    const chart = this.charts.get(type);
+    if (!chart) return;
+
+    chart.data.labels = data.map(d => 
+      new Date(d.timestamp).toLocaleTimeString()
+    );
+    chart.data.datasets[0].data = data.map(d => d.value);
+    chart.update('none'); // Smooth update without animation
+  }
+
+  updateMetrics(type, payload) {
+    if (type === 'users') {
+      document.getElementById('total-users')
+        .querySelector('.metric-value')
+        .textContent = payload.total.toLocaleString();
+    }
+    
+    if (type === 'conversion') {
+      document.getElementById('conversion-rate')
+        .querySelector('.metric-value')
+        .textContent = `${payload.rate.toFixed(2)}%`;
+    }
+  }
+
+  async startDataCollection() {
+    // Simulate initial data load
+    const initialData = await this.fetchHistoricalData();
+    initialData.forEach(data => this.processRealtimeData(data));
+    
+    // Start periodic updates if WebSocket fails
+    if (!this.websocket || this.websocket.readyState !== WebSocket.OPEN) {
+      this.fallbackToPolling();
+    }
+  }
+
+  fallbackToPolling() {
+    console.log('📡 Falling back to polling mode');
+    setInterval(async () => {
+      try {
+        const data = await this.fetchLatestData();
+        data.forEach(d => this.processRealtimeData(d));
+      } catch (error) {
+        console.error('❌ Polling error:', error);
+      }
+    }, this.config.updateInterval);
+  }
+
+  async fetchHistoricalData() {
+    // Simulate API call
+    return new Array(20).fill(0).map((_, i) => ({
+      type: 'users',
+      payload: { 
+        value: Math.floor(Math.random() * 1000) + 500,
+        total: Math.floor(Math.random() * 10000) + 5000
+      },
+      timestamp: Date.now() - (19 - i) * 60000
+    }));
+  }
+
+  async fetchLatestData() {
+    // Simulate real API calls
+    return [
+      {
+        type: 'users',
+        payload: { 
+          value: Math.floor(Math.random() * 1000) + 500,
+          total: Math.floor(Math.random() * 10000) + 5000
+        },
+        timestamp: Date.now()
+      }
+    ];
+  }
+
+  destroy() {
+    if (this.websocket) {
+      this.websocket.close();
+    }
+    this.charts.forEach(chart => chart.destroy());
+    this.charts.clear();
+    this.dataCache.clear();
+  }
+}
+
+// Initialize dashboard
+const dashboard = new AnalyticsDashboard('dashboard-container', {
+  updateInterval: 3000,
+  maxDataPoints: 30,
+  theme: 'dark'
+});</code></pre>
+                        <div class="code-output" id="js-output-1"></div>
                     </div>
                     <div class="project-links">
                         <a href="#" class="project-link">
@@ -241,33 +463,394 @@ const updateDashboard = async () => {
                     <div class="code-snippet">
                         <div class="code-header">
                             <span class="code-lang">Lua</span>
-                            <button class="copy-code" onclick="copyCode(this)">
-                                <i class="fas fa-copy"></i>
-                            </button>
+                            <div class="code-actions">
+                                <button class="copy-code" onclick="copyCode(this)">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="run-code" onclick="runCode(this, 'lua')">
+                                    <i class="fas fa-play"></i> Run
+                                </button>
+                            </div>
                         </div>
-                        <pre><code>-- Advanced player management system
+                        <pre><code>-- Advanced MMO Game Server Architecture
+-- Multi-threaded player management with event system
+
 local PlayerManager = {}
 PlayerManager.__index = PlayerManager
 
-function PlayerManager:new()
+-- Dependencies
+local EventBus = require('core.events')
+local Database = require('core.database')
+local NetworkManager = require('core.network')
+local SecurityManager = require('core.security')
+local Logger = require('utils.logger')
+
+-- Constants
+local MAX_PLAYERS_PER_ZONE = 100
+local HEARTBEAT_INTERVAL = 30
+local SESSION_TIMEOUT = 300
+local ANTI_CHEAT_CHECKS = {
+    'speed_check', 'position_validation', 'action_rate_limit'
+}
+
+function PlayerManager:new(config)
     local instance = {
         players = {},
-        events = {},
-        config = require('config')
+        zones = {},
+        events = EventBus:new(),
+        database = Database:connect(config.db),
+        network = NetworkManager:new(config.network),
+        security = SecurityManager:new(config.security),
+        config = config or {},
+        
+        -- Performance metrics
+        metrics = {
+            totalPlayers = 0,
+            activeConnections = 0,
+            messagesPerSecond = 0,
+            averageLatency = 0
+        },
+        
+        -- Threading
+        workerThreads = {},
+        taskQueue = {},
+        
+        -- Caching
+        playerCache = {},
+        inventoryCache = {},
+        
+        -- Anti-cheat
+        suspiciousActivities = {},
+        bannedPlayers = {}
     }
+    
     setmetatable(instance, PlayerManager)
+    instance:initialize()
     return instance
 end
 
-function PlayerManager:addPlayer(playerId, data)
-    self.players[playerId] = {
+function PlayerManager:initialize()
+    Logger:info("🚀 Initializing PlayerManager...")
+    
+    -- Setup event handlers
+    self:registerEventHandlers()
+    
+    -- Initialize worker threads
+    self:createWorkerThreads()
+    
+    -- Start background services
+    self:startHeartbeatService()
+    self:startAntiCheatMonitoring()
+    self:startMetricsCollection()
+    
+    -- Load banned players from database
+    self:loadBannedPlayers()
+    
+    Logger:info("✅ PlayerManager initialized successfully")
+end
+
+function PlayerManager:registerEventHandlers()
+    self.events:on('player_connect', function(playerId, connectionData)
+        self:handlePlayerConnection(playerId, connectionData)
+    end)
+    
+    self.events:on('player_disconnect', function(playerId, reason)
+        self:handlePlayerDisconnection(playerId, reason)
+    end)
+    
+    self.events:on('player_action', function(playerId, action, data)
+        self:validateAndProcessAction(playerId, action, data)
+    end)
+    
+    self.events:on('zone_transfer', function(playerId, fromZone, toZone)
+        self:handleZoneTransfer(playerId, fromZone, toZone)
+    end)
+end
+
+function PlayerManager:createWorkerThreads()
+    local threadCount = self.config.workerThreads or 4
+    
+    for i = 1, threadCount do
+        local thread = coroutine.create(function()
+            while true do
+                local task = table.remove(self.taskQueue, 1)
+                if task then
+                    self:executeTask(task)
+                else
+                    coroutine.yield()
+                end
+            end
+        end)
+        
+        table.insert(self.workerThreads, thread)
+        Logger:debug("Created worker thread #" .. i)
+    end
+end
+
+function PlayerManager:addPlayer(playerId, connectionData)
+    -- Security validation
+    if self:isPlayerBanned(playerId) then
+        Logger:warn("🚫 Banned player attempted connection: " .. playerId)
+        return false, "Player is banned"
+    end
+    
+    -- Check server capacity
+    if self.metrics.totalPlayers >= self.config.maxPlayers then
+        Logger:warn("🏠 Server full, rejecting player: " .. playerId)
+        return false, "Server is full"
+    end
+    
+    -- Load player data from database
+    local playerData = self:loadPlayerData(playerId)
+    if not playerData then
+        Logger:error("❌ Failed to load player data: " .. playerId)
+        return false, "Data load failed"
+    end
+    
+    -- Create player instance
+    local player = {
         id = playerId,
-        data = data,
+        sessionId = self:generateSessionId(),
+        data = playerData,
+        connection = connectionData,
+        
+        -- State management
+        state = 'connecting',
+        lastActivity = os.time(),
         joinTime = os.time(),
-        active = true
+        
+        -- Position and zone
+        position = playerData.lastPosition or {x = 0, y = 0, z = 0},
+        currentZone = playerData.lastZone or 'starter_zone',
+        
+        -- Game state
+        health = playerData.health or 100,
+        mana = playerData.mana or 100,
+        level = playerData.level or 1,
+        experience = playerData.experience or 0,
+        
+        -- Inventory and equipment
+        inventory = self:loadPlayerInventory(playerId),
+        equipment = self:loadPlayerEquipment(playerId),
+        
+        -- Social features
+        guild = playerData.guild,
+        friends = playerData.friends or {},
+        
+        -- Performance tracking
+        latency = 0,
+        packetsReceived = 0,
+        packetsSent = 0,
+        
+        -- Anti-cheat data
+        lastPositions = {},
+        actionTimestamps = {},
+        suspicionLevel = 0
     }
-    self:triggerEvent('playerJoined', playerId)
-end</code></pre>
+    
+    -- Add to active players
+    self.players[playerId] = player
+    self.playerCache[playerId] = player
+    
+    -- Assign to zone
+    self:assignPlayerToZone(playerId, player.currentZone)
+    
+    -- Update metrics
+    self.metrics.totalPlayers = self.metrics.totalPlayers + 1
+    self.metrics.activeConnections = self.metrics.activeConnections + 1
+    
+    -- Send welcome packet
+    self:sendWelcomePacket(player)
+    
+    -- Trigger events
+    self.events:emit('playerJoined', playerId, player)
+    
+    Logger:info("👤 Player joined: " .. playerId .. " (Total: " .. self.metrics.totalPlayers .. ")")
+    return true, "Player added successfully"
+end
+
+function PlayerManager:removePlayer(playerId, reason)
+    local player = self.players[playerId]
+    if not player then
+        Logger:warn("⚠️ Attempted to remove non-existent player: " .. playerId)
+        return false
+    end
+    
+    -- Save player data
+    self:savePlayerData(player)
+    
+    -- Remove from zone
+    self:removePlayerFromZone(playerId, player.currentZone)
+    
+    -- Clean up caches
+    self.playerCache[playerId] = nil
+    self.inventoryCache[playerId] = nil
+    
+    -- Update metrics
+    self.metrics.totalPlayers = self.metrics.totalPlayers - 1
+    self.metrics.activeConnections = self.metrics.activeConnections - 1
+    
+    -- Remove from active players
+    self.players[playerId] = nil
+    
+    -- Trigger events
+    self.events:emit('playerLeft', playerId, reason)
+    
+    Logger:info("👋 Player left: " .. playerId .. " (" .. reason .. ")")
+    return true
+end
+
+function PlayerManager:validateAndProcessAction(playerId, action, data)
+    local player = self.players[playerId]
+    if not player then return false end
+    
+    -- Update last activity
+    player.lastActivity = os.time()
+    
+    -- Anti-cheat validation
+    if not self:validateAction(player, action, data) then
+        self:flagSuspiciousActivity(playerId, action, data)
+        return false
+    end
+    
+    -- Rate limiting
+    if not self:checkActionRateLimit(player, action) then
+        Logger:warn("🚨 Rate limit exceeded: " .. playerId .. " - " .. action)
+        return false
+    end
+    
+    -- Process action based on type
+    local success = false
+    if action == 'move' then
+        success = self:processMovement(player, data)
+    elseif action == 'chat' then
+        success = self:processChatMessage(player, data)
+    elseif action == 'combat' then
+        success = self:processCombatAction(player, data)
+    elseif action == 'trade' then
+        success = self:processTradeAction(player, data)
+    elseif action == 'skill' then
+        success = self:processSkillAction(player, data)
+    else
+        Logger:warn("❓ Unknown action type: " .. action)
+        return false
+    end
+    
+    if success then
+        -- Update action timestamp
+        table.insert(player.actionTimestamps, {
+            action = action,
+            timestamp = os.time(),
+            data = data
+        })
+        
+        -- Keep only recent actions
+        if #player.actionTimestamps > 100 then
+            table.remove(player.actionTimestamps, 1)
+        end
+    end
+    
+    return success
+end
+
+function PlayerManager:processMovement(player, moveData)
+    local newPosition = moveData.position
+    local timestamp = moveData.timestamp
+    
+    -- Validate position
+    if not self:isValidPosition(newPosition) then
+        Logger:warn("🚨 Invalid position from player: " .. player.id)
+        return false
+    end
+    
+    -- Check for teleportation/speed hacking
+    local distance = self:calculateDistance(player.position, newPosition)
+    local timeDiff = timestamp - (player.lastMoveTime or timestamp)
+    local maxSpeed = self:getPlayerMaxSpeed(player)
+    
+    if timeDiff > 0 and distance / timeDiff > maxSpeed then
+        self:flagSuspiciousActivity(player.id, 'speed_hack', {
+            distance = distance,
+            time = timeDiff,
+            speed = distance / timeDiff,
+            maxSpeed = maxSpeed
+        })
+        return false
+    end
+    
+    -- Update player position
+    player.position = newPosition
+    player.lastMoveTime = timestamp
+    
+    -- Add to position history for anti-cheat
+    table.insert(player.lastPositions, {
+        position = newPosition,
+        timestamp = timestamp
+    })
+    
+    -- Keep only recent positions
+    if #player.lastPositions > 50 then
+        table.remove(player.lastPositions, 1)
+    end
+    
+    -- Check for zone transfer
+    local newZone = self:getZoneForPosition(newPosition)
+    if newZone ~= player.currentZone then
+        self:initiateZoneTransfer(player.id, player.currentZone, newZone)
+    end
+    
+    -- Broadcast position to nearby players
+    self:broadcastToNearbyPlayers(player.id, {
+        type = 'player_moved',
+        playerId = player.id,
+        position = newPosition,
+        timestamp = timestamp
+    })
+    
+    return true
+end
+
+function PlayerManager:startHeartbeatService()
+    local heartbeatCoroutine = coroutine.create(function()
+        while true do
+            local currentTime = os.time()
+            
+            for playerId, player in pairs(self.players) do
+                -- Check for inactive players
+                if currentTime - player.lastActivity > SESSION_TIMEOUT then
+                    Logger:info("⏰ Player session timeout: " .. playerId)
+                    self:removePlayer(playerId, "session_timeout")
+                end
+                
+                -- Send heartbeat
+                if (currentTime - (player.lastHeartbeat or 0)) > HEARTBEAT_INTERVAL then
+                    self:sendHeartbeat(player)
+                    player.lastHeartbeat = currentTime
+                end
+            end
+            
+            -- Wait before next iteration
+            coroutine.yield()
+        end
+    end)
+    
+    table.insert(self.workerThreads, heartbeatCoroutine)
+end
+
+function PlayerManager:getPlayerStats()
+    return {
+        totalPlayers = self.metrics.totalPlayers,
+        activeConnections = self.metrics.activeConnections,
+        averageLatency = self.metrics.averageLatency,
+        messagesPerSecond = self.metrics.messagesPerSecond,
+        suspiciousActivities = #self.suspiciousActivities,
+        bannedPlayers = #self.bannedPlayers
+    }
+end
+
+-- Export the module
+return PlayerManager</code></pre>
+                        <div class="code-output" id="lua-output-1"></div>
                     </div>
                     <div class="project-links">
                         <a href="#" class="project-link">
