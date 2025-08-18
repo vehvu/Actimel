@@ -6,6 +6,7 @@ let isPaused = false;
 let scrollCount = 0;
 let dynamicSectionCount = 0;
 let cursorTrails = [];
+let isInsaneMode = false;
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
@@ -16,12 +17,18 @@ document.addEventListener('DOMContentLoaded', function() {
     initFractalArt();
     initParticleSystem();
     initGlitchEffects();
+    initDNAVisualization();
+    initMatrixRain();
+    initNeuralNetworks();
+    initSoundWaves();
+    initQuantumEffects();
     initInfiniteScroll();
     initAudioVisualizer();
     initCursorEffects();
     initEasterEggs();
     initScrollProgress();
     initDynamicSections();
+    initBackgroundParticles();
 });
 
 // Loading Screen
@@ -73,6 +80,9 @@ function initArtInstallation() {
                     break;
                 case 'fullscreen':
                     toggleFullscreen();
+                    break;
+                case 'insane':
+                    toggleInsaneMode();
                     break;
             }
         });
@@ -832,3 +842,653 @@ function cleanup() {
 
 // Cleanup on page unload
 window.addEventListener('beforeunload', cleanup);
+
+// DNA Visualization
+function initDNAVisualization() {
+    const canvas = document.getElementById('dnaCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let time = 0;
+    let dnaStrands = [];
+
+    // Create DNA strands
+    for (let i = 0; i < 20; i++) {
+        dnaStrands.push({
+            x: (i / 19) * canvas.width,
+            y: 0,
+            phase: Math.random() * Math.PI * 2,
+            amplitude: 30 + Math.random() * 20
+        });
+    }
+
+    function animateDNA() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw DNA helix
+        ctx.strokeStyle = '#00ff88';
+        ctx.lineWidth = 2;
+        
+        for (let i = 0; i < dnaStrands.length; i++) {
+            const strand = dnaStrands[i];
+            const y = strand.y;
+            const x = strand.x + Math.sin(time + strand.phase) * strand.amplitude;
+            
+            // Draw base pairs
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + 20);
+            ctx.stroke();
+            
+            // Draw complementary strand
+            ctx.beginPath();
+            ctx.moveTo(canvas.width - x, y);
+            ctx.lineTo(canvas.width - x, y + 20);
+            ctx.stroke();
+            
+            strand.y += 2;
+            if (strand.y > canvas.height) {
+                strand.y = -20;
+            }
+        }
+        
+        time += 0.05;
+        requestAnimationFrame(animateDNA);
+    }
+
+    animateDNA();
+
+    // DNA controls
+    const dnaBtns = document.querySelectorAll('.dna-btn');
+    dnaBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            switch(action) {
+                case 'mutate':
+                    mutateDNA();
+                    break;
+                case 'evolve':
+                    evolveDNA();
+                    break;
+                case 'replicate':
+                    replicateDNA();
+                    break;
+            }
+        });
+    });
+}
+
+function mutateDNA() {
+    const canvas = document.getElementById('dnaCanvas');
+    if (!canvas) return;
+    
+    // Create mutation effect
+    for (let i = 0; i < 10; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: absolute;
+            left: ${Math.random() * canvas.width}px;
+            top: ${Math.random() * canvas.height}px;
+            width: 4px;
+            height: 4px;
+            background: #ff0066;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 1000;
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 2000);
+    }
+}
+
+function evolveDNA() {
+    // Increase DNA complexity
+    const canvas = document.getElementById('dnaCanvas');
+    if (!canvas) return;
+    
+    canvas.style.filter = 'hue-rotate(180deg)';
+    setTimeout(() => {
+        canvas.style.filter = '';
+    }, 1000);
+}
+
+function replicateDNA() {
+    // Create DNA replication effect
+    const canvas = document.getElementById('dnaCanvas');
+    if (!canvas) return;
+    
+    canvas.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+        canvas.style.transform = 'scale(1)';
+    }, 500);
+}
+
+// Matrix Rain
+function initMatrixRain() {
+    const canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+    const matrixArray = matrix.split("");
+
+    const fontSize = 10;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) {
+        drops[x] = 1;
+    }
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#0F0';
+        ctx.font = fontSize + 'px monospace';
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+    }
+
+    setInterval(drawMatrix, 35);
+
+    // Matrix controls
+    const matrixBtns = document.querySelectorAll('.matrix-btn');
+    matrixBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            switch(action) {
+                case 'hack':
+                    hackMatrix();
+                    break;
+                case 'glitch':
+                    glitchMatrix();
+                    break;
+                case 'reset':
+                    resetMatrix();
+                    break;
+            }
+        });
+    });
+}
+
+function hackMatrix() {
+    const canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+    
+    canvas.style.filter = 'invert(1) hue-rotate(180deg)';
+    setTimeout(() => {
+        canvas.style.filter = '';
+    }, 2000);
+}
+
+function glitchMatrix() {
+    const canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+    
+    setInterval(() => {
+        canvas.style.transform = `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
+    }, 100);
+    
+    setTimeout(() => {
+        canvas.style.transform = '';
+    }, 3000);
+}
+
+function resetMatrix() {
+    const canvas = document.getElementById('matrixCanvas');
+    if (!canvas) return;
+    
+    canvas.style.filter = '';
+    canvas.style.transform = '';
+}
+
+// Neural Networks
+function initNeuralNetworks() {
+    const canvas = document.getElementById('neuralCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let neurons = [];
+    let connections = [];
+
+    // Create neurons
+    for (let i = 0; i < 15; i++) {
+        neurons.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 2,
+            vy: (Math.random() - 0.5) * 2,
+            size: Math.random() * 8 + 4,
+            firing: false
+        });
+    }
+
+    // Create connections
+    for (let i = 0; i < neurons.length; i++) {
+        for (let j = i + 1; j < neurons.length; j++) {
+            if (Math.random() > 0.7) {
+                connections.push({
+                    from: i,
+                    to: j,
+                    strength: Math.random()
+                });
+            }
+        }
+    }
+
+    function animateNeural() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Update neurons
+        neurons.forEach(neuron => {
+            neuron.x += neuron.vx;
+            neuron.y += neuron.vy;
+
+            if (neuron.x < 0 || neuron.x > canvas.width) neuron.vx *= -1;
+            if (neuron.y < 0 || neuron.y > canvas.height) neuron.vy *= -1;
+
+            // Draw neuron
+            ctx.beginPath();
+            ctx.arc(neuron.x, neuron.y, neuron.size, 0, Math.PI * 2);
+            ctx.fillStyle = neuron.firing ? '#ff8800' : '#fff';
+            ctx.fill();
+            ctx.strokeStyle = '#ff8800';
+            ctx.stroke();
+        });
+
+        // Draw connections
+        connections.forEach(connection => {
+            const from = neurons[connection.from];
+            const to = neurons[connection.to];
+            
+            ctx.beginPath();
+            ctx.moveTo(from.x, from.y);
+            ctx.lineTo(to.x, to.y);
+            ctx.strokeStyle = `rgba(255, 136, 0, ${connection.strength})`;
+            ctx.lineWidth = connection.strength * 3;
+            ctx.stroke();
+        });
+
+        requestAnimationFrame(animateNeural);
+    }
+
+    animateNeural();
+
+    // Neural controls
+    const neuralBtns = document.querySelectorAll('.neural-btn');
+    neuralBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            switch(action) {
+                case 'learn':
+                    learnNeural();
+                    break;
+                case 'connect':
+                    connectNeural();
+                    break;
+                case 'fire':
+                    fireNeural();
+                    break;
+            }
+        });
+    });
+}
+
+function learnNeural() {
+    // Simulate learning
+    neurons.forEach(neuron => {
+        neuron.size += Math.random() * 2;
+        if (neuron.size > 15) neuron.size = 15;
+    });
+}
+
+function connectNeural() {
+    // Add new connections
+    for (let i = 0; i < 3; i++) {
+        const from = Math.floor(Math.random() * neurons.length);
+        const to = Math.floor(Math.random() * neurons.length);
+        if (from !== to) {
+            connections.push({
+                from: from,
+                to: to,
+                strength: Math.random()
+            });
+        }
+    }
+}
+
+function fireNeural() {
+    // Fire random neurons
+    neurons.forEach(neuron => {
+        if (Math.random() > 0.8) {
+            neuron.firing = true;
+            setTimeout(() => {
+                neuron.firing = false;
+            }, 1000);
+        }
+    });
+}
+
+// Sound Waves
+function initSoundWaves() {
+    const canvas = document.getElementById('soundCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let time = 0;
+    let waves = [];
+
+    // Create multiple waves
+    for (let i = 0; i < 5; i++) {
+        waves.push({
+            frequency: 0.02 + i * 0.01,
+            amplitude: 50 + i * 20,
+            phase: i * Math.PI / 3,
+            color: `hsl(${i * 60}, 70%, 60%)`
+        });
+    }
+
+    function animateSound() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        waves.forEach((wave, index) => {
+            ctx.strokeStyle = wave.color;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            for (let x = 0; x < canvas.width; x++) {
+                const y = canvas.height / 2 + 
+                    Math.sin(x * wave.frequency + time + wave.phase) * wave.amplitude;
+                
+                if (x === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            ctx.stroke();
+        });
+
+        time += 0.05;
+        requestAnimationFrame(animateSound);
+    }
+
+    animateSound();
+
+    // Sound controls
+    const soundBtns = document.querySelectorAll('.sound-btn');
+    soundBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            switch(action) {
+                case 'play':
+                    playSound();
+                    break;
+                case 'visualize':
+                    visualizeSound();
+                    break;
+                case 'distort':
+                    distortSound();
+                    break;
+            }
+        });
+    });
+}
+
+function playSound() {
+    // Create audio context and play tone
+    try {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+        oscillator.type = 'sine';
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+        
+        oscillator.start(audioContext.currentTime);
+        oscillator.stop(audioContext.currentTime + 1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function visualizeSound() {
+    // Enhance visualization
+    waves.forEach(wave => {
+        wave.amplitude *= 1.5;
+        if (wave.amplitude > 150) wave.amplitude = 150;
+    });
+}
+
+function distortSound() {
+    // Distort waves
+    waves.forEach(wave => {
+        wave.frequency *= 1.2;
+        wave.phase += Math.PI / 4;
+    });
+}
+
+// Quantum Effects
+function initQuantumEffects() {
+    const canvas = document.getElementById('quantumCanvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    let particles = [];
+    let time = 0;
+
+    // Create quantum particles
+    for (let i = 0; i < 20; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+            size: Math.random() * 6 + 3,
+            phase: Math.random() * Math.PI * 2,
+            entangled: Math.floor(Math.random() * 20)
+        });
+    }
+
+    function animateQuantum() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((particle, index) => {
+            // Update position
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+
+            // Bounce off walls
+            if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+            if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+            // Quantum uncertainty
+            const uncertainty = Math.sin(time + particle.phase) * 2;
+            
+            // Draw particle
+            ctx.beginPath();
+            ctx.arc(particle.x + uncertainty, particle.y + uncertainty, particle.size, 0, Math.PI * 2);
+            ctx.fillStyle = `hsl(${280 + uncertainty * 20}, 70%, 60%)`;
+            ctx.fill();
+
+            // Draw entanglement lines
+            if (particle.entangled < particles.length) {
+                const entangled = particles[particle.entangled];
+                ctx.strokeStyle = `rgba(136, 0, 255, 0.3)`;
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(particle.x, particle.y);
+                ctx.lineTo(entangled.x, entangled.y);
+                ctx.stroke();
+            }
+        });
+
+        time += 0.02;
+        requestAnimationFrame(animateQuantum);
+    }
+
+    animateQuantum();
+
+    // Quantum controls
+    const quantumBtns = document.querySelectorAll('.quantum-btn');
+    quantumBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const action = btn.dataset.action;
+            switch(action) {
+                case 'superposition':
+                    superposition();
+                    break;
+                case 'entangle':
+                    entangle();
+                    break;
+                case 'collapse':
+                    collapse();
+                    break;
+            }
+        });
+    });
+}
+
+function superposition() {
+    // Create superposition effect
+    particles.forEach(particle => {
+        particle.x += (Math.random() - 0.5) * 50;
+        particle.y += (Math.random() - 0.5) * 50;
+    });
+}
+
+function entangle() {
+    // Create new entanglements
+    particles.forEach(particle => {
+        particle.entangled = Math.floor(Math.random() * particles.length);
+    });
+}
+
+function collapse() {
+    // Collapse quantum states
+    particles.forEach(particle => {
+        particle.vx = 0;
+        particle.vy = 0;
+        setTimeout(() => {
+            particle.vx = (Math.random() - 0.5) * 4;
+            particle.vy = (Math.random() - 0.5) * 4;
+        }, 1000);
+    });
+}
+
+// Insane Mode
+function toggleInsaneMode() {
+    isInsaneMode = !isInsaneMode;
+    
+    if (isInsaneMode) {
+        document.body.classList.add('insane-mode');
+        triggerInsaneEffects();
+    } else {
+        document.body.classList.remove('insane-mode');
+        stopInsaneEffects();
+    }
+}
+
+function triggerInsaneEffects() {
+    // Make everything go crazy
+    setInterval(() => {
+        if (isInsaneMode) {
+            document.body.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+            document.body.style.transform = `scale(${0.9 + Math.random() * 0.2})`;
+        }
+    }, 100);
+
+    // Create insane particle explosions
+    setInterval(() => {
+        if (isInsaneMode) {
+            createInsaneExplosion();
+        }
+    }, 500);
+}
+
+function createInsaneExplosion() {
+    for (let i = 0; i < 30; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+            position: fixed;
+            left: ${Math.random() * window.innerWidth}px;
+            top: ${Math.random() * window.innerHeight}px;
+            width: ${Math.random() * 10 + 5}px;
+            height: ${Math.random() * 10 + 5}px;
+            background: hsl(${Math.random() * 360}, 70%, 60%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            animation: insaneFloat 2s ease-out forwards;
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 2000);
+    }
+}
+
+function stopInsaneEffects() {
+    document.body.style.filter = '';
+    document.body.style.transform = '';
+}
+
+// Background Particles
+function initBackgroundParticles() {
+    const container = document.getElementById('backgroundParticles');
+    
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'background-particle';
+        particle.style.left = Math.random() * window.innerWidth + 'px';
+        particle.style.animationDelay = Math.random() * 10 + 's';
+        particle.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        
+        container.appendChild(particle);
+        
+        setTimeout(() => {
+            if (particle.parentNode) {
+                particle.remove();
+            }
+        }, 15000);
+    }
+    
+    // Create particles continuously
+    setInterval(createParticle, 200);
+}

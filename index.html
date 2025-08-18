@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Orbitron:wght@400;700;900&family=Syncopate:wght@400;700&family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Audio Context for Sound Art -->
@@ -26,6 +26,9 @@
             <span class="loading-char" data-char="G">G</span>
         </div>
         <div class="loading-subtitle">Entering the infinite...</div>
+        <div class="loading-progress">
+            <div class="loading-bar"></div>
+        </div>
     </div>
 
     <!-- Main Art Container -->
@@ -50,6 +53,7 @@
                 <div class="floating-element" data-speed="0.8"></div>
                 <div class="floating-element" data-speed="1.2"></div>
             </div>
+            <div class="matrix-rain"></div>
         </section>
 
         <section class="art-section generative-section" data-section="generative">
@@ -120,6 +124,76 @@
             </div>
         </section>
 
+        <section class="art-section dna-section" data-section="dna">
+            <div class="section-content">
+                <h2 class="section-title">Digital DNA</h2>
+                <div class="dna-container">
+                    <canvas id="dnaCanvas" class="dna-canvas"></canvas>
+                </div>
+                <div class="dna-controls">
+                    <button class="dna-btn" data-action="mutate">Mutate</button>
+                    <button class="dna-btn" data-action="evolve">Evolve</button>
+                    <button class="dna-btn" data-action="replicate">Replicate</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="art-section matrix-section" data-section="matrix">
+            <div class="section-content">
+                <h2 class="section-title">Matrix Rain</h2>
+                <div class="matrix-container">
+                    <canvas id="matrixCanvas" class="matrix-canvas"></canvas>
+                </div>
+                <div class="matrix-controls">
+                    <button class="matrix-btn" data-action="hack">Hack</button>
+                    <button class="matrix-btn" data-action="glitch">Glitch</button>
+                    <button class="matrix-btn" data-action="reset">Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="art-section neural-section" data-section="neural">
+            <div class="section-content">
+                <h2 class="section-title">Neural Networks</h2>
+                <div class="neural-container">
+                    <canvas id="neuralCanvas" class="neural-canvas"></canvas>
+                </div>
+                <div class="neural-controls">
+                    <button class="neural-btn" data-action="learn">Learn</button>
+                    <button class="neural-btn" data-action="connect">Connect</button>
+                    <button class="neural-btn" data-action="fire">Fire</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="art-section sound-section" data-section="sound">
+            <div class="section-content">
+                <h2 class="section-title">Sound Waves</h2>
+                <div class="sound-container">
+                    <canvas id="soundCanvas" class="sound-canvas"></canvas>
+                </div>
+                <div class="sound-controls">
+                    <button class="sound-btn" data-action="play">Play</button>
+                    <button class="sound-btn" data-action="visualize">Visualize</button>
+                    <button class="sound-btn" data-action="distort">Distort</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="art-section quantum-section" data-section="quantum">
+            <div class="section-content">
+                <h2 class="section-title">Quantum States</h2>
+                <div class="quantum-container">
+                    <canvas id="quantumCanvas" class="quantum-canvas"></canvas>
+                </div>
+                <div class="quantum-controls">
+                    <button class="quantum-btn" data-action="superposition">Superposition</button>
+                    <button class="quantum-btn" data-action="entangle">Entangle</button>
+                    <button class="quantum-btn" data-action="collapse">Collapse</button>
+                </div>
+            </div>
+        </section>
+
         <section class="art-section infinite-section" data-section="infinite">
             <div class="section-content">
                 <h2 class="section-title">The Infinite Loop</h2>
@@ -153,6 +227,7 @@
                 <button class="nav-btn" data-action="pause">⏸</button>
                 <button class="nav-btn" data-action="random">🎲</button>
                 <button class="nav-btn" data-action="fullscreen">⛶</button>
+                <button class="nav-btn" data-action="insane">🚀</button>
             </div>
         </div>
     </nav>
@@ -170,6 +245,9 @@
 
     <!-- Easter Egg Trigger -->
     <div class="easter-egg-trigger" data-trigger="konami"></div>
+
+    <!-- Floating Particles Background -->
+    <div id="backgroundParticles"></div>
 
     <script src="script.js"></script>
 </body>

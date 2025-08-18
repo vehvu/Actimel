@@ -1,3 +1,5 @@
+/* ∞ INFINITE SCROLLS ∞ - Digital Art Installation CSS */
+
 /* Reset and Base Styles */
 * {
     margin: 0;
@@ -17,6 +19,7 @@ body {
     overflow-x: hidden;
     cursor: none;
     position: relative;
+    background: radial-gradient(ellipse at center, #1a1a1a 0%, #000 100%);
 }
 
 /* Custom Cursor */
@@ -33,6 +36,7 @@ body::before {
     z-index: 10000;
     mix-blend-mode: difference;
     transition: transform 0.1s ease;
+    box-shadow: 0 0 20px #fff;
 }
 
 body:hover::before {
@@ -67,13 +71,14 @@ body:hover::before {
 }
 
 .loading-char {
-    font-family: 'Orbitron', monospace;
-    font-size: 3rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 2rem;
     font-weight: 900;
     color: #fff;
     opacity: 0;
     transform: translateY(50px);
     animation: loadingChar 0.5s ease forwards;
+    text-shadow: 0 0 20px #fff;
 }
 
 .loading-char:nth-child(1) { animation-delay: 0.1s; }
@@ -85,11 +90,27 @@ body:hover::before {
 .loading-char:nth-child(7) { animation-delay: 0.7s; }
 
 .loading-subtitle {
-    font-family: 'Space Mono', monospace;
-    font-size: 1rem;
+    font-family: 'VT323', monospace;
+    font-size: 1.2rem;
     color: #666;
     opacity: 0;
     animation: fadeIn 1s ease 1s forwards;
+    margin-bottom: 30px;
+}
+
+.loading-progress {
+    width: 300px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.loading-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff0066, #00ffff, #ffff00);
+    width: 0%;
+    animation: loadingProgress 3s ease forwards;
 }
 
 @keyframes loadingChar {
@@ -102,6 +123,12 @@ body:hover::before {
 @keyframes fadeIn {
     to {
         opacity: 1;
+    }
+}
+
+@keyframes loadingProgress {
+    to {
+        width: 100%;
     }
 }
 
@@ -136,8 +163,8 @@ body:hover::before {
 }
 
 .art-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 4rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 3rem;
     font-weight: 900;
     margin-bottom: 30px;
     line-height: 1.2;
@@ -199,6 +226,17 @@ body:hover::before {
 .scroll-text {
     font-size: 0.9rem;
     color: #666;
+}
+
+/* Matrix Rain Background */
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Floating Elements */
@@ -312,8 +350,8 @@ body:hover::before {
 }
 
 .poetry-line {
-    font-family: 'Syncopate', sans-serif;
-    font-size: 1.5rem;
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
     margin: 20px 0;
     opacity: 0;
     transform: translateX(-100px);
@@ -442,8 +480,8 @@ body:hover::before {
 }
 
 .glitch-text {
-    font-family: 'Orbitron', monospace;
-    font-size: 4rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 3rem;
     font-weight: 900;
     color: #fff;
     position: absolute;
@@ -503,6 +541,206 @@ body:hover::before {
     transform: translateY(-3px);
 }
 
+/* DNA Section */
+.dna-section {
+    background: linear-gradient(45deg, #000, #1a0a1a, #000);
+}
+
+.dna-container {
+    margin: 40px 0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.dna-canvas {
+    width: 100%;
+    height: 400px;
+    background: #000;
+}
+
+.dna-controls {
+    margin-top: 20px;
+}
+
+.dna-btn {
+    background: transparent;
+    border: 2px solid #00ff88;
+    color: #00ff88;
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.dna-btn:hover {
+    background: #00ff88;
+    color: #000;
+    transform: translateY(-3px);
+}
+
+/* Matrix Section */
+.matrix-section {
+    background: #000;
+}
+
+.matrix-container {
+    margin: 40px 0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.matrix-canvas {
+    width: 100%;
+    height: 400px;
+    background: #000;
+}
+
+.matrix-controls {
+    margin-top: 20px;
+}
+
+.matrix-btn {
+    background: transparent;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.matrix-btn:hover {
+    background: #00ff00;
+    color: #000;
+    transform: translateY(-3px);
+}
+
+/* Neural Section */
+.neural-section {
+    background: linear-gradient(45deg, #0a0a0a, #1a1a0a, #0a0a0a);
+}
+
+.neural-container {
+    margin: 40px 0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.neural-canvas {
+    width: 100%;
+    height: 400px;
+    background: #000;
+}
+
+.neural-controls {
+    margin-top: 20px;
+}
+
+.neural-btn {
+    background: transparent;
+    border: 2px solid #ff8800;
+    color: #ff8800;
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.neural-btn:hover {
+    background: #ff8800;
+    color: #000;
+    transform: translateY(-3px);
+}
+
+/* Sound Section */
+.sound-section {
+    background: linear-gradient(45deg, #0a0a1a, #1a0a0a, #0a0a1a);
+}
+
+.sound-container {
+    margin: 40px 0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.sound-canvas {
+    width: 100%;
+    height: 400px;
+    background: #000;
+}
+
+.sound-controls {
+    margin-top: 20px;
+}
+
+.sound-btn {
+    background: transparent;
+    border: 2px solid #ff00ff;
+    color: #ff00ff;
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.sound-btn:hover {
+    background: #ff00ff;
+    color: #000;
+    transform: translateY(-3px);
+}
+
+/* Quantum Section */
+.quantum-section {
+    background: linear-gradient(45deg, #1a0a1a, #0a1a1a, #1a0a1a);
+}
+
+.quantum-container {
+    margin: 40px 0;
+    border: 2px solid #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.quantum-canvas {
+    width: 100%;
+    height: 400px;
+    background: #000;
+}
+
+.quantum-controls {
+    margin-top: 20px;
+}
+
+.quantum-btn {
+    background: transparent;
+    border: 2px solid #8800ff;
+    color: #8800ff;
+    padding: 12px 24px;
+    margin: 0 10px;
+    font-family: 'Space Mono', monospace;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.quantum-btn:hover {
+    background: #8800ff;
+    color: #000;
+    transform: translateY(-3px);
+}
+
 /* Infinite Section */
 .infinite-section {
     background: linear-gradient(45deg, #000, #1a1a1a, #000);
@@ -521,7 +759,7 @@ body:hover::before {
 }
 
 .infinite-char {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Press Start 2P', monospace;
     font-size: 3rem;
     font-weight: 900;
     color: #fff;
@@ -571,8 +809,8 @@ body:hover::before {
 }
 
 .nav-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 1rem;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
     color: #fff;
 }
 
@@ -618,7 +856,7 @@ body:hover::before {
     position: fixed;
     top: 10px;
     left: 20px;
-    font-family: 'Orbitron', monospace;
+    font-family: 'Press Start 2P', monospace;
     font-size: 1.5rem;
     color: #fff;
     z-index: 1000;
@@ -640,18 +878,29 @@ body:hover::before {
     border: 1px solid #333;
 }
 
+/* Background Particles */
+#backgroundParticles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .art-title {
-        font-size: 2.5rem;
-    }
-    
-    .section-title {
         font-size: 2rem;
     }
     
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
     .poetry-line {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
     
     .infinite-char {
@@ -666,15 +915,15 @@ body:hover::before {
 
 @media (max-width: 480px) {
     .art-title {
-        font-size: 2rem;
-    }
-    
-    .section-title {
         font-size: 1.5rem;
     }
     
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
     .poetry-line {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
     
     .infinite-char {
@@ -740,5 +989,76 @@ body.rainbow-mode {
     100% {
         opacity: 0;
         transform: scale(0);
+    }
+}
+
+/* Insane Mode Effects */
+body.insane-mode {
+    animation: insaneShake 0.1s infinite;
+}
+
+@keyframes insaneShake {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, -2px); }
+    50% { transform: translate(2px, 2px); }
+    75% { transform: translate(-2px, 2px); }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* DNA Helix Effect */
+.dna-canvas {
+    position: relative;
+}
+
+/* Neural Network Effect */
+.neural-canvas {
+    position: relative;
+}
+
+/* Sound Wave Effect */
+.sound-canvas {
+    position: relative;
+}
+
+/* Quantum Effect */
+.quantum-canvas {
+    position: relative;
+}
+
+/* Floating Background Particles */
+.background-particle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: floatBackground 10s linear infinite;
+}
+
+@keyframes floatBackground {
+    0% {
+        transform: translateY(100vh) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px);
+        opacity: 0;
     }
 }
