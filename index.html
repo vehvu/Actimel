@@ -145,57 +145,116 @@
     <section class="work" id="work">
         <div class="work__container">
             <div class="work__header">
-                <h2 class="work__title">Selected Work</h2>
-                <p class="work__subtitle">Explore our latest projects that showcase innovation, creativity, and technical excellence.</p>
+                <h2 class="work__title">Innovation Showcase</h2>
+                <p class="work__subtitle">Experience the future of web design through interactive prototypes and cutting-edge technologies.</p>
             </div>
             
             <div class="work__grid">
-                <article class="work__item" data-work-item>
+                <article class="work__item work__item--interactive" data-work-item>
                     <div class="work__item-content">
                         <div class="work__item-text">
-                            <span class="work__item-category">Brand Identity</span>
-                            <h3 class="work__item-title">Neural Brand</h3>
-                            <p class="work__item-description">A revolutionary AI-powered brand identity system that adapts and evolves based on user interaction patterns. Features dynamic logos, adaptive color schemes, and intelligent brand guidelines.</p>
-                            <a href="#" class="btn btn--secondary">View Project <span class="btn__arrow">→</span></a>
+                            <span class="work__item-category">AI-Powered Interface</span>
+                            <h3 class="work__item-title">Neural Canvas</h3>
+                            <p class="work__item-description">An AI-driven design tool that creates interactive experiences in real-time. Watch as the interface evolves based on your interactions, creating truly personalized user journeys.</p>
+                            <div class="work__item-actions">
+                                <button class="btn btn--primary" onclick="launchNeuralCanvas()">Launch Demo</button>
+                                <button class="btn btn--secondary" onclick="showNeuralCanvasInfo()">Learn More</button>
+                            </div>
                         </div>
-                        <div class="work__item-image" data-work-image>
-                            <div class="work__image-placeholder">
-                                <div class="work__image-icon">🧠</div>
-                                <div class="work__image-text">Neural Brand</div>
+                        <div class="work__item-visual">
+                            <div class="work__item-canvas" id="neuralCanvas">
+                                <div class="canvas__grid">
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                    <div class="canvas__cell" data-cell></div>
+                                </div>
+                                <div class="canvas__overlay">
+                                    <div class="canvas__ai-status">AI: Learning...</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </article>
                 
-                <article class="work__item" data-work-item>
+                <article class="work__item work__item--interactive" data-work-item>
                     <div class="work__item-content">
                         <div class="work__item-text">
-                            <span class="work__item-category">Web Application</span>
-                            <h3 class="work__item-title">Quantum Dashboard</h3>
-                            <p class="work__item-description">A next-generation analytics dashboard with real-time data visualization, predictive analytics, and quantum computing integration for lightning-fast insights.</p>
-                            <a href="#" class="btn btn--secondary">View Project <span class="btn__arrow">→</span></a>
+                            <span class="work__item-category">Quantum Computing</span>
+                            <h3 class="work__item-title">Quantum Visualizer</h3>
+                            <p class="work__item-description">Experience quantum superposition through an interactive 3D visualization. Manipulate qubits in real-time and see how quantum algorithms solve complex problems.</p>
+                            <div class="work__item-actions">
+                                <button class="btn btn--primary" onclick="launchQuantumVisualizer()">Launch Demo</button>
+                                <button class="btn btn--secondary" onclick="showQuantumInfo()">Learn More</button>
+                            </div>
                         </div>
-                        <div class="work__item-image" data-work-image>
-                            <div class="work__image-placeholder">
-                                <div class="work__image-icon">⚡</div>
-                                <div class="work__image-text">Quantum Dashboard</div>
+                        <div class="work__item-visual">
+                            <div class="work__item-canvas" id="quantumCanvas">
+                                <div class="quantum__qubit" data-qubit>
+                                    <div class="qubit__core"></div>
+                                    <div class="qubit__orbit"></div>
+                                </div>
+                                <div class="quantum__controls">
+                                    <div class="control__knob" data-control="rotation"></div>
+                                    <div class="control__knob" data-control="superposition"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </article>
                 
-                <article class="work__item" data-work-item>
+                <article class="work__item work__item--interactive" data-work-item>
                     <div class="work__item-content">
                         <div class="work__item-text">
-                            <span class="work__item-category">Mobile App</span>
-                            <h3 class="work__item-title">EcoSync</h3>
-                            <p class="work__item-description">A sustainable living app that tracks carbon footprint, suggests eco-friendly alternatives, and gamifies environmental consciousness through community challenges.</p>
-                            <a href="#" class="btn btn--secondary">View Project <span class="btn__arrow">→</span></a>
+                            <span class="work__item-category">Holographic Web</span>
+                            <h3 class="work__item-title">HoloSpace</h3>
+                            <p class="work__item-description">Navigate through a 3D holographic interface where websites exist as floating islands in space. Use hand gestures and voice commands to interact with content.</p>
+                            <div class="work__item-actions">
+                                <button class="btn btn--primary" onclick="launchHoloSpace()">Launch Demo</button>
+                                <button class="btn btn--secondary" onclick="showHoloInfo()">Learn More</button>
+                            </div>
                         </div>
-                        <div class="work__item-image" data-work-image>
-                            <div class="work__image-placeholder">
-                                <div class="work__image-icon">🌱</div>
-                                <div class="work__image-text">EcoSync</div>
+                        <div class="work__item-visual">
+                            <div class="work__item-canvas" id="holoCanvas">
+                                <div class="holo__space">
+                                    <div class="holo__planet" data-planet></div>
+                                    <div class="holo__asteroid" data-asteroid></div>
+                                    <div class="holo__nebula" data-nebula></div>
+                                </div>
+                                <div class="holo__interface">
+                                    <div class="interface__panel" data-panel></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="work__item work__item--interactive" data-work-item>
+                    <div class="work__item-content">
+                        <div class="work__item-text">
+                            <span class="work__item-category">Bio-Digital Fusion</span>
+                            <h3 class="work__item-title">BioSync</h3>
+                            <p class="work__item-description">A revolutionary interface that responds to your heartbeat, brainwaves, and biometric data. The website literally comes alive based on your physiological state.</p>
+                            <div class="work__item-actions">
+                                <button class="btn btn--primary" onclick="launchBioSync()">Launch Demo</button>
+                                <button class="btn btn--secondary" onclick="showBioInfo()">Learn More</button>
+                            </div>
+                        </div>
+                        <div class="work__item-visual">
+                            <div class="work__item-canvas" id="bioCanvas">
+                                <div class="bio__heartbeat">
+                                    <div class="heartbeat__line" data-heartbeat></div>
+                                </div>
+                                <div class="bio__waves">
+                                    <div class="wave" data-wave></div>
+                                    <div class="wave" data-wave></div>
+                                    <div class="wave" data-wave></div>
+                                </div>
                             </div>
                         </div>
                     </div>

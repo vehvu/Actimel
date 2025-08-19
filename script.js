@@ -16,6 +16,7 @@ class NexusStudio {
         this.setupSmoothScrolling();
         this.setupMobileMenu();
         this.setupPerformanceOptimizations();
+        this.setupInteractiveDemos();
     }
 
     // Navigation functionality
@@ -364,6 +365,271 @@ class NexusStudio {
         window.addEventListener('scroll', handleScrollOptimized);
     }
 
+    // Interactive project demos
+    setupInteractiveDemos() {
+        this.setupNeuralCanvas();
+        this.setupQuantumVisualizer();
+        this.setupHoloSpace();
+        this.setupBioSync();
+    }
+
+    // Neural Canvas AI Learning Demo
+    setupNeuralCanvas() {
+        const canvas = document.getElementById('neuralCanvas');
+        if (!canvas) return;
+
+        const cells = canvas.querySelectorAll('[data-cell]');
+        let aiLearning = false;
+        let userPattern = [];
+
+        cells.forEach((cell, index) => {
+            cell.addEventListener('click', () => {
+                if (!aiLearning) {
+                    aiLearning = true;
+                    this.startAILearning(canvas);
+                }
+                
+                cell.classList.add('active');
+                userPattern.push(index);
+                
+                setTimeout(() => {
+                    cell.classList.remove('active');
+                }, 300);
+
+                // AI responds to user pattern
+                setTimeout(() => {
+                    this.aiResponse(canvas, userPattern);
+                }, 500);
+            });
+        });
+    }
+
+    startAILearning(canvas) {
+        const status = canvas.querySelector('.canvas__ai-status');
+        if (status) {
+            status.textContent = 'AI: Learning...';
+            status.style.animation = 'aiPulse 1s ease-in-out infinite';
+        }
+    }
+
+    aiResponse(canvas, userPattern) {
+        const cells = canvas.querySelectorAll('[data-cell]');
+        const status = canvas.querySelector('.canvas__ai-status');
+        
+        if (status) {
+            status.textContent = 'AI: Responding...';
+        }
+
+        // AI creates a response pattern
+        const aiPattern = this.generateAIPattern(userPattern);
+        
+        aiPattern.forEach((cellIndex, delay) => {
+            setTimeout(() => {
+                const cell = cells[cellIndex];
+                if (cell) {
+                    cell.style.background = 'rgba(255, 0, 110, 0.8)';
+                    cell.style.transform = 'scale(1.2)';
+                    
+                    setTimeout(() => {
+                        cell.style.background = 'rgba(0, 212, 255, 0.1)';
+                        cell.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            }, delay * 200);
+        });
+
+        setTimeout(() => {
+            if (status) {
+                status.textContent = 'AI: Learned!';
+                status.style.animation = 'none';
+            }
+        }, aiPattern.length * 200 + 500);
+    }
+
+    generateAIPattern(userPattern) {
+        // AI generates a complementary pattern
+        const aiPattern = [];
+        userPattern.forEach(index => {
+            aiPattern.push((index + 4) % 9); // Opposite side
+        });
+        return aiPattern;
+    }
+
+    // Quantum Visualizer Demo
+    setupQuantumVisualizer() {
+        const canvas = document.getElementById('quantumCanvas');
+        if (!canvas) return;
+
+        const qubit = canvas.querySelector('[data-qubit]');
+        const controls = canvas.querySelectorAll('[data-control]');
+        let superposition = false;
+        let rotation = 0;
+
+        controls.forEach(control => {
+            control.addEventListener('click', () => {
+                const type = control.getAttribute('data-control');
+                
+                if (type === 'superposition') {
+                    superposition = !superposition;
+                    this.toggleSuperposition(qubit, superposition);
+                } else if (type === 'rotation') {
+                    rotation += 90;
+                    this.rotateQubit(qubit, rotation);
+                }
+            });
+        });
+
+        // Add mouse interaction
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            this.quantumEntanglement(qubit, x, y);
+        });
+    }
+
+    toggleSuperposition(qubit, active) {
+        if (active) {
+            qubit.style.filter = 'blur(2px)';
+            qubit.style.opacity = '0.7';
+            qubit.style.transform = 'scale(1.5)';
+        } else {
+            qubit.style.filter = 'blur(0px)';
+            qubit.style.opacity = '1';
+            qubit.style.transform = 'scale(1)';
+        }
+    }
+
+    rotateQubit(qubit, angle) {
+        qubit.style.transform = `rotate(${angle}deg)`;
+    }
+
+    quantumEntanglement(qubit, x, y) {
+        const centerX = 60;
+        const centerY = 60;
+        const deltaX = (x - centerX) / 10;
+        const deltaY = (y - centerY) / 10;
+        
+        qubit.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+    }
+
+    // HoloSpace Demo
+    setupHoloSpace() {
+        const canvas = document.getElementById('holoCanvas');
+        if (!canvas) return;
+
+        const planet = canvas.querySelector('[data-planet]');
+        const asteroid = canvas.querySelector('[data-asteroid]');
+        const nebula = canvas.querySelector('[data-nebula]');
+        const panel = canvas.querySelector('[data-panel]');
+
+        // Add 3D mouse interaction
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            this.updateHoloPerspective(planet, asteroid, nebula, panel, x, y);
+        });
+
+        // Add click interactions
+        planet.addEventListener('click', () => {
+            this.activateHoloPlanet(planet);
+        });
+
+        panel.addEventListener('click', () => {
+            this.toggleHoloInterface(panel);
+        });
+    }
+
+    updateHoloPerspective(planet, asteroid, nebula, panel, x, y) {
+        const centerX = 200;
+        const centerY = 200;
+        
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (x - centerX) / 20;
+        
+        planet.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        asteroid.style.transform = `rotateX(${-rotateX}deg) rotateY(${-rotateY}deg)`;
+        nebula.style.transform = `rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg)`;
+    }
+
+    activateHoloPlanet(planet) {
+        planet.style.background = 'linear-gradient(45deg, #ff006e, #00ff88)';
+        planet.style.boxShadow = '0 0 40px rgba(255, 0, 110, 0.8)';
+        
+        setTimeout(() => {
+            planet.style.background = 'linear-gradient(45deg, var(--color-accent), #ff006e)';
+            planet.style.boxShadow = 'none';
+        }, 1000);
+    }
+
+    toggleHoloInterface(panel) {
+        panel.classList.toggle('active');
+        if (panel.classList.contains('active')) {
+            panel.style.background = 'rgba(0, 212, 255, 0.9)';
+            panel.style.borderColor = '#ff006e';
+        } else {
+            panel.style.background = 'rgba(0, 0, 0, 0.8)';
+            panel.style.borderColor = 'var(--color-accent)';
+        }
+    }
+
+    // BioSync Demo
+    setupBioSync() {
+        const canvas = document.getElementById('bioCanvas');
+        if (!canvas) return;
+
+        const heartbeat = canvas.querySelector('[data-heartbeat]');
+        const waves = canvas.querySelectorAll('[data-wave]');
+        
+        // Simulate biometric data
+        this.simulateHeartbeat(heartbeat);
+        this.simulateBrainwaves(waves);
+        
+        // Add interaction
+        canvas.addEventListener('click', () => {
+            this.triggerBioResponse(heartbeat, waves);
+        });
+    }
+
+    simulateHeartbeat(heartbeat) {
+        setInterval(() => {
+            heartbeat.style.animation = 'heartbeatPulse 0.8s ease-in-out';
+            setTimeout(() => {
+                heartbeat.style.animation = 'heartbeatPulse 2s ease-in-out infinite';
+            }, 800);
+        }, 3000);
+    }
+
+    simulateBrainwaves(waves) {
+        waves.forEach((wave, index) => {
+            wave.style.animationDelay = `${index * 0.3}s`;
+        });
+    }
+
+    triggerBioResponse(heartbeat, waves) {
+        // Intensify biometric response
+        heartbeat.style.animation = 'heartbeatPulse 0.5s ease-in-out';
+        heartbeat.style.filter = 'brightness(1.5)';
+        
+        waves.forEach(wave => {
+            wave.style.animation = 'brainwave 0.8s ease-in-out';
+            wave.style.filter = 'brightness(1.3)';
+        });
+        
+        setTimeout(() => {
+            heartbeat.style.animation = 'heartbeatPulse 2s ease-in-out infinite';
+            heartbeat.style.filter = 'brightness(1)';
+            
+            waves.forEach(wave => {
+                wave.style.animation = 'brainwave 1.5s ease-in-out infinite';
+                wave.style.filter = 'brightness(1)';
+            });
+        }, 800);
+    }
+
     // Utility function: Throttle
     throttle(func, limit) {
         let inThrottle;
@@ -394,6 +660,136 @@ class NexusStudio {
             if (callNow) func.apply(context, args);
         };
     }
+}
+
+// Demo Launch Functions
+function launchNeuralCanvas() {
+    // Create fullscreen neural canvas experience
+    const overlay = document.createElement('div');
+    overlay.className = 'demo-overlay';
+    overlay.innerHTML = `
+        <div class="demo-container">
+            <div class="demo-header">
+                <h2>Neural Canvas - AI Learning Interface</h2>
+                <button class="demo-close" onclick="closeDemo()">×</button>
+            </div>
+            <div class="demo-content">
+                <div class="neural-demo">
+                    <div class="neural-grid" id="fullscreenNeuralGrid"></div>
+                    <div class="neural-controls">
+                        <button onclick="trainAI()">Train AI</button>
+                        <button onclick="resetAI()">Reset</button>
+                        <div class="ai-status">AI Status: Ready</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    initializeFullscreenNeural();
+}
+
+function launchQuantumVisualizer() {
+    const overlay = document.createElement('div');
+    overlay.className = 'demo-overlay';
+    overlay.innerHTML = `
+        <div class="demo-container">
+            <div class="demo-header">
+                <h2>Quantum Visualizer - Qubit Manipulation</h2>
+                <button class="demo-close" onclick="closeDemo()">×</button>
+            </div>
+            <div class="demo-content">
+                <div class="quantum-demo">
+                    <div class="quantum-workspace" id="fullscreenQuantum"></div>
+                    <div class="quantum-controls">
+                        <button onclick="measureQubit()">Measure</button>
+                        <button onclick="entangleQubits()">Entangle</button>
+                        <div class="quantum-state">State: |0⟩</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    initializeFullscreenQuantum();
+}
+
+function launchHoloSpace() {
+    const overlay = document.createElement('div');
+    overlay.className = 'demo-overlay';
+    overlay.innerHTML = `
+        <div class="demo-container">
+            <div class="demo-header">
+                <h2>HoloSpace - 3D Holographic Interface</h2>
+                <button class="demo-close" onclick="closeDemo()">×</button>
+            </div>
+            <div class="demo-content">
+                <div class="holo-demo">
+                    <div class="holo-workspace" id="fullscreenHolo"></div>
+                    <div class="holo-controls">
+                        <button onclick="navigateHolo()">Navigate</button>
+                        <button onclick="createHoloObject()">Create Object</button>
+                        <div class="holo-position">Position: (0, 0, 0)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    initializeFullscreenHolo();
+}
+
+function launchBioSync() {
+    const overlay = document.createElement('div');
+    overlay.className = 'demo-overlay';
+    overlay.innerHTML = `
+        <div class="demo-container">
+            <div class="demo-header">
+                <h2>BioSync - Biometric Interface</h2>
+                <button class="demo-close" onclick="closeDemo()">×</button>
+            </div>
+            <div class="demo-content">
+                <div class="bio-demo">
+                    <div class="bio-monitor" id="fullscreenBio"></div>
+                    <div class="bio-controls">
+                        <button onclick="calibrateBio()">Calibrate</button>
+                        <button onclick="optimizeBio()">Optimize</button>
+                        <div class="bio-metrics">Heart Rate: -- BPM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    initializeFullscreenBio();
+}
+
+function closeDemo() {
+    const overlay = document.querySelector('.demo-overlay');
+    if (overlay) {
+        overlay.remove();
+    }
+}
+
+// Info functions
+function showNeuralCanvasInfo() {
+    alert('Neural Canvas: An AI-powered interface that learns from user interactions and creates personalized experiences. Click on the grid cells to teach the AI your pattern!');
+}
+
+function showQuantumInfo() {
+    alert('Quantum Visualizer: Experience quantum computing concepts through interactive qubit manipulation. Use the controls to explore superposition and entanglement!');
+}
+
+function showHoloInfo() {
+    alert('HoloSpace: Navigate through a 3D holographic interface where websites exist as floating islands. Move your mouse to change perspective!');
+}
+
+function showBioInfo() {
+    alert('BioSync: A revolutionary interface that responds to your biometric data. The website literally comes alive based on your physiological state!');
 }
 
 // Initialize when DOM is loaded
