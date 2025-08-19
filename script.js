@@ -1,184 +1,246 @@
-// Nexus Studio - Digital Innovation Lab
-// A website designed to compete with the best in web design
+/**
+ * NEXUS STUDIO - VISUAL DESIGN EXCELLENCE
+ * A showcase of cutting-edge web design, typography, and visual innovation
+ * 
+ * This JavaScript file implements sophisticated animations, smooth interactions,
+ * and performance optimizations to create a truly exceptional user experience.
+ */
 
 class NexusStudio {
     constructor() {
         this.init();
+        this.setupEventListeners();
+        this.startAnimations();
     }
 
     init() {
         this.setupNavigation();
         this.setupScrollEffects();
         this.setupIntersectionObservers();
-        this.setupAnimations();
-        this.setupParallax();
+        this.setupParallaxEffects();
         this.setupMouseEffects();
         this.setupSmoothScrolling();
         this.setupMobileMenu();
         this.setupPerformanceOptimizations();
-        this.setupInteractiveDemos();
+        this.setupParticleSystem();
+        this.setupNoiseOverlay();
     }
 
-    // Navigation functionality
+    // ==========================================================================
+    // NAVIGATION SYSTEM
+    // ==========================================================================
     setupNavigation() {
         const nav = document.querySelector('[data-nav]');
         const navToggle = document.querySelector('[data-nav-toggle]');
-        
-        if (!nav || !navToggle) return;
+        const navMenu = document.querySelector('.nav__menu');
 
         // Scroll effect for navigation
         let lastScrollY = window.scrollY;
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-            
-            if (currentScrollY > 100) {
+        let ticking = false;
+
+        const updateNav = () => {
+            if (window.scrollY > 100) {
                 nav.classList.add('scrolled');
             } else {
                 nav.classList.remove('scrolled');
             }
-
-            // Hide/show navigation on scroll
-            if (currentScrollY > lastScrollY && currentScrollY > 200) {
-                nav.style.transform = 'translateY(-100%)';
-            } else {
-                nav.style.transform = 'translateY(0)';
-            }
-            
-            lastScrollY = currentScrollY;
+            lastScrollY = window.scrollY;
+            ticking = false;
         };
 
-        window.addEventListener('scroll', this.throttle(handleScroll, 16));
-        
+        const requestTick = () => {
+            if (!ticking) {
+                requestAnimationFrame(updateNav);
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', requestTick);
+
         // Mobile menu toggle
-        navToggle.addEventListener('click', () => {
-            nav.classList.toggle('nav--open');
-            navToggle.classList.toggle('nav__toggle--active');
+        if (navToggle && navMenu) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('nav__toggle--active');
+                navMenu.classList.toggle('nav__menu--active');
+            });
+        }
+
+        // Smooth navigation links
+        const navLinks = document.querySelectorAll('.nav__link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                
+                if (targetSection) {
+                    this.smoothScrollTo(targetSection);
+                    // Close mobile menu if open
+                    if (navToggle.classList.contains('nav__toggle--active')) {
+                        navToggle.classList.remove('nav__toggle--active');
+                        navMenu.classList.remove('nav__menu--active');
+                    }
+                }
+            });
         });
     }
 
-    // Scroll effects and animations
+    // ==========================================================================
+    // SCROLL EFFECTS & ANIMATIONS
+    // ==========================================================================
     setupScrollEffects() {
-        const hero = document.querySelector('[data-hero]');
-        if (!hero) return;
+        // Parallax scrolling for hero background
+        const heroBackground = document.querySelector('.hero__background');
+        
+        if (heroBackground) {
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                heroBackground.style.transform = `translateY(${rate}px)`;
+            });
+        }
 
-        const handleHeroScroll = () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            
-            // Parallax effect for hero elements
-            const heroContent = hero.querySelector('.hero__content');
-            const heroVisual = hero.querySelector('.hero__visual');
-            
-            if (heroContent) {
-                heroContent.style.transform = `translateY(${rate * 0.3}px)`;
-            }
-            
-            if (heroVisual) {
-                heroVisual.style.transform = `translateY(${rate * 0.7}px)`;
-            }
-        };
+        // Staggered animation for hero grid items
+        const gridItems = document.querySelectorAll('[data-grid-item]');
+        gridItems.forEach((item, index) => {
+            item.style.animationDelay = `${0.7 + (index * 0.1)}s`;
+        });
 
-        window.addEventListener('scroll', this.throttle(handleHeroScroll, 16));
+        // Smooth reveal animations for sections
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('section--visible');
+                        }
+                    });
+                },
+                { threshold: 0.1 }
+            );
+            observer.observe(section);
+        });
     }
 
-    // Intersection Observer for scroll animations
+    // ==========================================================================
+    // INTERSECTION OBSERVERS
+    // ==========================================================================
     setupIntersectionObservers() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
         // Work items animation
         const workItems = document.querySelectorAll('[data-work-item]');
-        const workObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 200);
-                }
-            });
-        }, observerOptions);
+        const workObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('work__item--visible');
+                        }, index * 200);
+                    }
+                });
+            },
+            { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
+        );
 
         workItems.forEach(item => workObserver.observe(item));
 
         // Approach steps animation
         const approachSteps = document.querySelectorAll('[data-approach-step]');
-        const approachObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('visible');
-                    }, index * 150);
-                }
-            });
-        }, observerOptions);
+        const approachObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('approach__step--visible');
+                        }, index * 300);
+                    }
+                });
+            },
+            { threshold: 0.3, rootMargin: '0px 0px -50px 0px' }
+        );
 
         approachSteps.forEach(step => approachObserver.observe(step));
 
-        // Stats animation trigger
-        const statsSection = document.querySelector('.studio__stats');
-        if (statsSection) {
-            const statsObserver = new IntersectionObserver((entries) => {
+        // Stats counter animation
+        const stats = document.querySelectorAll('[data-stat]');
+        const statsObserver = new IntersectionObserver(
+            (entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        this.animateStats();
-                        statsObserver.unobserve(entry.target);
+                        this.animateCounter(entry.target);
                     }
                 });
-            }, { threshold: 0.5 });
+            },
+            { threshold: 0.5 }
+        );
 
-            statsObserver.observe(statsSection);
-        }
+        stats.forEach(stat => statsObserver.observe(stat));
     }
 
-    // Advanced animations
-    setupAnimations() {
-        // Hero grid animation
-        const gridItems = document.querySelectorAll('[data-grid-item]');
-        gridItems.forEach((item, index) => {
-            item.addEventListener('mouseenter', () => {
-                this.animateGridItem(item, index);
-            });
-        });
-
-        // Work item hover effects
-        const workImages = document.querySelectorAll('[data-work-image]');
-        workImages.forEach(image => {
-            image.addEventListener('mouseenter', () => {
-                this.animateWorkImage(image);
-            });
-        });
-    }
-
-    // Parallax effects
-    setupParallax() {
-        const parallaxElements = document.querySelectorAll('.work__item, .approach__step');
+    // ==========================================================================
+    // PARALLAX EFFECTS
+    // ==========================================================================
+    setupParallaxEffects() {
+        // Floating geometry shapes in work header
+        const geometryShapes = document.querySelectorAll('.geometry__shape');
         
-        const handleParallax = () => {
+        window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
-            
-            parallaxElements.forEach((element, index) => {
-                const rate = scrolled * -0.1;
-                const delay = index * 0.1;
-                element.style.transform = `translateY(${rate + delay}px)`;
+            geometryShapes.forEach((shape, index) => {
+                const rate = scrolled * (0.1 + index * 0.05);
+                const rotation = scrolled * (0.02 + index * 0.01);
+                shape.style.transform = `translateY(${rate}px) rotate(${rotation}deg)`;
             });
-        };
+        });
 
-        window.addEventListener('scroll', this.throttle(handleParallax, 16));
+        // Hero background layers parallax
+        const bgLayers = document.querySelectorAll('.hero__bg-layer');
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            bgLayers.forEach((layer, index) => {
+                const rate = scrolled * (0.05 + index * 0.02);
+                layer.style.transform = `translateY(${rate}px)`;
+            });
+        });
     }
 
-    // Mouse interaction effects
+    // ==========================================================================
+    // MOUSE EFFECTS & INTERACTIONS
+    // ==========================================================================
     setupMouseEffects() {
-        const cursor = this.createCustomCursor();
+        // Custom cursor effect
+        const cursor = document.createElement('div');
+        cursor.className = 'custom-cursor';
+        cursor.innerHTML = '<div class="cursor__dot"></div><div class="cursor__ring"></div>';
         document.body.appendChild(cursor);
 
+        let mouseX = 0;
+        let mouseY = 0;
+        let cursorX = 0;
+        let cursorY = 0;
+
         document.addEventListener('mousemove', (e) => {
-            this.updateCursor(cursor, e);
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
 
-        // Hover effects for interactive elements
+        // Smooth cursor animation
+        const animateCursor = () => {
+            const dx = mouseX - cursorX;
+            const dy = mouseY - cursorY;
+            
+            cursorX += dx * 0.1;
+            cursorY += dy * 0.1;
+            
+            cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+            requestAnimationFrame(animateCursor);
+        };
+        animateCursor();
+
+        // Cursor hover effects
         const interactiveElements = document.querySelectorAll('a, button, .work__item, .approach__step');
+        
         interactiveElements.forEach(element => {
             element.addEventListener('mouseenter', () => {
                 cursor.classList.add('cursor--hover');
@@ -188,609 +250,376 @@ class NexusStudio {
                 cursor.classList.remove('cursor--hover');
             });
         });
-    }
 
-    // Create custom cursor
-    createCustomCursor() {
-        const cursor = document.createElement('div');
-        cursor.className = 'custom-cursor';
-        cursor.innerHTML = `
-            <div class="cursor__inner"></div>
-            <div class="cursor__outer"></div>
-        `;
-        
-        // Add cursor styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .custom-cursor {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 40px;
-                height: 40px;
-                pointer-events: none;
-                z-index: 9999;
-                mix-blend-mode: difference;
-            }
-            .cursor__inner {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 8px;
-                height: 8px;
-                background: #00d4ff;
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                transition: all 0.1s ease;
-            }
-            .cursor__outer {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 40px;
-                height: 40px;
-                border: 2px solid #00d4ff;
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-                transition: all 0.3s ease;
-                opacity: 0.3;
-            }
-            .cursor--hover .cursor__inner {
-                transform: translate(-50%, -50%) scale(1.5);
-            }
-            .cursor--hover .cursor__outer {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.6;
-            }
-        `;
-        
-        document.head.appendChild(style);
-        return cursor;
-    }
-
-    // Update custom cursor position
-    updateCursor(cursor, e) {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    }
-
-    // Animate grid items
-    animateGridItem(item, index) {
-        const colors = ['#00d4ff', '#ff006e', '#00ff88', '#ffaa00', '#aa00ff'];
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        
-        item.style.background = `linear-gradient(135deg, ${randomColor}20, ${randomColor}40)`;
-        item.style.transform = `scale(1.1) rotate(${Math.random() * 10 - 5}deg)`;
-        
-        setTimeout(() => {
-            item.style.transform = 'scale(1) rotate(0deg)';
-            item.style.background = 'linear-gradient(135deg, var(--color-secondary), var(--color-border))';
-        }, 300);
-    }
-
-    // Animate work images
-    animateWorkImage(image) {
-        image.style.transform = 'scale(1.05)';
-        image.style.boxShadow = '0 20px 40px rgba(0, 212, 255, 0.3)';
-        
-        setTimeout(() => {
-            image.style.transform = 'scale(1)';
-            image.style.boxShadow = 'none';
-        }, 600);
-    }
-
-    // Animate statistics counter
-    animateStats() {
-        const statNumbers = document.querySelectorAll('[data-stat]');
-        
-        statNumbers.forEach(statElement => {
-            const target = parseInt(statElement.getAttribute('data-stat'));
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-            
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    current = target;
-                    clearInterval(timer);
-                }
-                statElement.textContent = Math.floor(current);
-            }, 16);
-        });
-    }
-
-    // Smooth scrolling for anchor links
-    setupSmoothScrolling() {
-        const anchorLinks = document.querySelectorAll('a[href^="#"]');
-        
-        anchorLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+        // Magnetic effect for buttons
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('mousemove', (e) => {
+                const rect = button.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
                 
-                if (targetElement) {
-                    const offsetTop = targetElement.offsetTop - 100;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
+                button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translate(0, 0)';
             });
         });
     }
 
-    // Mobile menu functionality
+    // ==========================================================================
+    // SMOOTH SCROLLING
+    // ==========================================================================
+    setupSmoothScrolling() {
+        // Smooth scroll to section
+        this.smoothScrollTo = (target) => {
+            const targetPosition = target.offsetTop - 100;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            const duration = 1000;
+            let start = null;
+
+            const animation = (currentTime) => {
+                if (start === null) start = currentTime;
+                const timeElapsed = currentTime - start;
+                const run = this.easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            };
+
+            requestAnimationFrame(animation);
+        };
+
+        // Easing function
+        this.easeInOutCubic = (t, b, c, d) => {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t * t + b;
+            t -= 2;
+            return c / 2 * (t * t * t + 2) + b;
+        };
+    }
+
+    // ==========================================================================
+    // MOBILE MENU
+    // ==========================================================================
     setupMobileMenu() {
-        const nav = document.querySelector('[data-nav]');
+        const navToggle = document.querySelector('[data-nav-toggle]');
+        const navMenu = document.querySelector('.nav__menu');
         const navLinks = document.querySelectorAll('.nav__link');
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                nav.classList.remove('nav--open');
-                document.querySelector('[data-nav-toggle]').classList.remove('nav__toggle--active');
-            });
-        });
-    }
 
-    // Performance optimizations
-    setupPerformanceOptimizations() {
-        // Lazy load images
-        const images = document.querySelectorAll('img[data-src]');
-        const imageObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
+        if (navToggle && navMenu) {
+            // Animate menu items
+            navLinks.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(20px)';
+                
+                if (navToggle.classList.contains('nav__toggle--active')) {
+                    setTimeout(() => {
+                        link.style.transition = 'all 0.3s ease';
+                        link.style.opacity = '1';
+                        link.style.transform = 'translateY(0)';
+                    }, index * 100);
                 }
             });
-        });
+        }
+    }
+
+    // ==========================================================================
+    // PERFORMANCE OPTIMIZATIONS
+    // ==========================================================================
+    setupPerformanceOptimizations() {
+        // Throttle scroll events
+        let ticking = false;
+        
+        const updateOnScroll = () => {
+            // Update scroll-based animations
+            ticking = false;
+        };
+
+        const requestTick = () => {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', requestTick, { passive: true });
+
+        // Lazy loading for images
+        const images = document.querySelectorAll('img[data-src]');
+        const imageObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: '50px' }
+        );
 
         images.forEach(img => imageObserver.observe(img));
 
-        // Debounce scroll events
-        let scrollTimeout;
-        const handleScrollOptimized = () => {
-            if (scrollTimeout) {
-                clearTimeout(scrollTimeout);
-            }
-            scrollTimeout = setTimeout(() => {
-                // Handle scroll-based animations here
-            }, 16);
-        };
-
-        window.addEventListener('scroll', handleScrollOptimized);
+        // Debounce resize events
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.handleResize();
+            }, 250);
+        });
     }
 
-    // Interactive project demos
-    setupInteractiveDemos() {
-        this.setupNeuralCanvas();
-        this.setupQuantumVisualizer();
-        this.setupHoloSpace();
-        this.setupBioSync();
-    }
+    // ==========================================================================
+    // PARTICLE SYSTEM
+    // ==========================================================================
+    setupParticleSystem() {
+        const particles = document.querySelectorAll('.particle');
+        
+        particles.forEach((particle, index) => {
+            // Randomize particle properties
+            const size = Math.random() * 6 + 2;
+            const duration = Math.random() * 20 + 15;
+            const delay = Math.random() * 10;
+            
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${delay}s`;
+        });
 
-    // Neural Canvas AI Learning Demo
-    setupNeuralCanvas() {
-        const canvas = document.getElementById('neuralCanvas');
-        if (!canvas) return;
-
-        const cells = canvas.querySelectorAll('[data-cell]');
-        let aiLearning = false;
-        let userPattern = [];
-
-        cells.forEach((cell, index) => {
-            cell.addEventListener('click', () => {
-                if (!aiLearning) {
-                    aiLearning = true;
-                    this.startAILearning(canvas);
-                }
+        // Interactive particle movement on mouse move
+        let mouseX = 0;
+        let mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX / window.innerWidth;
+            mouseY = e.clientY / window.innerHeight;
+            
+            particles.forEach((particle, index) => {
+                const speed = (index + 1) * 0.5;
+                const x = (mouseX - 0.5) * speed;
+                const y = (mouseY - 0.5) * speed;
                 
-                cell.classList.add('active');
-                userPattern.push(index);
-                
-                setTimeout(() => {
-                    cell.classList.remove('active');
-                }, 300);
-
-                // AI responds to user pattern
-                setTimeout(() => {
-                    this.aiResponse(canvas, userPattern);
-                }, 500);
+                particle.style.transform = `translate(${x}px, ${y}px)`;
             });
         });
     }
 
-    startAILearning(canvas) {
-        const status = canvas.querySelector('.canvas__ai-status');
-        if (status) {
-            status.textContent = 'AI: Learning...';
-            status.style.animation = 'aiPulse 1s ease-in-out infinite';
-        }
-    }
-
-    aiResponse(canvas, userPattern) {
-        const cells = canvas.querySelectorAll('[data-cell]');
-        const status = canvas.querySelector('.canvas__ai-status');
+    // ==========================================================================
+    // NOISE OVERLAY
+    // ==========================================================================
+    setupNoiseOverlay() {
+        const noiseOverlay = document.querySelector('.noise-overlay');
         
-        if (status) {
-            status.textContent = 'AI: Responding...';
-        }
-
-        // AI creates a response pattern
-        const aiPattern = this.generateAIPattern(userPattern);
-        
-        aiPattern.forEach((cellIndex, delay) => {
-            setTimeout(() => {
-                const cell = cells[cellIndex];
-                if (cell) {
-                    cell.style.background = 'rgba(255, 0, 110, 0.8)';
-                    cell.style.transform = 'scale(1.2)';
-                    
-                    setTimeout(() => {
-                        cell.style.background = 'rgba(0, 212, 255, 0.1)';
-                        cell.style.transform = 'scale(1)';
-                    }, 200);
-                }
-            }, delay * 200);
-        });
-
-        setTimeout(() => {
-            if (status) {
-                status.textContent = 'AI: Learned!';
-                status.style.animation = 'none';
-            }
-        }, aiPattern.length * 200 + 500);
-    }
-
-    generateAIPattern(userPattern) {
-        // AI generates a complementary pattern
-        const aiPattern = [];
-        userPattern.forEach(index => {
-            aiPattern.push((index + 4) % 9); // Opposite side
-        });
-        return aiPattern;
-    }
-
-    // Quantum Visualizer Demo
-    setupQuantumVisualizer() {
-        const canvas = document.getElementById('quantumCanvas');
-        if (!canvas) return;
-
-        const qubit = canvas.querySelector('[data-qubit]');
-        const controls = canvas.querySelectorAll('[data-control]');
-        let superposition = false;
-        let rotation = 0;
-
-        controls.forEach(control => {
-            control.addEventListener('click', () => {
-                const type = control.getAttribute('data-control');
-                
-                if (type === 'superposition') {
-                    superposition = !superposition;
-                    this.toggleSuperposition(qubit, superposition);
-                } else if (type === 'rotation') {
-                    rotation += 90;
-                    this.rotateQubit(qubit, rotation);
-                }
-            });
-        });
-
-        // Add mouse interaction
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+        if (noiseOverlay) {
+            // Subtle noise animation
+            let noiseOffset = 0;
             
-            this.quantumEntanglement(qubit, x, y);
-        });
-    }
-
-    toggleSuperposition(qubit, active) {
-        if (active) {
-            qubit.style.filter = 'blur(2px)';
-            qubit.style.opacity = '0.7';
-            qubit.style.transform = 'scale(1.5)';
-        } else {
-            qubit.style.filter = 'blur(0px)';
-            qubit.style.opacity = '1';
-            qubit.style.transform = 'scale(1)';
-        }
-    }
-
-    rotateQubit(qubit, angle) {
-        qubit.style.transform = `rotate(${angle}deg)`;
-    }
-
-    quantumEntanglement(qubit, x, y) {
-        const centerX = 60;
-        const centerY = 60;
-        const deltaX = (x - centerX) / 10;
-        const deltaY = (y - centerY) / 10;
-        
-        qubit.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
-    }
-
-    // HoloSpace Demo
-    setupHoloSpace() {
-        const canvas = document.getElementById('holoCanvas');
-        if (!canvas) return;
-
-        const planet = canvas.querySelector('[data-planet]');
-        const asteroid = canvas.querySelector('[data-asteroid]');
-        const nebula = canvas.querySelector('[data-nebula]');
-        const panel = canvas.querySelector('[data-panel]');
-
-        // Add 3D mouse interaction
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            this.updateHoloPerspective(planet, asteroid, nebula, panel, x, y);
-        });
-
-        // Add click interactions
-        planet.addEventListener('click', () => {
-            this.activateHoloPlanet(planet);
-        });
-
-        panel.addEventListener('click', () => {
-            this.toggleHoloInterface(panel);
-        });
-    }
-
-    updateHoloPerspective(planet, asteroid, nebula, panel, x, y) {
-        const centerX = 200;
-        const centerY = 200;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (x - centerX) / 20;
-        
-        planet.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        asteroid.style.transform = `rotateX(${-rotateX}deg) rotateY(${-rotateY}deg)`;
-        nebula.style.transform = `rotateX(${rotateX * 0.5}deg) rotateY(${rotateY * 0.5}deg)`;
-    }
-
-    activateHoloPlanet(planet) {
-        planet.style.background = 'linear-gradient(45deg, #ff006e, #00ff88)';
-        planet.style.boxShadow = '0 0 40px rgba(255, 0, 110, 0.8)';
-        
-        setTimeout(() => {
-            planet.style.background = 'linear-gradient(45deg, var(--color-accent), #ff006e)';
-            planet.style.boxShadow = 'none';
-        }, 1000);
-    }
-
-    toggleHoloInterface(panel) {
-        panel.classList.toggle('active');
-        if (panel.classList.contains('active')) {
-            panel.style.background = 'rgba(0, 212, 255, 0.9)';
-            panel.style.borderColor = '#ff006e';
-        } else {
-            panel.style.background = 'rgba(0, 0, 0, 0.8)';
-            panel.style.borderColor = 'var(--color-accent)';
-        }
-    }
-
-    // BioSync Demo
-    setupBioSync() {
-        const canvas = document.getElementById('bioCanvas');
-        if (!canvas) return;
-
-        const heartbeat = canvas.querySelector('[data-heartbeat]');
-        const waves = canvas.querySelectorAll('[data-wave]');
-        
-        // Simulate biometric data
-        this.simulateHeartbeat(heartbeat);
-        this.simulateBrainwaves(waves);
-        
-        // Add interaction
-        canvas.addEventListener('click', () => {
-            this.triggerBioResponse(heartbeat, waves);
-        });
-    }
-
-    simulateHeartbeat(heartbeat) {
-        setInterval(() => {
-            heartbeat.style.animation = 'heartbeatPulse 0.8s ease-in-out';
-            setTimeout(() => {
-                heartbeat.style.animation = 'heartbeatPulse 2s ease-in-out infinite';
-            }, 800);
-        }, 3000);
-    }
-
-    simulateBrainwaves(waves) {
-        waves.forEach((wave, index) => {
-            wave.style.animationDelay = `${index * 0.3}s`;
-        });
-    }
-
-    triggerBioResponse(heartbeat, waves) {
-        // Intensify biometric response
-        heartbeat.style.animation = 'heartbeatPulse 0.5s ease-in-out';
-        heartbeat.style.filter = 'brightness(1.5)';
-        
-        waves.forEach(wave => {
-            wave.style.animation = 'brainwave 0.8s ease-in-out';
-            wave.style.filter = 'brightness(1.3)';
-        });
-        
-        setTimeout(() => {
-            heartbeat.style.animation = 'heartbeatPulse 2s ease-in-out infinite';
-            heartbeat.style.filter = 'brightness(1)';
-            
-            waves.forEach(wave => {
-                wave.style.animation = 'brainwave 1.5s ease-in-out infinite';
-                wave.style.filter = 'brightness(1)';
-            });
-        }, 800);
-    }
-
-    // Utility function: Throttle
-    throttle(func, limit) {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-
-    // Utility function: Debounce
-    debounce(func, wait, immediate) {
-        let timeout;
-        return function executedFunction() {
-            const context = this;
-            const args = arguments;
-            const later = function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
+            const animateNoise = () => {
+                noiseOffset += 0.1;
+                noiseOverlay.style.backgroundPosition = `${noiseOffset}px ${noiseOffset}px`;
+                requestAnimationFrame(animateNoise);
             };
-            const callNow = immediate && !timeout;
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-            if (callNow) func.apply(context, args);
+            
+            animateNoise();
+        }
+    }
+
+    // ==========================================================================
+    // ANIMATION SYSTEM
+    // ==========================================================================
+    startAnimations() {
+        // Staggered entrance animations
+        const animatedElements = document.querySelectorAll('.hero__title-line, .hero__subtitle, .hero__cta');
+        
+        animatedElements.forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                element.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+
+        // Continuous floating animations
+        this.startFloatingAnimations();
+        
+        // Background gradient animations
+        this.startBackgroundAnimations();
+    }
+
+    startFloatingAnimations() {
+        // Subtle floating effect for various elements
+        const floatingElements = document.querySelectorAll('.hero__grid-item, .work__item, .approach__step');
+        
+        floatingElements.forEach((element, index) => {
+            const delay = index * 0.5;
+            const duration = 4 + Math.random() * 2;
+            
+            element.style.animation = `floating ${duration}s ease-in-out ${delay}s infinite`;
+        });
+    }
+
+    startBackgroundAnimations() {
+        // Animate background gradients
+        const bgLayers = document.querySelectorAll('.hero__bg-layer');
+        
+        bgLayers.forEach((layer, index) => {
+            const duration = 20 + index * 5;
+            const delay = index * 2;
+            
+            layer.style.animation = `bgFloat${index + 1} ${duration}s ease-in-out ${delay}s infinite`;
+        });
+    }
+
+    // ==========================================================================
+    // UTILITY FUNCTIONS
+    // ==========================================================================
+    animateCounter(element) {
+        const target = parseInt(element.dataset.stat);
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                element.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                element.textContent = target;
+            }
         };
+        
+        updateCounter();
+    }
+
+    handleResize() {
+        // Handle responsive adjustments
+        const isMobile = window.innerWidth <= 768;
+        
+        if (isMobile) {
+            document.body.classList.add('mobile');
+        } else {
+            document.body.classList.remove('mobile');
+        }
+    }
+
+    // ==========================================================================
+    // EVENT LISTENERS
+    // ==========================================================================
+    setupEventListeners() {
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            this.logPerformance();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            this.handleKeyboardNavigation(e);
+        });
+
+        // Touch gestures for mobile
+        if ('ontouchstart' in window) {
+            this.setupTouchGestures();
+        }
+    }
+
+    logPerformance() {
+        if ('performance' in window) {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+                console.log('🚀 Nexus Studio Performance:');
+                console.log(`Page Load: ${Math.round(perfData.loadEventEnd - perfData.loadEventStart)}ms`);
+                console.log(`DOM Ready: ${Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart)}ms`);
+                console.log(`Total Time: ${Math.round(perfData.loadEventEnd - perfData.fetchStart)}ms`);
+            }
+        }
+    }
+
+    handleKeyboardNavigation(e) {
+        // Arrow key navigation
+        if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            this.navigateToNextSection();
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            this.navigateToPreviousSection();
+        }
+    }
+
+    navigateToNextSection() {
+        const sections = Array.from(document.querySelectorAll('section'));
+        const currentSection = this.getCurrentSection(sections);
+        const nextSection = sections[sections.indexOf(currentSection) + 1];
+        
+        if (nextSection) {
+            this.smoothScrollTo(nextSection);
+        }
+    }
+
+    navigateToPreviousSection() {
+        const sections = Array.from(document.querySelectorAll('section'));
+        const currentSection = this.getCurrentSection(sections);
+        const prevSection = sections[sections.indexOf(currentSection) - 1];
+        
+        if (prevSection) {
+            this.smoothScrollTo(prevSection);
+        }
+    }
+
+    getCurrentSection(sections) {
+        const scrollPosition = window.scrollY + window.innerHeight / 2;
+        
+        for (let section of sections) {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                return section;
+            }
+        }
+        
+        return sections[0];
+    }
+
+    setupTouchGestures() {
+        let startY = 0;
+        let startX = 0;
+        
+        document.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+            startX = e.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            const endY = e.changedTouches[0].clientY;
+            const endX = e.changedTouches[0].clientX;
+            const deltaY = startY - endY;
+            const deltaX = startX - endX;
+            
+            // Swipe up/down navigation
+            if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 50) {
+                if (deltaY > 0) {
+                    this.navigateToNextSection();
+                } else {
+                    this.navigateToPreviousSection();
+                }
+            }
+        });
     }
 }
 
-// Demo Launch Functions
-function launchNeuralCanvas() {
-    // Create fullscreen neural canvas experience
-    const overlay = document.createElement('div');
-    overlay.className = 'demo-overlay';
-    overlay.innerHTML = `
-        <div class="demo-container">
-            <div class="demo-header">
-                <h2>Neural Canvas - AI Learning Interface</h2>
-                <button class="demo-close" onclick="closeDemo()">×</button>
-            </div>
-            <div class="demo-content">
-                <div class="neural-demo">
-                    <div class="neural-grid" id="fullscreenNeuralGrid"></div>
-                    <div class="neural-controls">
-                        <button onclick="trainAI()">Train AI</button>
-                        <button onclick="resetAI()">Reset</button>
-                        <div class="ai-status">AI Status: Ready</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(overlay);
-    initializeFullscreenNeural();
-}
-
-function launchQuantumVisualizer() {
-    const overlay = document.createElement('div');
-    overlay.className = 'demo-overlay';
-    overlay.innerHTML = `
-        <div class="demo-container">
-            <div class="demo-header">
-                <h2>Quantum Visualizer - Qubit Manipulation</h2>
-                <button class="demo-close" onclick="closeDemo()">×</button>
-            </div>
-            <div class="demo-content">
-                <div class="quantum-demo">
-                    <div class="quantum-workspace" id="fullscreenQuantum"></div>
-                    <div class="quantum-controls">
-                        <button onclick="measureQubit()">Measure</button>
-                        <button onclick="entangleQubits()">Entangle</button>
-                        <div class="quantum-state">State: |0⟩</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(overlay);
-    initializeFullscreenQuantum();
-}
-
-function launchHoloSpace() {
-    const overlay = document.createElement('div');
-    overlay.className = 'demo-overlay';
-    overlay.innerHTML = `
-        <div class="demo-container">
-            <div class="demo-header">
-                <h2>HoloSpace - 3D Holographic Interface</h2>
-                <button class="demo-close" onclick="closeDemo()">×</button>
-            </div>
-            <div class="demo-content">
-                <div class="holo-demo">
-                    <div class="holo-workspace" id="fullscreenHolo"></div>
-                    <div class="holo-controls">
-                        <button onclick="navigateHolo()">Navigate</button>
-                        <button onclick="createHoloObject()">Create Object</button>
-                        <div class="holo-position">Position: (0, 0, 0)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(overlay);
-    initializeFullscreenHolo();
-}
-
-function launchBioSync() {
-    const overlay = document.createElement('div');
-    overlay.className = 'demo-overlay';
-    overlay.innerHTML = `
-        <div class="demo-container">
-            <div class="demo-header">
-                <h2>BioSync - Biometric Interface</h2>
-                <button class="demo-close" onclick="closeDemo()">×</button>
-            </div>
-            <div class="demo-content">
-                <div class="bio-demo">
-                    <div class="bio-monitor" id="fullscreenBio"></div>
-                    <div class="bio-controls">
-                        <button onclick="calibrateBio()">Calibrate</button>
-                        <button onclick="optimizeBio()">Optimize</button>
-                        <div class="bio-metrics">Heart Rate: -- BPM</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(overlay);
-    initializeFullscreenBio();
-}
-
-function closeDemo() {
-    const overlay = document.querySelector('.demo-overlay');
-    if (overlay) {
-        overlay.remove();
-    }
-}
-
-// Info functions
-function showNeuralCanvasInfo() {
-    alert('Neural Canvas: An AI-powered interface that learns from user interactions and creates personalized experiences. Click on the grid cells to teach the AI your pattern!');
-}
-
-function showQuantumInfo() {
-    alert('Quantum Visualizer: Experience quantum computing concepts through interactive qubit manipulation. Use the controls to explore superposition and entanglement!');
-}
-
-function showHoloInfo() {
-    alert('HoloSpace: Navigate through a 3D holographic interface where websites exist as floating islands. Move your mouse to change perspective!');
-}
-
-function showBioInfo() {
-    alert('BioSync: A revolutionary interface that responds to your biometric data. The website literally comes alive based on your physiological state!');
-}
+// ==========================================================================
+// INITIALIZATION & UTILITIES
+// ==========================================================================
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -801,93 +630,133 @@ document.addEventListener('DOMContentLoaded', () => {
     new NexusStudio();
     
     // Preload critical resources
-    const preloadLinks = [
-        'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap'
-    ];
+    this.preloadResources();
     
-    preloadLinks.forEach(href => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'style';
-        link.href = href;
-        document.head.appendChild(link);
-    });
+    // Add CSS animations
+    this.addCSSAnimations();
 });
 
-// Add loading styles
-const loadingStyles = document.createElement('style');
-loadingStyles.textContent = `
-    body:not(.loaded) {
-        overflow: hidden;
-    }
-    
-    body:not(.loaded)::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--color-primary);
-        z-index: 10000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    body:not(.loaded)::after {
-        content: 'NEXUS';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: var(--font-mono);
-        font-size: 3rem;
-        font-weight: 900;
-        color: var(--color-accent);
-        z-index: 10001;
-        animation: loadingPulse 2s ease-in-out infinite;
-    }
-    
-    @keyframes loadingPulse {
-        0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.1); }
-    }
-    
-    .loaded .custom-cursor {
-        opacity: 1;
-    }
-    
-    .custom-cursor {
-        opacity: 0;
-        transition: opacity 0.5s ease;
-    }
-    
-    /* Ensure content is visible after loading */
-    body.loaded::before,
-    body.loaded::after {
-        display: none !important;
-    }
-`;
-
-document.head.appendChild(loadingStyles);
-
-// Performance monitoring
-if ('performance' in window) {
-    window.addEventListener('load', () => {
-        try {
-            const perfData = performance.getEntriesByType('navigation')[0];
-            if (perfData) {
-                console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-                console.log('DOM Content Loaded:', perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart, 'ms');
-            }
-        } catch (error) {
-            console.log('Performance monitoring not available');
+// Preload critical resources
+function preloadResources() {
+    // Preload fonts
+    const fontLinks = document.querySelectorAll('link[rel="preconnect"]');
+    fontLinks.forEach(link => {
+        if (link.href.includes('fonts.googleapis.com')) {
+            const fontLink = document.createElement('link');
+            fontLink.rel = 'preload';
+            fontLink.as = 'style';
+            fontLink.href = link.href;
+            document.head.appendChild(fontLink);
         }
     });
 }
 
-// Export for module usage
+// Add CSS animations dynamically
+function addCSSAnimations() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .section--visible {
+            animation: sectionReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes sectionReveal {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .work__item--visible {
+            animation: workItemReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes workItemReveal {
+            from {
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        .approach__step--visible {
+            animation: approachStepReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        @keyframes approachStepReveal {
+            from {
+                opacity: 0;
+                transform: translateY(30px) rotateX(10deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0deg);
+            }
+        }
+        
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+        }
+        
+        .cursor__dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+        }
+        
+        .cursor__ring {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--color-accent);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .cursor--hover .cursor__dot {
+            transform: translate(-50%, -50%) scale(1.5);
+        }
+        
+        .cursor--hover .cursor__ring {
+            transform: translate(-50%, -50%) scale(1.2);
+            border-color: var(--color-accent-light);
+        }
+        
+        .mobile .custom-cursor {
+            display: none;
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Export for potential external use
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = NexusStudio;
 }

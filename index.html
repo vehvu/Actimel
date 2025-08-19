@@ -3,31 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Studio | Digital Innovation Lab</title>
-    <meta name="description" content="Pushing the boundaries of digital design and development. Award-winning experiences that redefine what's possible on the web.">
+    <title>Nexus Studio - Visual Design Excellence</title>
+    <meta name="description" content="A showcase of cutting-edge web design, typography, and visual innovation">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* Fallback styles to ensure content is visible */
-        body { overflow: visible !important; }
-        .hero, .work, .studio, .approach, .contact, .footer { 
-            display: block !important; 
-            opacity: 1 !important; 
-            visibility: visible !important; 
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body class="loaded">
+    <!-- Noise Overlay -->
     <div class="noise-overlay"></div>
     
+    <!-- Floating Particles -->
+    <div class="particle-system">
+        <div class="particle particle--1"></div>
+        <div class="particle particle--2"></div>
+        <div class="particle particle--3"></div>
+        <div class="particle particle--4"></div>
+        <div class="particle particle--5"></div>
+        <div class="particle particle--6"></div>
+        <div class="particle particle--7"></div>
+        <div class="particle particle--8"></div>
+        <div class="particle particle--9"></div>
+        <div class="particle particle--10"></div>
+    </div>
+
     <!-- Navigation -->
     <nav class="nav" data-nav>
         <div class="nav__container">
             <div class="nav__logo">
+                <div class="nav__logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
                 <span class="nav__logo-text">NEXUS</span>
-                <span class="nav__logo-dot"></span>
+                <div class="nav__logo-dot"></div>
             </div>
             
             <div class="nav__menu">
@@ -47,86 +60,112 @@
 
     <!-- Hero Section -->
     <section class="hero" data-hero>
+        <div class="hero__background">
+            <div class="hero__bg-layer hero__bg-layer--1"></div>
+            <div class="hero__bg-layer hero__bg-layer--2"></div>
+            <div class="hero__bg-layer hero__bg-layer--3"></div>
+            <div class="hero__bg-layer hero__bg-layer--4"></div>
+        </div>
+        
         <div class="hero__container">
             <div class="hero__content">
-                <h1 class="hero__title">
-                    <span class="hero__title-line">We craft</span>
-                    <span class="hero__title-line">digital</span>
-                    <span class="hero__title-line">experiences</span>
-                    <span class="hero__title-line">that</span>
-                    <span class="hero__title-line">defy</span>
-                    <span class="hero__title-line">expectations</span>
-                </h1>
+                <div class="hero__title-wrapper">
+                    <h1 class="hero__title">
+                        <span class="hero__title-line hero__title-line--1">Design</span>
+                        <span class="hero__title-line hero__title-line--2">That</span>
+                        <span class="hero__title-line hero__title-line--3">Moves</span>
+                        <span class="hero__title-line hero__title-line--4">People</span>
+                    </h1>
+                </div>
                 
                 <p class="hero__subtitle">
-                    A digital innovation lab pushing the boundaries of what's possible on the web. 
-                    Where technology meets artistry, and every pixel tells a story.
+                    We craft digital experiences that transcend the ordinary, 
+                    creating moments of pure visual delight that leave lasting impressions.
                 </p>
                 
                 <div class="hero__cta">
                     <a href="#work" class="btn btn--primary">
-                        <span>Explore Our Work</span>
-                        <svg class="btn__arrow" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        <span class="btn__text">Explore Our Work</span>
+                        <div class="btn__icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </a>
+                    <a href="#studio" class="btn btn--secondary">
+                        <span class="btn__text">Learn More</span>
+                        <div class="btn__icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M19 14L12 7L5 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
                     </a>
                 </div>
             </div>
             
             <div class="hero__visual">
                 <div class="hero__grid">
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Quantum Interface</h3>
-                            <p class="hero__grid-item-description">A revolutionary dashboard that redefines data visualization through quantum-inspired design principles and real-time interactions.</p>
+                    <div class="hero__grid-item hero__grid-item--1" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🎨</div>
+                            <h3 class="grid-item__title">Visual Excellence</h3>
+                            <p class="grid-item__description">Every pixel crafted with purpose</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Neural Brand</h3>
-                            <p class="hero__grid-item-description">An adaptive brand system that evolves based on user interaction, creating truly personalized brand experiences.</p>
+                    <div class="hero__grid-item hero__grid-item--2" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">✨</div>
+                            <h3 class="grid-item__title">Creative Innovation</h3>
+                            <p class="grid-item__description">Breaking boundaries with beauty</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Holographic Platform</h3>
-                            <p class="hero__grid-item-description">A next-generation platform that brings holographic technology to the web, creating immersive 3D experiences.</p>
+                    <div class="hero__grid-item hero__grid-item--3" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🌟</div>
+                            <h3 class="grid-item__title">Design Mastery</h3>
+                            <p class="grid-item__description">Crafting digital perfection</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Quantum Interface</h3>
-                            <p class="hero__grid-item-description">A revolutionary dashboard that redefines data visualization through quantum-inspired design principles and real-time interactions.</p>
+                    <div class="hero__grid-item hero__grid-item--4" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">💫</div>
+                            <h3 class="grid-item__title">Aesthetic Brilliance</h3>
+                            <p class="grid-item__description">Beauty in every detail</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Neural Brand</h3>
-                            <p class="hero__grid-item-description">An adaptive brand system that evolves based on user interaction, creating truly personalized brand experiences.</p>
+                    <div class="hero__grid-item hero__grid-item--5" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🎭</div>
+                            <h3 class="grid-item__title">Visual Storytelling</h3>
+                            <p class="grid-item__description">Narratives through design</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Holographic Platform</h3>
-                            <p class="hero__grid-item-description">A next-generation platform that brings holographic technology to the web, creating immersive 3D experiences.</p>
+                    <div class="hero__grid-item hero__grid-item--6" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🌈</div>
+                            <h3 class="grid-item__title">Color Harmony</h3>
+                            <p class="grid-item__description">Perfect visual balance</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Quantum Interface</h3>
-                            <p class="hero__grid-item-description">A revolutionary dashboard that redefines data visualization through quantum-inspired design principles and real-time interactions.</p>
+                    <div class="hero__grid-item hero__grid-item--7" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🎪</div>
+                            <h3 class="grid-item__title">Creative Wonder</h3>
+                            <p class="grid-item__description">Inspiring visual journeys</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Neural Brand</h3>
-                            <p class="hero__grid-item-description">An adaptive brand system that evolves based on user interaction, creating truly personalized brand experiences.</p>
+                    <div class="hero__grid-item hero__grid-item--8" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🎨</div>
+                            <h3 class="grid-item__title">Design Poetry</h3>
+                            <p class="grid-item__description">Beauty in motion</p>
                         </div>
                     </div>
-                    <div class="hero__grid-item" data-grid-item>
-                        <div class="hero__grid-item-content">
-                            <h3 class="hero__grid-item-title">Holographic Platform</h3>
-                            <p class="hero__grid-item-description">A next-generation platform that brings holographic technology to the web, creating immersive 3D experiences.</p>
+                    <div class="hero__grid-item hero__grid-item--9" data-grid-item>
+                        <div class="grid-item__content">
+                            <div class="grid-item__icon">🚀</div>
+                            <h3 class="grid-item__title">Visual Future</h3>
+                            <p class="grid-item__description">Tomorrow's design today</p>
                         </div>
                     </div>
                 </div>
@@ -145,115 +184,146 @@
     <section class="work" id="work">
         <div class="work__container">
             <div class="work__header">
-                <h2 class="work__title">Innovation Showcase</h2>
-                <p class="work__subtitle">Experience the future of web design through interactive prototypes and cutting-edge technologies.</p>
+                <div class="work__header-content">
+                    <h2 class="work__title">Selected Work</h2>
+                    <p class="work__subtitle">
+                        A curated collection of our finest design achievements, 
+                        showcasing the intersection of creativity, innovation, and visual excellence.
+                    </p>
+                </div>
+                <div class="work__header-visual">
+                    <div class="work__header-geometry">
+                        <div class="geometry__shape geometry__shape--1"></div>
+                        <div class="geometry__shape geometry__shape--2"></div>
+                        <div class="geometry__shape geometry__shape--3"></div>
+                    </div>
+                </div>
             </div>
             
             <div class="work__grid">
-                <article class="work__item work__item--interactive" data-work-item>
+                <article class="work__item work__item--featured" data-work-item>
                     <div class="work__item-content">
                         <div class="work__item-text">
-                            <span class="work__item-category">AI-Powered Interface</span>
-                            <h3 class="work__item-title">Neural Canvas</h3>
-                            <p class="work__item-description">An AI-driven design tool that creates interactive experiences in real-time. Watch as the interface evolves based on your interactions, creating truly personalized user journeys.</p>
-                            <div class="work__item-actions">
-                                <button class="btn btn--primary" onclick="launchNeuralCanvas()">Launch Demo</button>
-                                <button class="btn btn--secondary" onclick="showNeuralCanvasInfo()">Learn More</button>
+                            <div class="work__item-meta">
+                                <span class="work__item-category">Brand Identity</span>
+                                <span class="work__item-year">2024</span>
+                            </div>
+                            <h3 class="work__item-title">Luminary Brand System</h3>
+                            <p class="work__item-description">
+                                A comprehensive brand identity that transforms the ordinary into the extraordinary. 
+                                Every element carefully crafted to create a cohesive visual language that speaks 
+                                volumes without saying a word.
+                            </p>
+                            <div class="work__item-tags">
+                                <span class="tag">Brand Design</span>
+                                <span class="tag">Visual Identity</span>
+                                <span class="tag">Typography</span>
+                                <span class="tag">Color Theory</span>
                             </div>
                         </div>
                         <div class="work__item-visual">
-                            <div class="work__item-canvas" id="neuralCanvas">
-                                <div class="canvas__grid">
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                    <div class="canvas__cell" data-cell></div>
-                                </div>
-                                <div class="canvas__overlay">
-                                    <div class="canvas__ai-status">AI: Learning...</div>
+                            <div class="work__item-image">
+                                <div class="image__container">
+                                    <div class="image__main">
+                                        <div class="image__overlay">
+                                            <div class="overlay__content">
+                                                <div class="overlay__icon">✨</div>
+                                                <h4 class="overlay__title">Luminary</h4>
+                                                <p class="overlay__subtitle">Illuminating brands</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="image__details">
+                                        <div class="detail__element detail__element--1"></div>
+                                        <div class="detail__element detail__element--2"></div>
+                                        <div class="detail__element detail__element--3"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </article>
                 
-                <article class="work__item work__item--interactive" data-work-item>
+                <article class="work__item work__item--elegant" data-work-item>
                     <div class="work__item-content">
                         <div class="work__item-text">
-                            <span class="work__item-category">Quantum Computing</span>
-                            <h3 class="work__item-title">Quantum Visualizer</h3>
-                            <p class="work__item-description">Experience quantum superposition through an interactive 3D visualization. Manipulate qubits in real-time and see how quantum algorithms solve complex problems.</p>
-                            <div class="work__item-actions">
-                                <button class="btn btn--primary" onclick="launchQuantumVisualizer()">Launch Demo</button>
-                                <button class="btn btn--secondary" onclick="showQuantumInfo()">Learn More</button>
+                            <div class="work__item-meta">
+                                <span class="work__item-category">Web Design</span>
+                                <span class="work__item-year">2024</span>
+                            </div>
+                            <h3 class="work__item-title">Ethereal Interface</h3>
+                            <p class="work__item-description">
+                                A web experience that feels like floating through a dream. 
+                                Smooth animations, thoughtful micro-interactions, and a visual 
+                                hierarchy that guides users through an enchanting digital journey.
+                            </p>
+                            <div class="work__item-tags">
+                                <span class="tag">UI/UX</span>
+                                <span class="tag">Web Design</span>
+                                <span class="tag">Animations</span>
+                                <span class="tag">User Experience</span>
                             </div>
                         </div>
                         <div class="work__item-visual">
-                            <div class="work__item-canvas" id="quantumCanvas">
-                                <div class="quantum__qubit" data-qubit>
-                                    <div class="qubit__core"></div>
-                                    <div class="qubit__orbit"></div>
-                                </div>
-                                <div class="quantum__controls">
-                                    <div class="control__knob" data-control="rotation"></div>
-                                    <div class="control__knob" data-control="superposition"></div>
+                            <div class="work__item-image">
+                                <div class="image__container">
+                                    <div class="image__main">
+                                        <div class="image__overlay">
+                                            <div class="overlay__content">
+                                                <div class="overlay__icon">🌙</div>
+                                                <h4 class="overlay__title">Ethereal</h4>
+                                                <p class="overlay__subtitle">Dreamlike design</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="image__details">
+                                        <div class="detail__element detail__element--1"></div>
+                                        <div class="detail__element detail__element--2"></div>
+                                        <div class="detail__element detail__element--3"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </article>
                 
-                <article class="work__item work__item--interactive" data-work-item>
+                <article class="work__item work__item--bold" data-work-item>
                     <div class="work__item-content">
                         <div class="work__item-text">
-                            <span class="work__item-category">Holographic Web</span>
-                            <h3 class="work__item-title">HoloSpace</h3>
-                            <p class="work__item-description">Navigate through a 3D holographic interface where websites exist as floating islands in space. Use hand gestures and voice commands to interact with content.</p>
-                            <div class="work__item-actions">
-                                <button class="btn btn--primary" onclick="launchHoloSpace()">Launch Demo</button>
-                                <button class="btn btn--secondary" onclick="showHoloInfo()">Learn More</button>
+                            <div class="work__item-meta">
+                                <span class="work__item-category">Digital Art</span>
+                                <span class="work__item-year">2024</span>
+                            </div>
+                            <h3 class="work__item-title">Chromatic Symphony</h3>
+                            <p class="work__item-description">
+                                A visual masterpiece that explores the relationship between color, 
+                                form, and emotion. Each hue carefully selected to create a harmonious 
+                                composition that resonates with the soul.
+                            </p>
+                            <div class="work__item-tags">
+                                <span class="tag">Digital Art</span>
+                                <span class="tag">Color Theory</span>
+                                <span class="tag">Composition</span>
+                                <span class="tag">Visual Art</span>
                             </div>
                         </div>
                         <div class="work__item-visual">
-                            <div class="work__item-canvas" id="holoCanvas">
-                                <div class="holo__space">
-                                    <div class="holo__planet" data-planet></div>
-                                    <div class="holo__asteroid" data-asteroid></div>
-                                    <div class="holo__nebula" data-nebula></div>
-                                </div>
-                                <div class="holo__interface">
-                                    <div class="interface__panel" data-panel></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                
-                <article class="work__item work__item--interactive" data-work-item>
-                    <div class="work__item-content">
-                        <div class="work__item-text">
-                            <span class="work__item-category">Bio-Digital Fusion</span>
-                            <h3 class="work__item-title">BioSync</h3>
-                            <p class="work__item-description">A revolutionary interface that responds to your heartbeat, brainwaves, and biometric data. The website literally comes alive based on your physiological state.</p>
-                            <div class="work__item-actions">
-                                <button class="btn btn--primary" onclick="launchBioSync()">Launch Demo</button>
-                                <button class="btn btn--secondary" onclick="showBioInfo()">Learn More</button>
-                            </div>
-                        </div>
-                        <div class="work__item-visual">
-                            <div class="work__item-canvas" id="bioCanvas">
-                                <div class="bio__heartbeat">
-                                    <div class="heartbeat__line" data-heartbeat></div>
-                                </div>
-                                <div class="bio__waves">
-                                    <div class="wave" data-wave></div>
-                                    <div class="wave" data-wave></div>
-                                    <div class="wave" data-wave></div>
+                            <div class="work__item-image">
+                                <div class="image__container">
+                                    <div class="image__main">
+                                        <div class="image__overlay">
+                                            <div class="overlay__content">
+                                                <div class="overlay__icon">🎨</div>
+                                                <h4 class="overlay__title">Chromatic</h4>
+                                                <p class="overlay__subtitle">Color harmony</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="image__details">
+                                        <div class="detail__element detail__element--1"></div>
+                                        <div class="detail__element detail__element--2"></div>
+                                        <div class="detail__element detail__element--3"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -264,38 +334,48 @@
     </section>
 
     <!-- Studio Section -->
-    <section id="studio" class="studio" data-studio>
+    <section class="studio" id="studio">
         <div class="studio__container">
             <div class="studio__content">
                 <div class="studio__text">
-                    <h2 class="studio__title">The Studio</h2>
+                    <h2 class="studio__title">Our Studio</h2>
                     <p class="studio__description">
-                        We're a collective of digital artisans, engineers, and visionaries 
-                        who believe that the web should be more than just functional—it should 
-                        be extraordinary. Every project we undertake is an opportunity to 
-                        push boundaries, challenge assumptions, and create something that 
-                        hasn't been seen before.
+                        We are a collective of passionate designers, artists, and creative thinkers 
+                        who believe that great design has the power to change the world. Every project 
+                        we undertake is an opportunity to push the boundaries of what's possible, 
+                        creating experiences that inspire, delight, and endure.
                     </p>
-                    <p class="studio__description">
-                        Our approach combines cutting-edge technology with timeless design 
-                        principles, resulting in digital experiences that are both innovative 
-                        and intuitive. We don't just build websites; we craft digital 
-                        environments that inspire, engage, and transform.
-                    </p>
+                    <div class="studio__values">
+                        <div class="value">
+                            <div class="value__icon">🎯</div>
+                            <h3 class="value__title">Purpose</h3>
+                            <p class="value__description">Every design decision serves a greater purpose</p>
+                        </div>
+                        <div class="value">
+                            <div class="value__icon">💎</div>
+                            <h3 class="value__title">Quality</h3>
+                            <p class="value__description">We never compromise on excellence</p>
+                        </div>
+                        <div class="value">
+                            <div class="value__icon">🚀</div>
+                            <h3 class="value__title">Innovation</h3>
+                            <p class="value__description">Pushing the boundaries of possibility</p>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="studio__stats">
                     <div class="stat">
-                        <span class="stat__number" data-stat="15">0</span>
-                        <span class="stat__label">Years of Innovation</span>
+                        <div class="stat__number" data-stat="150">0</div>
+                        <div class="stat__label">Projects Completed</div>
                     </div>
                     <div class="stat">
-                        <span class="stat__number" data-stat="127">0</span>
-                        <span class="stat__label">Projects Delivered</span>
+                        <div class="stat__number" data-stat="25">0</div>
+                        <div class="stat__label">Awards Won</div>
                     </div>
                     <div class="stat">
-                        <span class="stat__number" data-stat="23">0</span>
-                        <span class="stat__label">Industry Awards</span>
+                        <div class="stat__number" data-stat="98">0</div>
+                        <div class="stat__label">Client Satisfaction</div>
                     </div>
                 </div>
             </div>
@@ -303,86 +383,110 @@
     </section>
 
     <!-- Approach Section -->
-    <section id="approach" class="approach" data-approach>
+    <section class="approach" id="approach">
         <div class="approach__container">
             <div class="approach__header">
                 <h2 class="approach__title">Our Approach</h2>
-                <p class="approach__subtitle">A methodology that ensures every project exceeds expectations</p>
+                <p class="approach__subtitle">
+                    A systematic methodology that ensures every project reaches its full potential, 
+                    combining creative intuition with strategic thinking.
+                </p>
             </div>
             
             <div class="approach__grid">
                 <div class="approach__step" data-approach-step>
-                    <div class="approach__step-number">01</div>
-                    <h3 class="approach__step-title">Discovery & Research</h3>
-                    <p class="approach__step-description">
-                        We dive deep into understanding your vision, audience, and objectives. 
-                        This foundation informs every decision we make.
+                    <div class="step__number">01</div>
+                    <h3 class="step__title">Discovery</h3>
+                    <p class="step__description">
+                        We begin by immersing ourselves in your world, understanding your vision, 
+                        goals, and the unique challenges you face.
                     </p>
+                    <div class="step__visual">
+                        <div class="step__icon">🔍</div>
+                        <div class="step__line"></div>
+                    </div>
                 </div>
                 
                 <div class="approach__step" data-approach-step>
-                    <div class="approach__step-number">02</div>
-                    <h3 class="approach__step-title">Concept & Design</h3>
-                    <p class="approach__step-description">
-                        Our creative team develops concepts that push boundaries while 
-                        maintaining clarity and purpose. Every element serves a function.
+                    <div class="step__number">02</div>
+                    <h3 class="step__title">Strategy</h3>
+                    <p class="step__description">
+                        Armed with insights, we develop a comprehensive strategy that aligns 
+                        design with business objectives and user needs.
                     </p>
+                    <div class="step__visual">
+                        <div class="step__icon">📋</div>
+                        <div class="step__line"></div>
+                    </div>
                 </div>
                 
                 <div class="approach__step" data-approach-step>
-                    <div class="approach__step-number">03</div>
-                    <h3 class="approach__step-title">Development & Testing</h3>
-                    <p class="approach__step-description">
-                        We build with cutting-edge technologies, ensuring performance, 
-                        accessibility, and cross-platform compatibility.
+                    <div class="step__number">03</div>
+                    <h3 class="step__title">Creation</h3>
+                    <p class="step__description">
+                        This is where magic happens. We bring ideas to life through sketches, 
+                        prototypes, and iterative design processes.
                     </p>
+                    <div class="step__visual">
+                        <div class="step__icon">✨</div>
+                        <div class="step__line"></div>
+                    </div>
                 </div>
                 
                 <div class="approach__step" data-approach-step>
-                    <div class="approach__step-number">04</div>
-                    <h3 class="approach__step-title">Launch & Evolution</h3>
-                    <p class="approach__step-description">
-                        We don't just launch; we monitor, optimize, and evolve your 
-                        digital presence to maintain its competitive edge.
+                    <div class="step__number">04</div>
+                    <h3 class="step__title">Refinement</h3>
+                    <p class="step__description">
+                        We polish and perfect, ensuring every detail meets our exacting standards 
+                        and exceeds your expectations.
                     </p>
+                    <div class="step__visual">
+                        <div class="step__icon">💎</div>
+                        <div class="step__line"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact" data-contact>
+    <section class="contact" id="contact">
         <div class="contact__container">
             <div class="contact__content">
-                <h2 class="contact__title">Ready to Create Something Extraordinary?</h2>
+                <h2 class="contact__title">Let's Create Together</h2>
                 <p class="contact__subtitle">
-                    Let's discuss how we can transform your digital presence and 
-                    create an experience that sets new standards.
+                    Ready to bring your vision to life? We'd love to hear about your project 
+                    and explore how we can help you achieve something extraordinary.
                 </p>
                 
                 <div class="contact__methods">
-                    <a href="mailto:hello@nexus.studio" class="contact__method">
-                        <span class="contact__method-label">Email</span>
-                        <span class="contact__method-value">hello@nexus.studio</span>
+                    <a href="mailto:hello@nexusstudio.com" class="contact__method">
+                        <div class="method__icon">📧</div>
+                        <div class="method__label">Email</div>
+                        <div class="method__value">hello@nexusstudio.com</div>
                     </a>
                     
                     <a href="tel:+1234567890" class="contact__method">
-                        <span class="contact__method-label">Phone</span>
-                        <span class="contact__method-value">+1 (234) 567-890</span>
+                        <div class="method__icon">📞</div>
+                        <div class="method__label">Phone</div>
+                        <div class="method__value">+1 (234) 567-890</div>
                     </a>
                     
-                    <div class="contact__method">
-                        <span class="contact__method-label">Location</span>
-                        <span class="contact__method-value">San Francisco, CA</span>
-                    </div>
+                    <a href="#" class="contact__method">
+                        <div class="method__icon">💬</div>
+                        <div class="method__label">Chat</div>
+                        <div class="method__value">Start a conversation</div>
+                    </a>
                 </div>
                 
                 <div class="contact__cta">
-                    <a href="mailto:hello@nexus.studio" class="btn btn--secondary">
-                        <span>Start a Conversation</span>
-                        <svg class="btn__arrow" viewBox="0 0 24 24" fill="none">
-                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                    <a href="#" class="btn btn--primary btn--large">
+                        <span class="btn__text">Start Your Project</span>
+                        <div class="btn__icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
                     </a>
                 </div>
             </div>
@@ -394,53 +498,46 @@
         <div class="footer__container">
             <div class="footer__content">
                 <div class="footer__brand">
-                    <span class="footer__logo">NEXUS</span>
-                    <p class="footer__tagline">Redefining digital excellence</p>
+                    <div class="footer__logo">NEXUS</div>
+                    <p class="footer__tagline">Designing the future, one pixel at a time.</p>
                 </div>
                 
                 <div class="footer__links">
                     <div class="footer__column">
                         <h4 class="footer__column-title">Work</h4>
-                        <a href="#work" class="footer__link">Portfolio</a>
-                        <a href="#studio" class="footer__link">Case Studies</a>
+                        <a href="#" class="footer__link">Portfolio</a>
+                        <a href="#" class="footer__link">Case Studies</a>
+                        <a href="#" class="footer__link">Process</a>
                     </div>
                     
                     <div class="footer__column">
                         <h4 class="footer__column-title">Studio</h4>
-                        <a href="#studio" class="footer__link">About</a>
-                        <a href="#approach" class="footer__link">Process</a>
+                        <a href="#" class="footer__link">About</a>
+                        <a href="#" class="footer__link">Team</a>
+                        <a href="#" class="footer__link">Careers</a>
                     </div>
                     
                     <div class="footer__column">
                         <h4 class="footer__column-title">Connect</h4>
-                        <a href="#contact" class="footer__link">Contact</a>
-                        <a href="#" class="footer__link">Careers</a>
+                        <a href="#" class="footer__link">Contact</a>
+                        <a href="#" class="footer__link">Newsletter</a>
+                        <a href="#" class="footer__link">Social</a>
                     </div>
                 </div>
             </div>
             
             <div class="footer__bottom">
-                <p class="footer__copyright">© 2025 Nexus Studio. All rights reserved.</p>
+                <div class="footer__copyright">
+                    © 2024 Nexus Studio. All rights reserved.
+                </div>
                 <div class="footer__social">
-                    <a href="#" class="footer__social-link" aria-label="Instagram">Instagram</a>
-                    <a href="#" class="footer__social-link" aria-label="Twitter">Twitter</a>
-                    <a href="#" class="footer__social-link" aria-label="LinkedIn">LinkedIn</a>
-                    <a href="#" class="footer__social-link" aria-label="Dribbble">Dribbble</a>
+                    <a href="#" class="footer__social-link">Instagram</a>
+                    <a href="#" class="footer__social-link">Twitter</a>
+                    <a href="#" class="footer__social-link">LinkedIn</a>
                 </div>
             </div>
         </div>
     </footer>
-
-    <noscript>
-        <style>
-            body { overflow: visible !important; }
-            .hero, .work, .studio, .approach, .contact, .footer { 
-                display: block !important; 
-                opacity: 1 !important; 
-                visibility: visible !important; 
-            }
-        </style>
-    </noscript>
 
     <script src="script.js"></script>
 </body>
