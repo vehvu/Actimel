@@ -13,7 +13,6 @@ class NexusStudio {
         this.setupAnimations();
         this.setupParallax();
         this.setupMouseEffects();
-        this.setupStatsCounter();
         this.setupSmoothScrolling();
         this.setupMobileMenu();
         this.setupPerformanceOptimizations();
@@ -480,24 +479,15 @@ document.head.appendChild(loadingStyles);
 // Performance monitoring
 if ('performance' in window) {
     window.addEventListener('load', () => {
-        setTimeout(() => {
+        try {
             const perfData = performance.getEntriesByType('navigation')[0];
-            console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
-            console.log('DOM Content Loaded:', perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart, 'ms');
-        }, 0);
-    });
-}
-
-// Service Worker registration for PWA capabilities
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-                console.log('SW registered: ', registration);
-            })
-            .catch(registrationError => {
-                console.log('SW registration failed: ', registrationError);
-            });
+            if (perfData) {
+                console.log('Page Load Time:', perfData.loadEventEnd - perfData.loadEventStart, 'ms');
+                console.log('DOM Content Loaded:', perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart, 'ms');
+            }
+        } catch (error) {
+            console.log('Performance monitoring not available');
+        }
     });
 }
 
