@@ -3,1446 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaiden Hendey - Professional Resume</title>
+    <title>Nexus Studio | Digital Innovation Lab</title>
+    <meta name="description" content="Pushing the boundaries of digital design and development. Award-winning experiences that redefine what's possible on the web.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 <body>
+    <div class="noise-overlay"></div>
+    
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                
+    <nav class="nav" data-nav>
+        <div class="nav__container">
+            <div class="nav__logo">
+                <span class="nav__logo-text">NEXUS</span>
+                <span class="nav__logo-dot"></span>
             </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="#hero" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#portfolio" class="nav-link">Portfolio</a>
-                <a href="#skills" class="nav-link">Skills</a>
-                <a href="#education" class="nav-link">Education</a>
-                <a href="#contact" class="nav-link">Contact</a>
+            
+            <div class="nav__menu">
+                <a href="#work" class="nav__link">Work</a>
+                <a href="#studio" class="nav__link">Studio</a>
+                <a href="#approach" class="nav__link">Approach</a>
+                <a href="#contact" class="nav__link">Contact</a>
             </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+            
+            <button class="nav__toggle" data-nav-toggle>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="hero">
-        <div class="hero-background">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
-                <div class="shape shape-5"></div>
-            </div>
-        </div>
-        <div class="hero-content">
-            <div class="hero-text" data-aos="fade-up" data-aos-delay="200">
-                <h1 class="hero-title">
-                    <span class="title-line">Hello, I'm</span>
-                    <span class="title-name">Kaiden Hendey</span>
-                    <span class="title-role">Full-Stack Developer & Web Designer</span>
+    <section class="hero" data-hero>
+        <div class="hero__container">
+            <div class="hero__content">
+                <h1 class="hero__title">
+                    <span class="hero__title-line">We craft</span>
+                    <span class="hero__title-line">digital</span>
+                    <span class="hero__title-line">experiences</span>
+                    <span class="hero__title-line">that</span>
+                    <span class="hero__title-line">defy</span>
+                    <span class="hero__title-line">expectations</span>
                 </h1>
-                <p class="hero-description">
-                    Passionate full-stack developer specializing in JavaScript, Lua, HTML/CSS, and modern web technologies. I craft elegant, efficient solutions and create immersive digital experiences with clean, scalable code.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">
-                        <i class="fas fa-envelope"></i>
-                        Get In Touch
-                    </a>
-                    <a href="#portfolio" class="btn btn-secondary">
-                        <i class="fas fa-code"></i>
-                        View Projects
-                    </a>
-                </div>
-            </div>
-            <div class="hero-image" data-aos="fade-left" data-aos-delay="400">
-                <div class="profile-card">
-                    <div class="profile-image">
-                        <div class="image-placeholder">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="status-indicator"></div>
-                    </div>
-                    <div class="profile-stats">
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Projects Built</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">8+</span>
-                            <span class="stat-label">Languages</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="scroll-arrow">
-                <i class="fas fa-chevron-down"></i>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">About Me</h2>
-                <p class="section-subtitle">Professional Summary</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text" data-aos="fade-right">
-                    <h3>Code Architect & Digital Innovation Specialist</h3>
-                    <p>
-                        As a passionate developer with expertise in modern web technologies, I transform complex problems into elegant, 
-                        scalable solutions. My journey in programming spans multiple languages and frameworks, with a focus on 
-                        creating exceptional user experiences through clean, efficient code.
-                    </p>
-                    <p>
-                        I specialize in full-stack development using JavaScript, Lua scripting, responsive HTML/CSS design, and 
-                        cutting-edge frameworks. From interactive web applications to game development and automation scripts, 
-                        I bring technical excellence and creative problem-solving to every project.
-                    </p>
-                    <div class="about-highlights">
-                        <div class="highlight">
-                            <i class="fas fa-code"></i>
-                            <span>Full-Stack Development Expertise</span>
-                        </div>
-                        <div class="highlight">
-                            <i class="fas fa-mobile-alt"></i>
-                            <span>Responsive Design Specialist</span>
-                        </div>
-                        <div class="highlight">
-                            <i class="fas fa-database"></i>
-                            <span>Database Design & Optimization</span>
-                        </div>
-                        <div class="highlight">
-                            <i class="fas fa-rocket"></i>
-                            <span>Performance & Scalability Focus</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-info" data-aos="fade-left">
-                    <div class="info-card">
-                        <h4>Contact Information</h4>
-                        <div class="info-item">
-                            <i class="fas fa-phone"></i>
-                            <span>+1 765 506 8242</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>vehvu123@gmail.com</span>
-                        </div>
-                        <div class="info-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Marion, IN 46953</span>
-                        </div>
-                    </div>
-                    <div class="info-card">
-                        <h4>Tech Stack</h4>
-                        <div class="focus-areas">
-                            <span class="focus-tag">JavaScript ES6+</span>
-                            <span class="focus-tag">Lua Scripting</span>
-                            <span class="focus-tag">React/Node.js</span>
-                            <span class="focus-tag">HTML5/CSS3</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Featured Projects</h2>
-                <p class="section-subtitle">Code That Makes a Difference</p>
-            </div>
-            
-            <div class="projects-grid">
-                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fab fa-js-square"></i>
-                        </div>
-                        <div class="project-info">
-                            <h3>Interactive Web Dashboard</h3>
-                            <span class="project-tech">JavaScript • React • Node.js</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        Real-time analytics dashboard with dynamic charts, user authentication, and responsive design. 
-                        Built with modern JavaScript frameworks and optimized for performance.
-                    </p>
-                    <div class="code-snippet">
-                        <div class="code-header">
-                            <span class="code-lang">JavaScript</span>
-                            <div class="code-actions">
-                                <button class="copy-code" onclick="copyCode(this)">
-                                    <i class="fas fa-copy"></i> Copy
-                                </button>
-                                <button class="run-code" onclick="runCode(this, 'javascript')">
-                                    <i class="fas fa-play"></i> Run
-                                </button>
-                            </div>
-                        </div>
-                        <pre><code>// Advanced Web Design System & Component Library
-class ModernWebDesignSystem {
-  constructor(theme = 'dark') {
-    this.theme = theme;
-    this.components = new Map();
-    this.animations = new Map();
-    this.colors = this.generateColorPalette();
-    this.init();
-  }
-
-  init() {
-    this.setupTheme();
-    this.initializeComponents();
-    this.setupAnimations();
-    console.log('🎨 Design System initialized');
-  }
-
-  generateColorPalette() {
-    return {
-      primary: ['#00ffff', '#ff0080', '#00ff41'],
-      secondary: ['#ff6b35', '#f7931e', '#ffd23f'],
-      accent: ['#7209b7', '#4361ee', '#3a0ca3'],
-      neutral: ['#000000', '#0a0a0a', '#1a1a1a', '#ffffff'],
-      gradients: {
-        neon: 'linear-gradient(45deg, #00ffff, #ff0080)',
-        sunset: 'linear-gradient(135deg, #ff6b35, #f7931e)',
-        ocean: 'linear-gradient(180deg, #4361ee, #3a0ca3)'
-      }
-    };
-  }
-
-  setupTheme() {
-    const root = document.documentElement;
-    Object.entries(this.colors).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach((color, index) => {
-          root.style.setProperty(`--${key}-${index}`, color);
-        });
-      } else if (typeof value === 'object') {
-        Object.entries(value).forEach(([gradientKey, gradientValue]) => {
-          root.style.setProperty(`--gradient-${gradientKey}`, gradientValue);
-        });
-      }
-    });
-  }
-
-  createComponent(name, config) {
-    const component = {
-      name,
-      config,
-      element: null,
-      state: {},
-      methods: {}
-    };
-
-    // Add common component methods
-    component.methods.render = () => this.renderComponent(component);
-    component.methods.update = (newState) => this.updateComponent(component, newState);
-    component.methods.destroy = () => this.destroyComponent(component);
-
-    this.components.set(name, component);
-    return component;
-  }
-
-  renderComponent(component) {
-    const { name, config } = component;
-    
-    switch(name) {
-      case 'button':
-        return this.createButton(config);
-      case 'card':
-        return this.createCard(config);
-      case 'modal':
-        return this.createModal(config);
-      case 'navigation':
-        return this.createNavigation(config);
-      default:
-        return document.createElement('div');
-    }
-  }
-
-  createButton(config) {
-    const button = document.createElement('button');
-    button.className = `btn btn-${config.variant || 'primary'}`;
-    button.textContent = config.text || 'Button';
-    
-    // Apply custom styles
-    if (config.gradient) {
-      button.style.background = this.colors.gradients[config.gradient];
-    }
-    
-    // Add hover effects
-    button.addEventListener('mouseenter', () => {
-      button.style.transform = 'translateY(-2px)';
-      button.style.boxShadow = '0 10px 25px rgba(0, 255, 255, 0.3)';
-    });
-    
-    button.addEventListener('mouseleave', () => {
-      button.style.transform = 'translateY(0)';
-      button.style.boxShadow = 'none';
-    });
-
-    return button;
-  }
-
-  createCard(config) {
-    const card = document.createElement('div');
-    card.className = 'design-card';
-    card.innerHTML = `
-      <div class="card-header">
-        <h3>${config.title || 'Card Title'}</h3>
-        <div class="card-badge">${config.badge || 'New'}</div>
-      </div>
-      <div class="card-content">
-        <p>${config.content || 'Card content goes here'}</p>
-      </div>
-      <div class="card-footer">
-        <button class="btn btn-secondary">Learn More</button>
-      </div>
-    `;
-    
-    // Add glassmorphism effect
-    card.style.backdropFilter = 'blur(10px)';
-    card.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-    card.style.border = '1px solid rgba(255, 255, 255, 0.2)';
-    
-    return card;
-  }
-
-  setupAnimations() {
-    // Parallax scrolling
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const parallaxElements = document.querySelectorAll('[data-parallax]');
-      
-      parallaxElements.forEach(element => {
-        const speed = element.dataset.parallax || 0.5;
-        element.style.transform = `translateY(${scrolled * speed}px)`;
-      });
-    });
-
-    // Intersection Observer for animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-        }
-      });
-    });
-
-    document.querySelectorAll('[data-animate]').forEach(el => {
-      observer.observe(el);
-    });
-  }
-
-  // CSS-in-JS utility
-  injectStyles(css) {
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
-  }
-
-  // Responsive utilities
-  getBreakpoint() {
-    const width = window.innerWidth;
-    if (width < 768) return 'mobile';
-    if (width < 1024) return 'tablet';
-    return 'desktop';
-  }
-
-  // Theme switching
-  toggleTheme() {
-    this.theme = this.theme === 'dark' ? 'light' : 'dark';
-    document.body.setAttribute('data-theme', this.theme);
-    this.setupTheme();
-  }
-}
-
-// Initialize the design system
-const designSystem = new ModernWebDesignSystem('dark');
-          borderColor: '#00ffff',
-          backgroundColor: 'rgba(0, 255, 255, 0.1)',
-          tension: 0.4,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: { beginAtZero: true }
-        },
-        animation: { duration: 800 }
-      }
-    }));
-
-    // Revenue Chart
-    const revenueCtx = document.getElementById('revenue-canvas').getContext('2d');
-    this.charts.set('revenue', new Chart(revenueCtx, {
-      type: 'bar',
-      data: {
-        labels: [],
-        datasets: [{
-          label: 'Revenue',
-          data: [],
-          backgroundColor: '#00ff41',
-          borderColor: '#00ff41',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        animation: { duration: 1000 }
-      }
-    }));
-  }
-
-  processRealtimeData(data) {
-    const { type, payload, timestamp } = data;
-    
-    // Cache the data
-    if (!this.dataCache.has(type)) {
-      this.dataCache.set(type, []);
-    }
-    
-    const cache = this.dataCache.get(type);
-    cache.push({ ...payload, timestamp });
-    
-    // Keep only recent data
-    if (cache.length > this.config.maxDataPoints) {
-      cache.shift();
-    }
-    
-    // Update appropriate chart
-    this.updateChart(type, cache);
-    this.updateMetrics(type, payload);
-  }
-
-  updateChart(type, data) {
-    const chart = this.charts.get(type);
-    if (!chart) return;
-
-    chart.data.labels = data.map(d => 
-      new Date(d.timestamp).toLocaleTimeString()
-    );
-    chart.data.datasets[0].data = data.map(d => d.value);
-    chart.update('none'); // Smooth update without animation
-  }
-
-  updateMetrics(type, payload) {
-    if (type === 'users') {
-      document.getElementById('total-users')
-        .querySelector('.metric-value')
-        .textContent = payload.total.toLocaleString();
-    }
-    
-    if (type === 'conversion') {
-      document.getElementById('conversion-rate')
-        .querySelector('.metric-value')
-        .textContent = `${payload.rate.toFixed(2)}%`;
-    }
-  }
-
-  async startDataCollection() {
-    // Simulate initial data load
-    const initialData = await this.fetchHistoricalData();
-    initialData.forEach(data => this.processRealtimeData(data));
-    
-    // Start periodic updates if WebSocket fails
-    if (!this.websocket || this.websocket.readyState !== WebSocket.OPEN) {
-      this.fallbackToPolling();
-    }
-  }
-
-  fallbackToPolling() {
-    console.log('📡 Falling back to polling mode');
-    setInterval(async () => {
-      try {
-        const data = await this.fetchLatestData();
-        data.forEach(d => this.processRealtimeData(d));
-      } catch (error) {
-        console.error('❌ Polling error:', error);
-      }
-    }, this.config.updateInterval);
-  }
-
-  async fetchHistoricalData() {
-    // Simulate API call
-    return new Array(20).fill(0).map((_, i) => ({
-      type: 'users',
-      payload: { 
-        value: Math.floor(Math.random() * 1000) + 500,
-        total: Math.floor(Math.random() * 10000) + 5000
-      },
-      timestamp: Date.now() - (19 - i) * 60000
-    }));
-  }
-
-  async fetchLatestData() {
-    // Simulate real API calls
-    return [
-      {
-        type: 'users',
-        payload: { 
-          value: Math.floor(Math.random() * 1000) + 500,
-          total: Math.floor(Math.random() * 10000) + 5000
-        },
-        timestamp: Date.now()
-      }
-    ];
-  }
-
-  destroy() {
-    if (this.websocket) {
-      this.websocket.close();
-    }
-    this.charts.forEach(chart => chart.destroy());
-    this.charts.clear();
-    this.dataCache.clear();
-  }
-}
-
-// Initialize the design system
-const designSystem = new ModernWebDesignSystem('dark');</code></pre>
-                        <div class="read-more-overlay">
-                            <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
-                        </div>
-                        <div class="code-output" id="js-output-1"></div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">
-                            <i class="fab fa-github"></i>
-                            Source Code
-                        </a>
-                        <a href="#" class="project-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
-                    </div>
-                </div>
-
-                <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="project-info">
-                            <h3>Lua Game Scripts</h3>
-                            <span class="project-tech">Lua • Game Development • Automation</span>
-                        </div>
-                    </div>
-                    <p class="project-description">
-                        Advanced Lua scripting for game mechanics, player interactions, and automated systems. 
-                        Optimized for performance with clean, maintainable code architecture.
-                    </p>
-                    <div class="code-snippet">
-                        <div class="code-header">
-                            <span class="code-lang">Lua</span>
-                            <div class="code-actions">
-                                <button class="copy-code" onclick="copyCode(this)">
-                                    <i class="fas fa-copy"></i> Copy
-                                </button>
-                                <button class="run-code" onclick="runCode(this, 'lua')">
-                                    <i class="fas fa-play"></i> Run
-                                </button>
-                            </div>
-                        </div>
-                                                 <pre><code>-- Advanced Web Animation & Interaction System
--- Real-time UI state management with smooth transitions
-
-local WebAnimationSystem = {}
-WebAnimationSystem.__index = WebAnimationSystem
-
--- Core modules
-local AnimationEngine = require('core.animations')
-local StateManager = require('core.state')
-local EventSystem = require('core.events')
-local PerformanceMonitor = require('core.performance')
-local StyleEngine = require('core.styles')
-
--- Animation constants
-local ANIMATION_TYPES = {
-    'fade', 'slide', 'scale', 'rotate', 'bounce', 'elastic'
-}
-local TRANSITION_EASINGS = {
-    'linear', 'ease-in', 'ease-out', 'ease-in-out', 'bounce'
-}
-local PERFORMANCE_THRESHOLDS = {
-    fps = 60,
-    maxDuration = 1000,
-    memoryLimit = 50
-}
-
-function WebAnimationSystem:new(config)
-    local instance = {
-        animations = {},
-        states = {},
-        events = EventSystem:new(),
-        performance = PerformanceMonitor:new(),
-        styles = StyleEngine:new(),
-        config = config or {},
-        
-        -- Animation registry
-        registry = {
-            components = {},
-            transitions = {},
-            keyframes = {}
-        },
-        
-        -- Performance tracking
-        metrics = {
-            activeAnimations = 0,
-            averageFPS = 0,
-            memoryUsage = 0,
-            renderTime = 0
-        },
-        
-        -- State management
-        stateHistory = {},
-        undoStack = {},
-        redoStack = {},
-        
-        -- Caching
-        playerCache = {},
-        inventoryCache = {},
-        
-        -- Anti-cheat
-        suspiciousActivities = {},
-        bannedPlayers = {}
-    }
-    
-    setmetatable(instance, PlayerManager)
-    instance:initialize()
-    return instance
-end
-
-function PlayerManager:initialize()
-    Logger:info("🚀 Initializing PlayerManager...")
-    
-    -- Setup event handlers
-    self:registerEventHandlers()
-    
-    -- Initialize worker threads
-    self:createWorkerThreads()
-    
-    -- Start background services
-    self:startHeartbeatService()
-    self:startAntiCheatMonitoring()
-    self:startMetricsCollection()
-    
-    -- Load banned players from database
-    self:loadBannedPlayers()
-    
-    Logger:info("✅ PlayerManager initialized successfully")
-end
-
-function PlayerManager:registerEventHandlers()
-    self.events:on('player_connect', function(playerId, connectionData)
-        self:handlePlayerConnection(playerId, connectionData)
-    end)
-    
-    self.events:on('player_disconnect', function(playerId, reason)
-        self:handlePlayerDisconnection(playerId, reason)
-    end)
-    
-    self.events:on('player_action', function(playerId, action, data)
-        self:validateAndProcessAction(playerId, action, data)
-    end)
-    
-    self.events:on('zone_transfer', function(playerId, fromZone, toZone)
-        self:handleZoneTransfer(playerId, fromZone, toZone)
-    end)
-end
-
-function PlayerManager:createWorkerThreads()
-    local threadCount = self.config.workerThreads or 4
-    
-    for i = 1, threadCount do
-        local thread = coroutine.create(function()
-            while true do
-                local task = table.remove(self.taskQueue, 1)
-                if task then
-                    self:executeTask(task)
-                else
-                    coroutine.yield()
-                end
-            end
-        end)
-        
-        table.insert(self.workerThreads, thread)
-        Logger:debug("Created worker thread #" .. i)
-    end
-end
-
-function PlayerManager:addPlayer(playerId, connectionData)
-    -- Security validation
-    if self:isPlayerBanned(playerId) then
-        Logger:warn("🚫 Banned player attempted connection: " .. playerId)
-        return false, "Player is banned"
-    end
-    
-    -- Check server capacity
-    if self.metrics.totalPlayers >= self.config.maxPlayers then
-        Logger:warn("🏠 Server full, rejecting player: " .. playerId)
-        return false, "Server is full"
-    end
-    
-    -- Load player data from database
-    local playerData = self:loadPlayerData(playerId)
-    if not playerData then
-        Logger:error("❌ Failed to load player data: " .. playerId)
-        return false, "Data load failed"
-    end
-    
-    -- Create player instance
-    local player = {
-        id = playerId,
-        sessionId = self:generateSessionId(),
-        data = playerData,
-        connection = connectionData,
-        
-        -- State management
-        state = 'connecting',
-        lastActivity = os.time(),
-        joinTime = os.time(),
-        
-        -- Position and zone
-        position = playerData.lastPosition or {x = 0, y = 0, z = 0},
-        currentZone = playerData.lastZone or 'starter_zone',
-        
-        -- Game state
-        health = playerData.health or 100,
-        mana = playerData.mana or 100,
-        level = playerData.level or 1,
-        experience = playerData.experience or 0,
-        
-        -- Inventory and equipment
-        inventory = self:loadPlayerInventory(playerId),
-        equipment = self:loadPlayerEquipment(playerId),
-        
-        -- Social features
-        guild = playerData.guild,
-        friends = playerData.friends or {},
-        
-        -- Performance tracking
-        latency = 0,
-        packetsReceived = 0,
-        packetsSent = 0,
-        
-        -- Anti-cheat data
-        lastPositions = {},
-        actionTimestamps = {},
-        suspicionLevel = 0
-    }
-    
-    -- Add to active players
-    self.players[playerId] = player
-    self.playerCache[playerId] = player
-    
-    -- Assign to zone
-    self:assignPlayerToZone(playerId, player.currentZone)
-    
-    -- Update metrics
-    self.metrics.totalPlayers = self.metrics.totalPlayers + 1
-    self.metrics.activeConnections = self.metrics.activeConnections + 1
-    
-    -- Send welcome packet
-    self:sendWelcomePacket(player)
-    
-    -- Trigger events
-    self.events:emit('playerJoined', playerId, player)
-    
-    Logger:info("👤 Player joined: " .. playerId .. " (Total: " .. self.metrics.totalPlayers .. ")")
-    return true, "Player added successfully"
-end
-
-function PlayerManager:removePlayer(playerId, reason)
-    local player = self.players[playerId]
-    if not player then
-        Logger:warn("⚠️ Attempted to remove non-existent player: " .. playerId)
-        return false
-    end
-    
-    -- Save player data
-    self:savePlayerData(player)
-    
-    -- Remove from zone
-    self:removePlayerFromZone(playerId, player.currentZone)
-    
-    -- Clean up caches
-    self.playerCache[playerId] = nil
-    self.inventoryCache[playerId] = nil
-    
-    -- Update metrics
-    self.metrics.totalPlayers = self.metrics.totalPlayers - 1
-    self.metrics.activeConnections = self.metrics.activeConnections - 1
-    
-    -- Remove from active players
-    self.players[playerId] = nil
-    
-    -- Trigger events
-    self.events:emit('playerLeft', playerId, reason)
-    
-    Logger:info("👋 Player left: " .. playerId .. " (" .. reason .. ")")
-    return true
-end
-
-function PlayerManager:validateAndProcessAction(playerId, action, data)
-    local player = self.players[playerId]
-    if not player then return false end
-    
-    -- Update last activity
-    player.lastActivity = os.time()
-    
-    -- Anti-cheat validation
-    if not self:validateAction(player, action, data) then
-        self:flagSuspiciousActivity(playerId, action, data)
-        return false
-    end
-    
-    -- Rate limiting
-    if not self:checkActionRateLimit(player, action) then
-        Logger:warn("🚨 Rate limit exceeded: " .. playerId .. " - " .. action)
-        return false
-    end
-    
-    -- Process action based on type
-    local success = false
-    if action == 'move' then
-        success = self:processMovement(player, data)
-    elseif action == 'chat' then
-        success = self:processChatMessage(player, data)
-    elseif action == 'combat' then
-        success = self:processCombatAction(player, data)
-    elseif action == 'trade' then
-        success = self:processTradeAction(player, data)
-    elseif action == 'skill' then
-        success = self:processSkillAction(player, data)
-    else
-        Logger:warn("❓ Unknown action type: " .. action)
-        return false
-    end
-    
-    if success then
-        -- Update action timestamp
-        table.insert(player.actionTimestamps, {
-            action = action,
-            timestamp = os.time(),
-            data = data
-        })
-        
-        -- Keep only recent actions
-        if #player.actionTimestamps > 100 then
-            table.remove(player.actionTimestamps, 1)
-        end
-    end
-    
-    return success
-end
-
-function PlayerManager:processMovement(player, moveData)
-    local newPosition = moveData.position
-    local timestamp = moveData.timestamp
-    
-    -- Validate position
-    if not self:isValidPosition(newPosition) then
-        Logger:warn("🚨 Invalid position from player: " .. player.id)
-        return false
-    end
-    
-    -- Check for teleportation/speed hacking
-    local distance = self:calculateDistance(player.position, newPosition)
-    local timeDiff = timestamp - (player.lastMoveTime or timestamp)
-    local maxSpeed = self:getPlayerMaxSpeed(player)
-    
-    if timeDiff > 0 and distance / timeDiff > maxSpeed then
-        self:flagSuspiciousActivity(player.id, 'speed_hack', {
-            distance = distance,
-            time = timeDiff,
-            speed = distance / timeDiff,
-            maxSpeed = maxSpeed
-        })
-        return false
-    end
-    
-    -- Update player position
-    player.position = newPosition
-    player.lastMoveTime = timestamp
-    
-    -- Add to position history for anti-cheat
-    table.insert(player.lastPositions, {
-        position = newPosition,
-        timestamp = timestamp
-    })
-    
-    -- Keep only recent positions
-    if #player.lastPositions > 50 then
-        table.remove(player.lastPositions, 1)
-    end
-    
-    -- Check for zone transfer
-    local newZone = self:getZoneForPosition(newPosition)
-    if newZone ~= player.currentZone then
-        self:initiateZoneTransfer(player.id, player.currentZone, newZone)
-    end
-    
-    -- Broadcast position to nearby players
-    self:broadcastToNearbyPlayers(player.id, {
-        type: 'player_moved',
-        playerId = player.id,
-        position = newPosition,
-        timestamp = timestamp
-    })
-    
-    return true
-end
-
-function PlayerManager:startHeartbeatService()
-    local heartbeatCoroutine = coroutine.create(function()
-        while true do
-            local currentTime = os.time()
-            
-            for playerId, player in pairs(self.players) do
-                -- Check for inactive players
-                if currentTime - player.lastActivity > SESSION_TIMEOUT then
-                    Logger:info("⏰ Player session timeout: " .. playerId)
-                    self:removePlayer(playerId, "session_timeout")
-                end
                 
-                -- Send heartbeat
-                if (currentTime - (player.lastHeartbeat or 0)) > HEARTBEAT_INTERVAL then
-                    self:sendHeartbeat(player)
-                    player.lastHeartbeat = currentTime
-                end
-            end
+                <p class="hero__subtitle">
+                    A digital innovation lab pushing the boundaries of what's possible on the web. 
+                    Where technology meets artistry, and every pixel tells a story.
+                </p>
+                
+                <div class="hero__cta">
+                    <a href="#work" class="btn btn--primary">
+                        <span>Explore Our Work</span>
+                        <svg class="btn__arrow" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
             
-            -- Wait before next iteration
-            coroutine.yield()
-        end
-    end)
-    
-    table.insert(self.workerThreads, heartbeatCoroutine)
-end
-
-    -- Create smooth animation
-    local animation = {
-        type = 'fade',
-        duration = 500,
-        easing = 'ease-out',
-        delay = 0
-    }
-    
-    -- Apply animation to element
-    self:applyAnimation(element, animation)
-    
-    -- Update performance metrics
-    self.metrics.activeAnimations = self.metrics.activeAnimations + 1
-    self.metrics.renderTime = self.metrics.renderTime + animation.duration
-    
-    return true
-end
-
-function WebAnimationSystem:applyAnimation(element, animation)
-    if not element or not animation then return false end
-    
-    -- Validate animation parameters
-    if not self:validateAnimation(animation) then
-        Logger:warn("❌ Invalid animation: " .. tostring(animation.type))
-        return false
-    end
-    
-    -- Apply CSS transitions
-    local css = self:generateCSS(animation)
-    element.style.transition = css
-    
-    -- Add animation classes
-    element.classList:add('animate-' .. animation.type)
-    element.classList:add('duration-' .. animation.duration)
-    
-    -- Trigger animation
-    element:offsetHeight -- Force reflow
-    element.classList:add('animate-active')
-    
-    -- Cleanup after animation
-    setTimeout(function()
-        element.classList:remove('animate-active')
-        self.metrics.activeAnimations = self.metrics.activeAnimations - 1
-    end, animation.duration)
-    
-    return true
-end
-
-function WebAnimationSystem:validateAnimation(animation)
-    -- Check required fields
-    if not animation.type or not animation.duration then
-        return false
-    end
-    
-    -- Validate animation type
-    local validTypes = {fade = true, slide = true, scale = true, rotate = true}
-    if not validTypes[animation.type] then
-        return false
-    end
-    
-    -- Validate duration
-    if animation.duration < 0 or animation.duration > 5000 then
-        return false
-    end
-    
-    return true
-end
-
-function WebAnimationSystem:generateCSS(animation)
-    local css = string.format(
-        "%s %dms %s",
-        animation.type,
-        animation.duration,
-        animation.easing or 'ease'
-    )
-    
-    return css
-end
-
-function WebAnimationSystem:getPerformanceStats()
-    return {
-        activeAnimations = self.metrics.activeAnimations,
-        averageFPS = self.metrics.averageFPS,
-        memoryUsage = self.metrics.memoryUsage,
-        renderTime = self.metrics.renderTime
-    }
-end
-
--- Export the module
-return WebAnimationSystem</code></pre>
-                        <div class="read-more-overlay">
-                            <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
-                        </div>
-                        <div class="code-output" id="lua-output-1"></div>
-                    </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">
-                            <i class="fab fa-github"></i>
-                            Source Code
-                        </a>
-                        <a href="#" class="project-link">
-                            <i class="fas fa-download"></i>
-                            Download
-                        </a>
-                    </div>
+            <div class="hero__visual">
+                <div class="hero__grid">
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
+                    <div class="hero__grid-item" data-grid-item></div>
                 </div>
+            </div>
+        </div>
+        
+        <div class="hero__scroll-indicator">
+            <div class="scroll-indicator">
+                <span class="scroll-indicator__text">Scroll to explore</span>
+                <div class="scroll-indicator__line"></div>
+            </div>
+        </div>
+    </section>
 
-                <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fab fa-html5"></i>
+    <!-- Work Section -->
+    <section id="work" class="work" data-work>
+        <div class="work__container">
+            <div class="work__header">
+                <h2 class="work__title">Selected Work</h2>
+                <p class="work__subtitle">Projects that challenge conventions and inspire innovation</p>
+            </div>
+            
+            <div class="work__grid">
+                <article class="work__item" data-work-item>
+                    <div class="work__item-content">
+                        <div class="work__item-info">
+                            <h3 class="work__item-title">Quantum Interface</h3>
+                            <p class="work__item-category">Web Application</p>
+                            <p class="work__item-description">
+                                A revolutionary dashboard that redefines data visualization through 
+                                quantum-inspired design principles and real-time interactions.
+                            </p>
                         </div>
-                        <div class="project-info">
-                            <h3>Responsive Portfolio Site</h3>
-                            <span class="project-tech">HTML5 • CSS3 • JavaScript</span>
+                        <div class="work__item-visual">
+                            <div class="work__item-image" data-work-image></div>
                         </div>
                     </div>
-                    <p class="project-description">
-                        Modern, responsive portfolio website with advanced CSS animations, smooth scrolling, 
-                        and interactive elements. Built with semantic HTML and optimized for all devices.
+                </article>
+                
+                <article class="work__item" data-work-item>
+                    <div class="work__item-content">
+                        <div class="work__item-info">
+                            <h3 class="work__item-title">Neural Brand</h3>
+                            <p class="work__item-category">Brand Identity</p>
+                            <p class="work__item-description">
+                                An adaptive brand system that evolves based on user interaction, 
+                                creating truly personalized brand experiences.
+                            </p>
+                        </div>
+                        <div class="work__item-visual">
+                            <div class="work__item-image" data-work-image></div>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="work__item" data-work-item>
+                    <div class="work__item-content">
+                        <div class="work__item-info">
+                            <h3 class="work__item-title">Holographic Platform</h3>
+                            <p class="work__item-category">Digital Experience</p>
+                            <p class="work__item-description">
+                                A next-generation platform that brings holographic technology 
+                                to the web, creating immersive 3D experiences.
+                            </p>
+                        </div>
+                        <div class="work__item-visual">
+                            <div class="work__item-image" data-work-image></div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Studio Section -->
+    <section id="studio" class="studio" data-studio>
+        <div class="studio__container">
+            <div class="studio__content">
+                <div class="studio__text">
+                    <h2 class="studio__title">The Studio</h2>
+                    <p class="studio__description">
+                        We're a collective of digital artisans, engineers, and visionaries 
+                        who believe that the web should be more than just functional—it should 
+                        be extraordinary. Every project we undertake is an opportunity to 
+                        push boundaries, challenge assumptions, and create something that 
+                        hasn't been seen before.
                     </p>
-                    <div class="code-snippet">
-                        <div class="code-header">
-                            <span class="code-lang">CSS</span>
-                            <div class="code-actions">
-                                <button class="copy-code" onclick="copyCode(this)">
-                                    <i class="fas fa-copy"></i> Copy
-                                </button>
-                                <button class="run-code" onclick="runCode(this, 'css')">
-                                    <i class="fas fa-play"></i> Run
-                                </button>
-                            </div>
-                        </div>
-                        <pre><code>/* Advanced CSS Design System & Animations */
-:root {
-  /* Color Palette */
-  --primary-cyan: #00ffff;
-  --primary-magenta: #ff0080;
-  --primary-green: #00ff41;
-  --accent-purple: #7209b7;
-  --accent-blue: #4361ee;
-  --neutral-black: #000000;
-  --neutral-dark: #0a0a0a;
-  --neutral-light: #ffffff;
-  
-  /* Gradients */
-  --gradient-neon: linear-gradient(45deg, var(--primary-cyan), var(--primary-magenta));
-  --gradient-sunset: linear-gradient(135deg, #ff6b35, #f7931e);
-  --gradient-ocean: linear-gradient(180deg, var(--accent-blue), var(--accent-purple));
-  
-  /* Shadows */
-  --shadow-neon: 0 0 20px var(--primary-cyan);
-  --shadow-glow: 0 0 40px rgba(0, 255, 255, 0.3);
-  --shadow-depth: 0 20px 40px rgba(0, 0, 0, 0.4);
-}
-
-/* Glassmorphism Cards */
-.project-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.project-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: var(--gradient-neon);
-  opacity: 0;
-  transition: left 0.6s ease;
-}
-
-.project-card:hover::before {
-  left: 0;
-  opacity: 0.1;
-}
-
-.project-card:hover {
-  transform: translateY(-15px) scale(1.03);
-  box-shadow: var(--shadow-depth), var(--shadow-glow);
-  border-color: var(--primary-cyan);
-}
-
-/* Advanced Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes neonPulse {
-  0%, 100% {
-    box-shadow: var(--shadow-neon);
-  }
-  50% {
-    box-shadow: var(--shadow-neon), var(--shadow-glow);
-  }
-}
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Responsive Grid System */
-.design-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  padding: 2rem;
-}
-
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--neutral-dark);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--gradient-neon);
-  border-radius: 6px;
-  border: 2px solid var(--neutral-dark);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--gradient-sunset);
-}
-
-/* Loading States */
-.loading-skeleton {
-  background: linear-gradient(90deg, 
-    var(--neutral-dark) 25%, 
-    rgba(255, 255, 255, 0.1) 50%, 
-    var(--neutral-dark) 75%
-  );
-      background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}</code></pre>
-                        <div class="read-more-overlay">
-                            <button class="read-more-btn" onclick="toggleCodeSnippet(this)">Read More</button>
-                        </div>
-                        <div class="code-output" id="css-output-1"></div>
+                    <p class="studio__description">
+                        Our approach combines cutting-edge technology with timeless design 
+                        principles, resulting in digital experiences that are both innovative 
+                        and intuitive. We don't just build websites; we craft digital 
+                        environments that inspire, engage, and transform.
+                    </p>
+                </div>
+                
+                <div class="studio__stats">
+                    <div class="stat">
+                        <span class="stat__number" data-stat="15">0</span>
+                        <span class="stat__label">Years of Innovation</span>
                     </div>
-                    <div class="project-links">
-                        <a href="#" class="project-link">
-                            <i class="fab fa-github"></i>
-                            Source Code
-                        </a>
-                        <a href="#" class="project-link">
-                            <i class="fas fa-external-link-alt"></i>
-                            Live Demo
-                        </a>
+                    <div class="stat">
+                        <span class="stat__number" data-stat="127">0</span>
+                        <span class="stat__label">Projects Delivered</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat__number" data-stat="23">0</span>
+                        <span class="stat__label">Industry Awards</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Skills & Expertise</h2>
-                <p class="section-subtitle">Technical and Professional Competencies</p>
+    <!-- Approach Section -->
+    <section id="approach" class="approach" data-approach>
+        <div class="approach__container">
+            <div class="approach__header">
+                <h2 class="approach__title">Our Approach</h2>
+                <p class="approach__subtitle">A methodology that ensures every project exceeds expectations</p>
             </div>
-            <div class="skills-grid">
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="100">
-                    <div class="category-icon">
-                        <i class="fab fa-js-square"></i>
-                    </div>
-                    <h3>JavaScript</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="95%">
-                            <span class="skill-percentage">95%</span>
-                        </div>
-                    </div>
-                    <p>Expert in ES6+, React, Node.js, and modern JavaScript frameworks</p>
+            
+            <div class="approach__grid">
+                <div class="approach__step" data-approach-step>
+                    <div class="approach__step-number">01</div>
+                    <h3 class="approach__step-title">Discovery & Research</h3>
+                    <p class="approach__step-description">
+                        We dive deep into understanding your vision, audience, and objectives. 
+                        This foundation informs every decision we make.
+                    </p>
                 </div>
-
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="200">
-                    <div class="category-icon">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h3>Lua Scripting</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="88%">
-                            <span class="skill-percentage">88%</span>
-                        </div>
-                    </div>
-                    <p>Advanced Lua programming for game development and automation systems</p>
+                
+                <div class="approach__step" data-approach-step>
+                    <div class="approach__step-number">02</div>
+                    <h3 class="approach__step-title">Concept & Design</h3>
+                    <p class="approach__step-description">
+                        Our creative team develops concepts that push boundaries while 
+                        maintaining clarity and purpose. Every element serves a function.
+                    </p>
                 </div>
-
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="300">
-                    <div class="category-icon">
-                        <i class="fab fa-html5"></i>
-                    </div>
-                    <h3>HTML5 & CSS3</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="92%">
-                            <span class="skill-percentage">92%</span>
-                        </div>
-                    </div>
-                    <p>Semantic HTML, advanced CSS animations, responsive design, and accessibility</p>
+                
+                <div class="approach__step" data-approach-step>
+                    <div class="approach__step-number">03</div>
+                    <h3 class="approach__step-title">Development & Testing</h3>
+                    <p class="approach__step-description">
+                        We build with cutting-edge technologies, ensuring performance, 
+                        accessibility, and cross-platform compatibility.
+                    </p>
                 </div>
-
-                <div class="skill-category" data-aos="fade-up" data-aos-delay="400">
-                    <div class="category-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>Backend Development</h3>
-                    <div class="skill-bar">
-                        <div class="skill-progress" data-width="85%">
-                            <span class="skill-percentage">85%</span>
-                        </div>
-                    </div>
-                    <p>Node.js, Express, MongoDB, API design, and server-side optimization</p>
-                </div>
-            </div>
-
-            <div class="additional-skills" data-aos="fade-up" data-aos-delay="500">
-                <h3>Additional Technologies</h3>
-                <div class="skills-tags">
-                    <span class="skill-tag">React.js</span>
-                    <span class="skill-tag">Vue.js</span>
-                    <span class="skill-tag">TypeScript</span>
-                    <span class="skill-tag">Python</span>
-                    <span class="skill-tag">Git/GitHub</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag">MySQL/MongoDB</span>
-                    <span class="skill-tag">RESTful APIs</span>
-                    <span class="skill-tag">GraphQL</span>
-                    <span class="skill-tag">Webpack</span>
-                    <span class="skill-tag">SASS/SCSS</span>
-                    <span class="skill-tag">AWS/Cloud</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="education">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Education & Certifications</h2>
-                <p class="section-subtitle">Academic Background & Technical Training</p>
-            </div>
-            <div class="education-grid">
-                <div class="education-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="edu-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="edu-content">
-                        <h3>High School Diploma</h3>
-                        <p class="edu-school">Mississinewa High School</p>
-                        <p class="edu-period">August 2020 - June 2025</p>
-                        <div class="edu-description">
-                            <p>Completed comprehensive education with strong focus on computer science, mathematics, and technology fundamentals.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="education-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="edu-icon">
-                        <i class="fab fa-js-square"></i>
-                    </div>
-                    <div class="edu-content">
-                        <h3>JavaScript Developer Certification</h3>
-                        <p class="edu-school">freeCodeCamp</p>
-                        <p class="edu-period">2024</p>
-                        <div class="edu-description">
-                            <p>Comprehensive certification covering ES6+, algorithms, data structures, and modern JavaScript development practices.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="education-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="edu-icon">
-                        <i class="fab fa-react"></i>
-                    </div>
-                    <div class="edu-content">
-                        <h3>Full-Stack Web Development</h3>
-                        <p class="edu-school">Self-Taught & Online Courses</p>
-                        <p class="edu-period">2023 - Present</p>
-                        <div class="edu-description">
-                            <p>Continuous learning through project-based development, online tutorials, and open-source contributions.</p>
-                        </div>
-                    </div>
+                
+                <div class="approach__step" data-approach-step>
+                    <div class="approach__step-number">04</div>
+                    <h3 class="approach__step-title">Launch & Evolution</h3>
+                    <p class="approach__step-description">
+                        We don't just launch; we monitor, optimize, and evolve your 
+                        digital presence to maintain its competitive edge.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Let's Connect and Discuss Opportunities</p>
-            </div>
-            <div class="contact-content">
-                <div class="contact-info" data-aos="fade-right">
-                    <h3>Contact Information</h3>
-                    <p>Ready to contribute to your team's success. Let's discuss how my skills and experience can benefit your organization.</p>
+    <section id="contact" class="contact" data-contact>
+        <div class="contact__container">
+            <div class="contact__content">
+                <h2 class="contact__title">Ready to Create Something Extraordinary?</h2>
+                <p class="contact__subtitle">
+                    Let's discuss how we can transform your digital presence and 
+                    create an experience that sets new standards.
+                </p>
+                
+                <div class="contact__methods">
+                    <a href="mailto:hello@nexus.studio" class="contact__method">
+                        <span class="contact__method-label">Email</span>
+                        <span class="contact__method-value">hello@nexus.studio</span>
+                    </a>
                     
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="method-details">
-                                <h4>Phone</h4>
-                                <a href="tel:+17655068242">+1 765 506 8242</a>
-                            </div>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="method-details">
-                                <h4>Email</h4>
-                                <a href="mailto:vehvu123@gmail.com">vehvu123@gmail.com</a>
-                            </div>
-                        </div>
-
-                        <div class="contact-method">
-                            <div class="method-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="method-details">
-                                <h4>Location</h4>
-                                <span>Marion, IN 46953</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="availability">
-                        <h4>Availability</h4>
-                        <div class="availability-status">
-                            <div class="status-indicator active"></div>
-                            <span>Available for new opportunities</span>
-                        </div>
+                    <a href="tel:+1234567890" class="contact__method">
+                        <span class="contact__method-label">Phone</span>
+                        <span class="contact__method-value">+1 (234) 567-890</span>
+                    </a>
+                    
+                    <div class="contact__method">
+                        <span class="contact__method-label">Location</span>
+                        <span class="contact__method-value">San Francisco, CA</span>
                     </div>
                 </div>
-
-                <div class="contact-form" data-aos="fade-left">
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label for="name">Your Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company/Organization</label>
-                            <input type="text" id="company" name="company">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-paper-plane"></i>
-                            Send Message
-                        </button>
-                    </form>
+                
+                <div class="contact__cta">
+                    <a href="mailto:hello@nexus.studio" class="btn btn--secondary">
+                        <span>Start a Conversation</span>
+                        <svg class="btn__arrow" viewBox="0 0 24 24" fill="none">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1450,20 +275,46 @@ return WebAnimationSystem</code></pre>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-text">
-                    <p>&copy; 2024 Kaiden Hendey. All rights reserved.</p>
+        <div class="footer__container">
+            <div class="footer__content">
+                <div class="footer__brand">
+                    <span class="footer__logo">NEXUS</span>
+                    <p class="footer__tagline">Redefining digital excellence</p>
                 </div>
-                <div class="footer-links">
-                    <a href="#hero">Back to Top</a>
+                
+                <div class="footer__links">
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Work</h4>
+                        <a href="#work" class="footer__link">Portfolio</a>
+                        <a href="#studio" class="footer__link">Case Studies</a>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Studio</h4>
+                        <a href="#studio" class="footer__link">About</a>
+                        <a href="#approach" class="footer__link">Process</a>
+                    </div>
+                    
+                    <div class="footer__column">
+                        <h4 class="footer__column-title">Connect</h4>
+                        <a href="#contact" class="footer__link">Contact</a>
+                        <a href="#" class="footer__link">Careers</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2025 Nexus Studio. All rights reserved.</p>
+                <div class="footer__social">
+                    <a href="#" class="footer__social-link" aria-label="Instagram">Instagram</a>
+                    <a href="#" class="footer__social-link" aria-label="Twitter">Twitter</a>
+                    <a href="#" class="footer__social-link" aria-label="LinkedIn">LinkedIn</a>
+                    <a href="#" class="footer__social-link" aria-label="Dribbble">Dribbble</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
