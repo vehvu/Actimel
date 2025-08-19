@@ -9,8 +9,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Fallback styles to ensure content is visible */
+        body { overflow: visible !important; }
+        .hero, .work, .studio, .approach, .contact, .footer { 
+            display: block !important; 
+            opacity: 1 !important; 
+            visibility: visible !important; 
+        }
+    </style>
 </head>
-<body>
+<body class="loaded">
     <div class="noise-overlay"></div>
     
     <!-- Navigation -->
@@ -314,6 +323,17 @@
             </div>
         </div>
     </footer>
+
+    <noscript>
+        <style>
+            body { overflow: visible !important; }
+            .hero, .work, .studio, .approach, .contact, .footer { 
+                display: block !important; 
+                opacity: 1 !important; 
+                visibility: visible !important; 
+            }
+        </style>
+    </noscript>
 
     <script src="script.js"></script>
 </body>

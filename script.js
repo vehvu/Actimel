@@ -399,10 +399,11 @@ class NexusStudio {
 
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new NexusStudio();
-    
     // Add loading animation
     document.body.classList.add('loaded');
+    
+    // Initialize the website
+    new NexusStudio();
     
     // Preload critical resources
     const preloadLinks = [
@@ -465,6 +466,12 @@ loadingStyles.textContent = `
     .custom-cursor {
         opacity: 0;
         transition: opacity 0.5s ease;
+    }
+    
+    /* Ensure content is visible after loading */
+    body.loaded::before,
+    body.loaded::after {
+        display: none !important;
     }
 `;
 

@@ -57,6 +57,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Debug: Ensure content is visible */
+body.loaded {
+    overflow: visible;
+}
+
 /* Noise Overlay */
 .noise-overlay {
     position: fixed;
@@ -203,6 +208,8 @@ p {
     align-items: center;
     position: relative;
     overflow: hidden;
+    opacity: 1;
+    visibility: visible;
 }
 
 .hero__container {
@@ -221,8 +228,8 @@ p {
 
 .hero__title-line {
     display: block;
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -264,8 +271,8 @@ p {
 .hero__grid-item {
     background: linear-gradient(135deg, var(--color-secondary), var(--color-border));
     border-radius: 12px;
-    opacity: 0;
-    transform: scale(0.8);
+    opacity: 1;
+    transform: scale(1);
     animation: gridFadeIn 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -298,7 +305,7 @@ p {
     flex-direction: column;
     align-items: center;
     gap: var(--space-sm);
-    opacity: 0;
+    opacity: 1;
     animation: fadeInUp 1s ease-out 2s forwards;
 }
 
@@ -424,8 +431,8 @@ p {
 }
 
 .work__item {
-    opacity: 0;
-    transform: translateY(50px);
+    opacity: 1;
+    transform: translateY(0);
     transition: var(--transition-smooth);
 }
 
@@ -579,8 +586,8 @@ p {
     border-radius: 16px;
     border: 1px solid var(--color-border);
     transition: var(--transition-smooth);
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .approach__step.visible {
