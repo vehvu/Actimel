@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusTech - Innovating Tomorrow</title>
-    <meta name="description" content="NexusTech is a cutting-edge technology company specializing in AI, cloud solutions, and digital transformation.">
+    <title>NexusTech Art Gallery - Digital Innovation</title>
+    <meta name="description" content="Explore our digital art gallery showcasing cutting-edge technology and innovation through stunning visual experiences.">
+    
+    <!-- FullPage.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.css">
+    
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -20,16 +29,15 @@
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="#home" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="services.html" class="nav-link">Services</a>
+                    <a href="#gallery" class="nav-link">Gallery</a>
                 </li>
                 <li class="nav-item">
-                    <a href="about.html" class="nav-link">About</a>
+                    <a href="#about" class="nav-link">About</a>
                 </li>
-                <li class="nav-item">
-                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
             <div class="nav-toggle">
@@ -40,237 +48,218 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-container">
+    <!-- FullPage Container -->
+    <div id="fullpage">
+        <!-- Hero Section -->
+        <div class="section section-hero" id="home">
             <div class="hero-content">
-                <h1 class="hero-title">
-                    Revolutionizing Your Operations with 
-                    <span class="highlight">Scalable Technology</span>
-                </h1>
-                <p class="hero-subtitle">Empowering you with next-gen financial solutions.</p>
-                <div class="hero-buttons">
-                    <a href="contact.html" class="btn btn-primary">Get In Touch →</a>
-                    <a href="services.html" class="btn btn-secondary">Learn More →</a>
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="title-line">Digital</span>
+                        <span class="title-line">Innovation</span>
+                        <span class="title-line">Gallery</span>
+                    </h1>
+                    <p class="hero-subtitle">Where technology meets artistry in perfect harmony</p>
+                    <div class="hero-cta">
+                        <button class="btn btn-primary" onclick="fullpage_api.moveSectionDown()">
+                            Explore Gallery
+                            <i class="fas fa-arrow-down"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-shapes">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                        <div class="shape shape-3"></div>
+                        <div class="shape shape-4"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Central Visual Element -->
-        <div class="hero-visual">
-            <div class="tech-illustration">
-                <div class="server-tower">
-                    <div class="server-unit server-main"></div>
-                    <div class="server-unit server-secondary"></div>
-                    <div class="server-unit server-tertiary"></div>
-                </div>
-                <div class="cloud-element"></div>
-                <div class="data-flow">
-                    <div class="flow-line"></div>
-                    <div class="flow-line"></div>
-                    <div class="flow-line"></div>
-                </div>
-                <div class="glow-effects">
-                    <div class="glow glow-1"></div>
-                    <div class="glow glow-2"></div>
-                    <div class="glow glow-3"></div>
-                </div>
+            <div class="scroll-indicator">
+                <div class="scroll-line"></div>
+                <span>Scroll to explore</span>
             </div>
         </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Our Services</h2>
-                <p class="section-subtitle">Comprehensive solutions for the digital age</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card" data-aos="fade-up">
-                    <div class="service-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Intelligent solutions that learn, adapt, and evolve with your business needs.</p>
+        <!-- Gallery Section 1 -->
+        <div class="section section-gallery" id="gallery">
+            <div class="gallery-content">
+                <div class="gallery-header">
+                    <h2 class="section-title">Digital Art Collection</h2>
+                    <p class="section-subtitle">Exploring the intersection of technology and creativity</p>
                 </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-icon">
-                        <i class="fas fa-cloud"></i>
+                <div class="gallery-grid">
+                    <div class="artwork" data-aos="fade-up">
+                        <div class="artwork-image">
+                            <div class="image-placeholder ai-art"></div>
+                        </div>
+                        <div class="artwork-info">
+                            <h3>AI-Generated Harmony</h3>
+                            <p>Machine learning algorithms creating visual symphonies</p>
+                            <div class="artwork-tags">
+                                <span class="tag">AI</span>
+                                <span class="tag">Neural Networks</span>
+                                <span class="tag">Digital Art</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Cloud Solutions</h3>
-                    <p>Scalable, secure, and efficient cloud infrastructure for modern applications.</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">
-                        <i class="fas fa-mobile-alt"></i>
+                    <div class="artwork" data-aos="fade-up" data-aos-delay="200">
+                        <div class="artwork-image">
+                            <div class="image-placeholder data-viz"></div>
+                        </div>
+                        <div class="artwork-info">
+                            <h3>Data Visualization Dreams</h3>
+                            <p>Complex datasets transformed into beautiful visual narratives</p>
+                            <div class="artwork-tags">
+                                <span class="tag">Data</span>
+                                <span class="tag">Visualization</span>
+                                <span class="tag">Analytics</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Mobile Development</h3>
-                    <p>Native and cross-platform mobile applications that engage and delight users.</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="artwork" data-aos="fade-up" data-aos-delay="400">
+                        <div class="artwork-image">
+                            <div class="image-placeholder cyberpunk"></div>
+                        </div>
+                        <div class="artwork-info">
+                            <h3>Cyberpunk Metropolis</h3>
+                            <p>Futuristic cityscapes born from digital imagination</p>
+                            <div class="artwork-tags">
+                                <span class="tag">Futuristic</span>
+                                <span class="tag">Urban</span>
+                                <span class="tag">Sci-Fi</span>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Cybersecurity</h3>
-                    <p>Advanced protection systems to safeguard your digital assets and data.</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Data Analytics</h3>
-                    <p>Transform raw data into actionable insights that drive strategic decisions.</p>
-                </div>
-                <div class="service-card" data-aos="fade-up" data-aos-delay="500">
-                    <div class="service-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Digital Transformation</h3>
-                    <p>End-to-end digital solutions that modernize and optimize your operations.</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
+        <!-- Gallery Section 2 -->
+        <div class="section section-gallery-alt">
+            <div class="gallery-content">
+                <div class="gallery-header">
+                    <h2 class="section-title">Interactive Experiences</h2>
+                    <p class="section-subtitle">Art that responds to your presence</p>
+                </div>
+                <div class="interactive-showcase">
+                    <div class="showcase-item" data-aos="zoom-in">
+                        <div class="showcase-visual">
+                            <div class="interactive-element">
+                                <div class="particle-system">
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                    <div class="particle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showcase-info">
+                            <h3>Particle Symphony</h3>
+                            <p>Move your mouse to create beautiful particle interactions</p>
+                        </div>
+                    </div>
+                    <div class="showcase-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="showcase-visual">
+                            <div class="interactive-element">
+                                <div class="wave-animation">
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                    <div class="wave"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="showcase-info">
+                            <h3>Wave Patterns</h3>
+                            <p>Dynamic wave formations that respond to touch</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="section section-about" id="about">
             <div class="about-content">
                 <div class="about-text">
-                    <h2 class="section-title">About NexusTech</h2>
-                    <p class="about-description">Founded in 2020, NexusTech has been at the forefront of technological innovation, helping businesses navigate the complex digital landscape with confidence and clarity.</p>
-                    <div class="stats-grid">
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="500">0</div>
-                            <div class="stat-label">Projects Completed</div>
+                    <h2 class="section-title">About Our Gallery</h2>
+                    <p class="about-description">
+                        We believe that technology and art are not separate entities, but rather two sides of the same creative coin. 
+                        Our digital gallery showcases the incredible possibilities that emerge when we combine cutting-edge technology 
+                        with artistic vision.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h4>Creative Innovation</h4>
+                            <p>Pushing boundaries between art and technology</p>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="50">0</div>
-                            <div class="stat-label">Team Members</div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Technical Excellence</h4>
+                            <p>Advanced algorithms and cutting-edge tools</p>
                         </div>
-                        <div class="stat-item">
-                            <div class="stat-number" data-target="98">0</div>
-                            <div class="stat-label">Client Satisfaction</div>
+                        <div class="feature">
+                            <div class="feature-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h4>Visual Impact</h4>
+                            <p>Stunning visuals that captivate and inspire</p>
                         </div>
                     </div>
                 </div>
                 <div class="about-visual">
-                    <div class="tech-grid">
-                        <div class="tech-item">AI</div>
-                        <div class="tech-item">ML</div>
-                        <div class="tech-item">Cloud</div>
-                        <div class="tech-item">IoT</div>
-                        <div class="tech-item">Blockchain</div>
-                        <div class="tech-item">5G</div>
+                    <div class="geometric-composition">
+                        <div class="geo-shape geo-1"></div>
+                        <div class="geo-shape geo-2"></div>
+                        <div class="geo-shape geo-3"></div>
+                        <div class="geo-shape geo-4"></div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Get In Touch</h2>
-                <p class="section-subtitle">Ready to start your digital transformation journey?</p>
-            </div>
+        <!-- Contact Section -->
+        <div class="section section-contact" id="contact">
             <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h4>Location</h4>
-                            <p>123 Innovation Drive<br>Tech Valley, CA 94000</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h4>Phone</h4>
-                            <p>+1 (555) 123-4567</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>hello@nexustech.com</p>
-                        </div>
-                    </div>
+                <div class="contact-header">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="section-subtitle">Let's discuss your next digital art project</p>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" placeholder="Your Message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
-                </form>
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id="subject" name="subject" placeholder="Project Type" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Tell us about your vision..." rows="6" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>NexusTech</h3>
-                    <p>Innovating tomorrow with cutting-edge technology solutions.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="services.html">AI & ML</a></li>
-                        <li><a href="services.html">Cloud Solutions</a></li>
-                        <li><a href="services.html">Mobile Development</a></li>
-                        <li><a href="services.html">Cybersecurity</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#privacy">Privacy Policy</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="contact.html">Get In Touch</a></li>
-                        <li><a href="#support">Support</a></li>
-                        <li><a href="#sales">Sales</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 NexusTech. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/4.0.20/fullpage.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
