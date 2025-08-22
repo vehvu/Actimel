@@ -45,23 +45,28 @@ function setupMobileNavigation() {
     }
 }
 
-// Smooth Scrolling
+// Smooth Scrolling (for same-page anchors)
 function setupSmoothScrolling() {
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = link.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
+            const href = link.getAttribute('href');
             
-            if (targetSection) {
-                const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
-                window.scrollTo({
-                    top: offsetTop,
-                    behavior: 'smooth'
-                });
+            // If it's an anchor link (starts with #), handle smooth scrolling
+            if (href.startsWith('#')) {
+                e.preventDefault();
+                const targetSection = document.querySelector(href);
+                
+                if (targetSection) {
+                    const offsetTop = targetSection.offsetTop - 70; // Account for fixed navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
             }
+            // If it's a page link, let it navigate normally
         });
     });
 }
